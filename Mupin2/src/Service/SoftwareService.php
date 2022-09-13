@@ -52,6 +52,36 @@ class SoftwareService
         $this->softwareRepository->insertIntoSoftware($element);
     }
 
+    // UPDATE
+    public function updateTitolo(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateTitolo($idCatalogo, $input);
+    }
+    public function updateSistemaOperativo(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateSistemaOperativo($idCatalogo, $input);
+    }
+    public function updateTipologia(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateTipologia($idCatalogo, $input);
+    }
+    public function updateSupporto(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateSupporto($idCatalogo, $input);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateNote($idCatalogo, $input);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateUrl($idCatalogo, $input);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $this->softwareRepository->updateTag($idCatalogo, $input);
+    }
+
     // Utils
     public function fromArrayToSoftware(array $array): Software
     {

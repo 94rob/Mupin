@@ -140,4 +140,65 @@ class LibroRepository{
             $sth->execute();
         }
     }
+
+    // UPDATE
+    public function updateTitolo(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET TITOLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateAutori(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET AUTORI = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateCasaEditrice(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET CASA_EDITRICE = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateAnno(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET ANNO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateInt($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateNumPagine(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET NUM_PAGINE = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateInt($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateIsbn(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET ISBN = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE libro SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+
+    // Utils
+    public function executeUpdateString($newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+    public function executeUpdateInt($newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_INT);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
 }

@@ -106,4 +106,56 @@ class SoftwareRepository{
             $sth->execute();
         }
     }
+
+    // UPDATE
+    public function updateTitolo(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET TITOLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateSistemaOperativo(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET SISTEMA_OPERATIVO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateTipologia(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET TIPOLOGIA = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateSupporto(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET SUPPORTO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE software SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+
+    // Utils
+    public function executeUpdateString($newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+    public function executeUpdateInt($newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_INT);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+
 }

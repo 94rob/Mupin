@@ -57,6 +57,48 @@ class ComputerService
         $this->computerRepository->insertIntoComputer($element);
     }
 
+    // UPDATE
+    public function updateModello(string $idCatalogo, string $input)
+    {
+        $this->updateModello($idCatalogo, $input);
+    }
+    public function updateAnno(string $idCatalogo, int $input)
+    {
+        $this->updateAnno($idCatalogo, $input);
+    }
+    public function updateCpu(string $idCatalogo, $input)
+    {
+        $this->updateCpu($idCatalogo, $input);
+    }
+    public function updateVelocitaCpu(string $idCatalogo, $input)
+    {
+        $this->updateVelocitaCpu($idCatalogo, $input);
+    }
+    public function updateMemoriaRam(string $idCatalogo, $input)
+    {
+        $this->updateMemoriaRam($idCatalogo, $input);
+    }
+    public function updateDimensioneHardDisk(string $idCatalogo, $input)
+    {
+        $this->updateDimensioneHardDisk($idCatalogo, $input);
+    }
+    public function updateSistemaOperativo(string $idCatalogo, $input)
+    {
+        $this->updateSistemaOperativo($idCatalogo, $input);
+    }
+    public function updateNote(string $idCatalogo, $input)
+    {
+        $this->updateNote($idCatalogo, $input);
+    }
+    public function updateUrl(string $idCatalogo, $input)
+    {
+        $this->updateUrl($idCatalogo, $input);
+    }
+    public function updateTag(string $idCatalogo, $input)
+    {
+        $this->updateTag($idCatalogo, $input);
+    }
+
     // Utils
     public function fromArrayToComputer(array $array): Computer
     {
