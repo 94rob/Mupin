@@ -1,9 +1,14 @@
 {
     "autoload": {
         "psr-4": {
-            "Mupin\\": "src"
+            "Mupin\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "test"
+        }
+    },    
     "require": {
         "monolog/monolog": "*.*.*",
         "phpunit/phpunit": "^9.5",
