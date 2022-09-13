@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 use Mupin\Models\Libro;
 use Mupin\Repository\LibroRepository;
-class LibroService{
+class LibroService implements ILibroService{
     public LibroRepository $libroRepository ; 
     
     public function __construct(){
@@ -16,27 +16,27 @@ class LibroService{
         $result = $this->libroRepository->selectFromLibro($input);
         return $this->fromArrayToLibroArray($result);
     }
-    public function selectByTitolo(string $input){
+    public function selectByTitolo(string $input): array{
         $result = $this->libroRepository->selectByTitolo($input);
         return $this->fromArrayToLibroArray($result);
     }
-    public function selectByAutore(string $input){
+    public function selectByAutore(string $input): array{
         $result = $this->libroRepository->selectByAutore($input);
         return $this->fromArrayToLibroArray($result);
     }
-    public function selectByAnno(int $input){
+    public function selectByAnno(int $input): array{
         $result = $this->libroRepository->selectByAnno($input);
         return $this->fromArrayToLibroArray($result);
     }
-    public function selectByCasaEditrice(string $input){
+    public function selectByCasaEditrice(string $input): array{
         $result = $this->libroRepository->selectByCasaEditrice($input);
         return $this->fromArrayToLibroArray($result);
     }
-    public function selectByNote(string $input){
+    public function selectByNote(string $input): array{
         $result = $this->libroRepository->selectByNote($input);
         return $this->fromArrayToLibroArray($result);
     }
-    public function selectByTag(string $input){
+    public function selectByTag(string $input): array{
         $result = $this->libroRepository->selectByTag($input);
         return $this->fromArrayToLibroArray($result);
     }
@@ -83,6 +83,11 @@ class LibroService{
     public function updateTag(string $idCatalogo, string $input)
     {
         $this->libroRepository->updateTag($idCatalogo, $input);
+    }
+
+    // DELETE
+    public function deleteFromLibro(string $idCatalogo){
+        $this->libroRepository->deleteFromLibro($idCatalogo);
     }
 
     // Utils

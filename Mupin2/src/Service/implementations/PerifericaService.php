@@ -1,15 +1,13 @@
 <?php
 
 declare(strict_types=1);
-
 namespace Mupin\Service;
-
 require 'vendor/autoload.php';
 
 use Mupin\Repository\PerifericaRepository;
 use Mupin\Models\Periferica;
 
-class PerifericaService
+class PerifericaService implements IPerifericaService
 {
 
     public PerifericaRepository $perifericaRepository;
@@ -25,17 +23,17 @@ class PerifericaService
         $result = $this->perifericaRepository->selectFromPeriferica($input);
         return $this->fromArrayToPerifericaArray($result);
     }
-    public function selectByModello(string $input)
+    public function selectByModello(string $input): array
     {
         $result = $this->perifericaRepository->selectByModello($input);
         return $this->fromArrayToPerifericaArray($result);
     }
-    public function selectByNote(string $input)
+    public function selectByNote(string $input): array
     {
         $result = $this->perifericaRepository->selectByNote($input);
         return $this->fromArrayToPerifericaArray($result);
     }
-    public function selectByTag(string $input)
+    public function selectByTag(string $input): array
     {
         $result = $this->perifericaRepository->selectByTag($input);
         return $this->fromArrayToPerifericaArray($result);
@@ -67,6 +65,11 @@ class PerifericaService
     public function updateTag(string $idCatalogo, string $input)
     {
         $this->perifericaRepository->updateTag($idCatalogo, $input);
+    }
+
+    // DELETE
+    public function deleteFromPeriferica(string $idCatalogo){
+        $this->perifericaRepository->deleteFromPeriferica($idCatalogo);
     }
 
     // Utils

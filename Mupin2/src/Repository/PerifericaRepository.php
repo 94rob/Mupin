@@ -121,6 +121,14 @@ class PerifericaRepository{
         $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
     }
 
+    // DELETE
+    public function deleteFromPeriferica(string $idCatalogo){
+        $sqlInstruction = "DELETE FROM periferica WHERE ID_CATALOGO = :id_catalogo ;";
+        $sth = $this->pdo->prepare($sqlInstruction);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+
     // Utils
     public function executeUpdateString(string $newValue, string $idCatalogo, string $sqlUpdate){
         $sth = $this->pdo->prepare($sqlUpdate);

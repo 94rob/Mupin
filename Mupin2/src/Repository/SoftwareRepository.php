@@ -144,6 +144,14 @@ class SoftwareRepository{
         $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
     }
 
+    // DELETE
+    public function deleteFromSoftware(string $idCatalogo){
+        $sqlInstruction = "DELETE FROM software WHERE ID_CATALOGO = :id_catalogo ;";
+        $sth = $this->pdo->prepare($sqlInstruction);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+
     // Utils
     public function executeUpdateString($newValue, string $idCatalogo, string $sqlUpdate){
         $sth = $this->pdo->prepare($sqlUpdate);
