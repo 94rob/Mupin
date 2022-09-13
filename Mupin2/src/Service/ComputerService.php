@@ -51,6 +51,12 @@ class ComputerService
         return $this->fromArrayToComputerArray($result);
     }
 
+    // INSERT
+    public function insertIntoComputer(array $array){
+        $element = $this->fromArrayToComputer($array);
+        $this->computerRepository->insertIntoComputer($element);
+    }
+
     // Utils
     public function fromArrayToComputer(array $array): Computer
     {

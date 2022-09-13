@@ -71,7 +71,7 @@ class SoftwareRepository{
     }
 
     // INSERT
-    public function insertIntoComputer(Software $software)
+    public function insertIntoSoftware(Software $software)
     {
         $sqlInstruction = "INSERT INTO software (ID_CATALOGO,TITOLO, SISTEMA_OPERATIVO, TIPOLOGIA, SUPPORTO";
         $sqlInstruction .= ") VALUES ( :id_catalogo , :titolo, :sistema_operativo, :tipologia, :supporto ); ";        

@@ -46,6 +46,12 @@ class SoftwareService
         return $this->fromArrayToSoftwareArray($result);
     }
 
+    // INSERT
+    public function insertIntoSoftware(array $array){
+        $element = $this->fromArrayToSoftware($array);
+        $this->softwareRepository->insertIntoSoftware($element);
+    }
+
     // Utils
     public function fromArrayToSoftware(array $array): Software
     {

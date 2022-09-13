@@ -79,7 +79,7 @@ class RivistaRepository{
     }
 
      // INSERT
-     public function insertIntoComputer(Rivista $rivista)
+     public function insertIntoRivista(Rivista $rivista)
      {
          $sqlInstruction = "INSERT INTO rivista (ID_CATALOGO, TITOLO, NUMERO_RIVISTA, ANNO, CASA_EDITRICE";
          $sqlInstruction .= ") VALUES ( :id_catalogo , :titolo , :numero_rivista, :anno, :casa_editrice );";         
