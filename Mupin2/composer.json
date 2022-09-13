@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Mupin\\": "src"
+        }
+    },
+    "require": {
+        "monolog/monolog": "*.*.*",
+        "phpunit/phpunit": "^9.5",
+        "league/plates": "^3.4"
+    }
+}

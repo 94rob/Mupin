@@ -1,0 +1,7 @@
+public function selectByModello(string $input){}
+    public function selectBySistemaOperativo(string $input){}
+    public function selectByNote(string $input){}
+    public function selectByTag(string $input){}
+    public function selectByAutore(string $input){}
+    public function selectByAnno(string $input){}
+    public function selectByCasaEditrice(string $input){}

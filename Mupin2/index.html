@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <form action="prova.php" method="POST">
+        <label for="input">Inserisci la parola da cercare</label>
+        <input type="text" id="input" name="input" required><br/>
+        <label for="dove">Dove vuoi cercare?</label>
+        <select name="where" id="dove" required>
+            <option value="computer">computer</option>
+            <option value="libro">libro</option>
+            <option value="periferica">periferica</option>
+            <option value="rivista">rivista</option>
+            <option value="software">software</option>            
+        </select><br/>
+        <button type="submit">Invia</button>
+    </form>
+</body>
+</html>
