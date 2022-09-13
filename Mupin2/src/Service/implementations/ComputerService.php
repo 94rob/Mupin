@@ -19,10 +19,10 @@ class ComputerService implements IComputerService
         $this->computerRepository = new ComputerRepository();        
     }
 
-    // SELECT
-    public function selectByAll(string $input): array
+    // SELECT    
+    public function selectAll(): array
     {
-        $result = $this->computerRepository->selectFromComputer($input);
+        $result = $this->computerRepository->selectAll();
         return $this->fromArrayToComputerArray($result);
     }
     public function selectByModello(string $input): array
@@ -66,35 +66,35 @@ class ComputerService implements IComputerService
     {
         $this->updateAnno($idCatalogo, $input);
     }
-    public function updateCpu(string $idCatalogo, $input)
+    public function updateCpu(string $idCatalogo, string $input)
     {
         $this->updateCpu($idCatalogo, $input);
     }
-    public function updateVelocitaCpu(string $idCatalogo, $input)
+    public function updateVelocitaCpu(string $idCatalogo, float $input)
     {
         $this->updateVelocitaCpu($idCatalogo, $input);
     }
-    public function updateMemoriaRam(string $idCatalogo, $input)
+    public function updateMemoriaRam(string $idCatalogo, int $input)
     {
         $this->updateMemoriaRam($idCatalogo, $input);
     }
-    public function updateDimensioneHardDisk(string $idCatalogo, $input)
+    public function updateDimensioneHardDisk(string $idCatalogo, int $input)
     {
         $this->updateDimensioneHardDisk($idCatalogo, $input);
     }
-    public function updateSistemaOperativo(string $idCatalogo, $input)
+    public function updateSistemaOperativo(string $idCatalogo, string $input)
     {
         $this->updateSistemaOperativo($idCatalogo, $input);
     }
-    public function updateNote(string $idCatalogo, $input)
+    public function updateNote(string $idCatalogo, string $input)
     {
         $this->updateNote($idCatalogo, $input);
     }
-    public function updateUrl(string $idCatalogo, $input)
+    public function updateUrl(string $idCatalogo, string $input)
     {
         $this->updateUrl($idCatalogo, $input);
     }
-    public function updateTag(string $idCatalogo, $input)
+    public function updateTag(string $idCatalogo, string $input)
     {
         $this->updateTag($idCatalogo, $input);
     }

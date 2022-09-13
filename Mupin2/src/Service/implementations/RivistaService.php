@@ -17,9 +17,9 @@ class RivistaService implements IRivistaService
     }
 
     // SELECT
-    public function selectByAll(string $input): array
+    public function selectAll(): array
     {
-        $result = $this->rivistaRepository->selectFromRivista($input);
+        $result = $this->rivistaRepository->selectAll();
         return $this->fromArrayToRivistaArray($result);
     }
     public function selectByTitolo(string $input): array
@@ -58,31 +58,31 @@ class RivistaService implements IRivistaService
     // UPDATE
     public function updateTitolo(string $idCatalogo, string $input)
     {
-        $this->RivistaRepository->updateTitolo($idCatalogo, $input);
+        $this->rivistaRepository->updateTitolo($idCatalogo, $input);
     }
-    public function updateNumRivista(string $idCatalogo, string $input)
+    public function updateNumRivista(string $idCatalogo, int $input)
     {
-        $this->RivistaRepository->updateNumRivista($idCatalogo, $input);
+        $this->rivistaRepository->updateNumRivista($idCatalogo, $input);
     }
-    public function updateAnno(string $idCatalogo, string $input)
+    public function updateAnno(string $idCatalogo, int $input)
     {
-        $this->RivistaRepository->updateAnno($idCatalogo, $input);
+        $this->rivistaRepository->updateAnno($idCatalogo, $input);
     }
     public function updateCasaEditrice(string $idCatalogo, string $input)
     {
-        $this->RivistaRepository->updateCasaEditrice($idCatalogo, $input);
+        $this->rivistaRepository->updateCasaEditrice($idCatalogo, $input);
     }
     public function updateNote(string $idCatalogo, string $input)
     {
-        $this->RivistaRepository->updateNote($idCatalogo, $input);
+        $this->rivistaRepository->updateNote($idCatalogo, $input);
     }
     public function updateUrl(string $idCatalogo, string $input)
     {
-        $this->RivistaRepository->updateUrl($idCatalogo, $input);
+        $this->rivistaRepository->updateUrl($idCatalogo, $input);
     }
     public function updateTag(string $idCatalogo, string $input)
     {
-        $this->RivistaRepository->updateTag($idCatalogo, $input);
+        $this->rivistaRepository->updateTag($idCatalogo, $input);
     }
 
     // DELETE

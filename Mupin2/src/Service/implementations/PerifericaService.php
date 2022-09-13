@@ -18,9 +18,9 @@ class PerifericaService implements IPerifericaService
     }
 
     // SELECT
-    public function selectByAll(string $input): array
+    public function selectAll(): array
     {
-        $result = $this->perifericaRepository->selectFromPeriferica($input);
+        $result = $this->perifericaRepository->selectAll();
         return $this->fromArrayToPerifericaArray($result);
     }
     public function selectByModello(string $input): array

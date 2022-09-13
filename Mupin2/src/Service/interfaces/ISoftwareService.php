@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 interface ISoftwareService{
     // SELECT
-    public function selectByAll(string $input): array;
+    public function selectAll(): array;
     public function selectByTitolo(string $input): array;
     public function selectBySistemaOperativo(string $input): array;
     public function selectByNote(string $input): array;

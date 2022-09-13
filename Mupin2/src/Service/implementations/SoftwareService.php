@@ -17,9 +17,9 @@ class SoftwareService implements ISoftwareService
     }
 
     // SELECT
-    public function selectByAll(string $input): array
+    public function selectAll(): array
     {
-        $result = $this->softwareRepository->selectFromSoftware($input);
+        $result = $this->softwareRepository->selectAll();
         return $this->fromArrayToSoftwareArray($result);
     }
     public function selectByTitolo(string $input): array

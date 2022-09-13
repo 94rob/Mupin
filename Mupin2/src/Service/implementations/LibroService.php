@@ -12,8 +12,9 @@ class LibroService implements ILibroService{
         $this->libroRepository=new LibroRepository();        
     }
     // SELECT
-    public function selectByAll(string $input): array{
-        $result = $this->libroRepository->selectFromLibro($input);
+    public function selectAll(): array
+    {
+        $result = $this->libroRepository->selectAll();
         return $this->fromArrayToLibroArray($result);
     }
     public function selectByTitolo(string $input): array{
@@ -60,11 +61,11 @@ class LibroService implements ILibroService{
     {
         $this->libroRepository->updateCasaEditrice($idCatalogo, $input);
     }
-    public function updateAnno(string $idCatalogo, string $input)
+    public function updateAnno(string $idCatalogo, int $input)
     {
         $this->libroRepository->updateAnno($idCatalogo, $input);
     }
-    public function updateNumPagine(string $idCatalogo, string $input)
+    public function updateNumPagine(string $idCatalogo, int $input)
     {
         $this->libroRepository->updateNumPagine($idCatalogo, $input);
     }

@@ -9,7 +9,7 @@ require 'vendor/autoload.php';
 interface IComputerService{
 
     // SELECT
-    public function selectByAll(string $input): array;
+    public function selectAll(): array;
     public function selectByModello(string $input): array;
     public function selectByAnno(int $input): array;
     public function selectBySistemaOperativo(string $input): array;
@@ -22,14 +22,14 @@ interface IComputerService{
     // UPDATE
     public function updateModello(string $idCatalogo, string $input);
     public function updateAnno(string $idCatalogo, int $input);
-    public function updateCpu(string $idCatalogo, $input);
-    public function updateVelocitaCpu(string $idCatalogo, $input);
-    public function updateMemoriaRam(string $idCatalogo, $input);
-    public function updateDimensioneHardDisk(string $idCatalogo, $input);
-    public function updateSistemaOperativo(string $idCatalogo, $input);
-    public function updateNote(string $idCatalogo, $input);
-    public function updateUrl(string $idCatalogo, $input);
-    public function updateTag(string $idCatalogo, $input);
+    public function updateCpu(string $idCatalogo, string $input);
+    public function updateVelocitaCpu(string $idCatalogo, float $input);
+    public function updateMemoriaRam(string $idCatalogo, int $input);
+    public function updateDimensioneHardDisk(string $idCatalogo, int $input);
+    public function updateSistemaOperativo(string $idCatalogo, string $input);
+    public function updateNote(string $idCatalogo, string $input);
+    public function updateUrl(string $idCatalogo, string $input);
+    public function updateTag(string $idCatalogo, string $input);
 
     // DELETE
     public function deleteFromComputer(string $idCatalogo);
