@@ -93,4 +93,40 @@ class PerifericaRepository{
             $sth->execute();
         }
     }
+
+    // UPDATE
+    public function updateModello(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE periferica SET MODELLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateTipologia(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE periferica SET TIPOLOGIA = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE periferica SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE periferica SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE periferica SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+
+    // Utils
+    public function executeUpdateString(string $newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+
 }

@@ -47,6 +47,44 @@ class LibroService{
         $this->libroRepository->insertIntoLibro($element);
     }
 
+    // UPDATE
+    public function updateTitolo(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateTitolo($idCatalogo, $input);
+    }
+    public function updateAutori(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateAutori($idCatalogo, $input);
+    }
+    public function updateCasaEditrice(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateCasaEditrice($idCatalogo, $input);
+    }
+    public function updateAnno(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateAnno($idCatalogo, $input);
+    }
+    public function updateNumPagine(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateNumPagine($idCatalogo, $input);
+    }
+    public function updateIsbn(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateIsbn($idCatalogo, $input);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateNote($idCatalogo, $input);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateUrl($idCatalogo, $input);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $this->libroRepository->updateTag($idCatalogo, $input);
+    }
+
     // Utils
     public function fromArrayToLibro(array $array): Libro
     {

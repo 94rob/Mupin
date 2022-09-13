@@ -99,7 +99,7 @@ class ComputerRepository
     public function insertIntoComputer(Computer $computer)
     {
         $sqlInstruction = "INSERT INTO computer (ID_CATALOGO,MODELLO, ANNO,CPU,VELOCITA_CPU,MEMORIA_RAM";
-        $sqlInstruction .= ") VALUES ( :id_catalogo , :modello , :anno, :cpu , :velocita_cpu , :memoria_ram ); ";        
+        $sqlInstruction .= ") VALUES ( :id_catalogo , :modello , :anno, :cpu , :velocita_cpu , :memoria_ram ); ";
 
         $sth = $this->pdo->prepare($sqlInstruction);
         $sth->bindValue(':id_catalogo', $computer->getIdCatalogo(), PDO::PARAM_STR);
@@ -145,5 +145,71 @@ class ComputerRepository
             $sth->bindValue(':id_catalogo', $computer->getIdCatalogo(), PDO::PARAM_STR);
             $sth->execute();
         }
+    }
+
+    // UPDATE
+    public function updateModello(string $idCatalogo, string $input)
+    {
+        $sqlInstruction = "UPDATE computer SET MODELLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateAnno(string $idCatalogo, int $input)
+    {
+        $sqlInstruction = "UPDATE computer SET ANNO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateInt($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateCpu(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET CPU = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateVelocitaCpu(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET VELOCITA_CPU = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateInt($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateMemoriaRam(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET MEMORIA_RAM = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateInt($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateDimensioneHardDisk(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET DIMENSIONE_HARD_DISK = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateInt($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateSistemaOperativo(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET SISTEMA_OPERATIVO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateNote(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateUrl(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+    public function updateTag(string $idCatalogo, $input)
+    {
+        $sqlInstruction = "UPDATE computer SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }
+
+    // Utils
+    public function executeUpdateString($newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+    public function executeUpdateInt($newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
+        $sth->bindValue(':input', $newValue, PDO::PARAM_INT);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
     }
 }

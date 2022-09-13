@@ -47,6 +47,28 @@ class PerifericaService
         $this->perifericaRepository->insertIntoPeriferica($element);
     }
 
+    // UPDATE
+    public function updateModello(string $idCatalogo, string $input)
+    {
+        $this->perifericaRepository->updateModello($idCatalogo, $input);
+    }
+    public function updateTipologia(string $idCatalogo, string $input)
+    {
+        $this->perifericaRepository->updateTipologia($idCatalogo, $input);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $this->perifericaRepository->updateNote($idCatalogo, $input);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $this->perifericaRepository->updateUrl($idCatalogo, $input);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $this->perifericaRepository->updateTag($idCatalogo, $input);
+    }
+
     // Utils
     public function fromArrayToPeriferica(array $array): Periferica
     {

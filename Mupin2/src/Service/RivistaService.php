@@ -52,9 +52,40 @@ class RivistaService
     }
 
     // INSERT
-    public function insertIntoRivista(array $array){
+    public function insertIntoRivista(array $array)
+    {
         $element = $this->fromArrayToRivista($array);
         $this->rivistaRepository->insertIntoRivista($element);
+    }
+
+    // UPDATE
+    public function updateTitolo(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateTitolo($idCatalogo, $input);
+    }
+    public function updateNumRivista(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateNumRivista($idCatalogo, $input);
+    }
+    public function updateAnno(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateAnno($idCatalogo, $input);
+    }
+    public function updateCasaEditrice(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateCasaEditrice($idCatalogo, $input);
+    }
+    public function updateNote(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateNote($idCatalogo, $input);
+    }
+    public function updateUrl(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateUrl($idCatalogo, $input);
+    }
+    public function updateTag(string $idCatalogo, string $input)
+    {
+        $this->RivistaRepository->updateTag($idCatalogo, $input);
     }
 
     // Utils
