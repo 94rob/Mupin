@@ -51,6 +51,12 @@ class RivistaService
         return $this->fromArrayToRivistaArray($result);
     }
 
+    // INSERT
+    public function insertIntoRivista(array $array){
+        $element = $this->fromArrayToRivista($array);
+        $this->rivistaRepository->insertIntoRivista($element);
+    }
+
     // Utils
     public function fromArrayToRivista(array $array): Rivista
     {

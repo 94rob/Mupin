@@ -60,7 +60,7 @@ class PerifericaRepository{
     }
 
     // INSERT
-    public function insertIntoComputer(Periferica $periferica)
+    public function insertIntoPeriferica(Periferica $periferica)
     {
         $sqlInstruction = "INSERT INTO periferica (ID_CATALOGO,MODELLO, TIPOLOGIA";
         $sqlInstruction .= ") VALUES ( :id_catalogo , :modello , :tipologia ); ";        

@@ -91,7 +91,7 @@ class LibroRepository{
     }
 
     // INSERT
-    public function insertIntoComputer(Libro $libro)
+    public function insertIntoLibro(Libro $libro)
     {
         $sqlInstruction = "INSERT INTO libro (ID_CATALOGO, TITOLO, AUTORI, CASA_EDITRICE, ANNO";
         $sqlInstruction .= ") VALUES ( :id_catalogo , :titolo , :autori, :casa_editrice , :anno );";        

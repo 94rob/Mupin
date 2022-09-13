@@ -41,6 +41,12 @@ class LibroService{
         return $this->fromArrayToLibroArray($result);
     }
 
+    // INSERT
+    public function insertIntoLibro(array $array){
+        $element = $this->fromArrayToLibro($array);
+        $this->libroRepository->insertIntoLibro($element);
+    }
+
     // Utils
     public function fromArrayToLibro(array $array): Libro
     {

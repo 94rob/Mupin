@@ -41,6 +41,12 @@ class PerifericaService
         return $this->fromArrayToPerifericaArray($result);
     }
 
+    // INSERT
+    public function insertIntoPeriferica(array $array){
+        $element = $this->fromArrayToPeriferica($array);
+        $this->perifericaRepository->insertIntoPeriferica($element);
+    }
+
     // Utils
     public function fromArrayToPeriferica(array $array): Periferica
     {
