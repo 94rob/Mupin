@@ -23,4 +23,7 @@ interface IRivistaService{
     public function updateNote(string $idCatalogo, string $input);
     public function updateUrl(string $idCatalogo, string $input);
     public function updateTag(string $idCatalogo, string $input);
+
+    // DELETE
+    public function deleteFromRivista(string $idCatalogo);
 }

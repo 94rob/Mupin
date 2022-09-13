@@ -27,4 +27,7 @@ interface ILibroService {
     public function updateUrl(string $idCatalogo, string $input);
     public function updateTag(string $idCatalogo, string $input);
 
+    // DELETE
+    public function deleteFromLibro(string $idCatalogo);
+
 }

@@ -79,6 +79,11 @@ class SoftwareService implements ISoftwareService
         $this->softwareRepository->updateTag($idCatalogo, $input);
     }
 
+    // DELETE
+    public function deleteFromSoftware(string $idCatalogo){
+        $this->softwareRepository->deleteFromSoftware($idCatalogo);
+    }
+
     // Utils
     public function fromArrayToSoftware(array $array): Software
     {

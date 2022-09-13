@@ -164,6 +164,14 @@ class RivistaRepository
         $this->executeUpdateString($input, $idCatalogo, $sqlInstruction);
     }
 
+    // DELETE
+    public function deleteFromRivista(string $idCatalogo){
+        $sqlInstruction = "DELETE FROM rivista WHERE ID_CATALOGO = :id_catalogo ;";
+        $sth = $this->pdo->prepare($sqlInstruction);
+        $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
+        $sth->execute();
+    }
+
     // Utils
     public function executeUpdateString($newValue, string $idCatalogo, string $sqlUpdate)
     {

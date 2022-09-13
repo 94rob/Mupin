@@ -85,6 +85,11 @@ class RivistaService implements IRivistaService
         $this->RivistaRepository->updateTag($idCatalogo, $input);
     }
 
+    // DELETE
+    public function deleteFromRivista(string $idCatalogo){
+        $this->rivistaRepository->deleteFromRivista($idCatalogo);
+    }
+
     // Utils
     public function fromArrayToRivista(array $array): Rivista
     {

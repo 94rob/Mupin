@@ -67,6 +67,11 @@ class PerifericaService implements IPerifericaService
         $this->perifericaRepository->updateTag($idCatalogo, $input);
     }
 
+    // DELETE
+    public function deleteFromPeriferica(string $idCatalogo){
+        $this->perifericaRepository->deleteFromPeriferica($idCatalogo);
+    }
+
     // Utils
     public function fromArrayToPeriferica(array $array): Periferica
     {

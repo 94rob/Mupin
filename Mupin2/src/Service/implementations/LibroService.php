@@ -85,6 +85,11 @@ class LibroService implements ILibroService{
         $this->libroRepository->updateTag($idCatalogo, $input);
     }
 
+    // DELETE
+    public function deleteFromLibro(string $idCatalogo){
+        $this->libroRepository->deleteFromLibro($idCatalogo);
+    }
+
     // Utils
     public function fromArrayToLibro(array $array): Libro
     {

@@ -31,4 +31,7 @@ interface IComputerService{
     public function updateUrl(string $idCatalogo, $input);
     public function updateTag(string $idCatalogo, $input);
 
+    // DELETE
+    public function deleteFromComputer(string $idCatalogo);
+
 }

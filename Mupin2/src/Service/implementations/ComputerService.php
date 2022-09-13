@@ -98,6 +98,11 @@ class ComputerService implements IComputerService
     {
         $this->updateTag($idCatalogo, $input);
     }
+    
+    // DELETE
+    public function deleteFromComputer(string $idCatalogo){
+        $this->computerRepository->deleteFromComputer($idCatalogo);
+    }
 
     // Utils
     public function fromArrayToComputer(array $array): Computer
