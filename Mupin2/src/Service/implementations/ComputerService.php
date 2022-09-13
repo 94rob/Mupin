@@ -9,7 +9,7 @@ require 'vendor/autoload.php';
 use Mupin\Repository\ComputerRepository;
 use Mupin\Models\Computer;
 
-class ComputerService
+class ComputerService implements IComputerService
 {
 
     public ComputerRepository $computerRepository;  
@@ -52,7 +52,7 @@ class ComputerService
     }
 
     // INSERT
-    public function insertIntoComputer(array $array){
+    public function insertIntoComputer(array $array): void{
         $element = $this->fromArrayToComputer($array);
         $this->computerRepository->insertIntoComputer($element);
     }

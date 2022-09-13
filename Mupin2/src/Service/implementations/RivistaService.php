@@ -1,15 +1,12 @@
 <?php
-
 declare(strict_types=1);
-
 namespace Mupin\Service;
-
 require 'vendor/autoload.php';
 
 use Mupin\Models\Rivista;
 use Mupin\Repository\RivistaRepository;
 
-class RivistaService
+class RivistaService implements IRivistaService
 {
     public RivistaRepository $rivistaRepository;
 
@@ -25,27 +22,27 @@ class RivistaService
         $result = $this->rivistaRepository->selectFromRivista($input);
         return $this->fromArrayToRivistaArray($result);
     }
-    public function selectByTitolo(string $input)
+    public function selectByTitolo(string $input): array
     {
         $result = $this->rivistaRepository->selectByTitolo($input);
         return $this->fromArrayToRivistaArray($result);
     }
-    public function selectByAnno(int $input)
+    public function selectByAnno(int $input): array
     {
         $result = $this->rivistaRepository->selectByAnno($input);
         return $this->fromArrayToRivistaArray($result);
     }
-    public function selectByCasaEditrice(string $input)
+    public function selectByCasaEditrice(string $input): array
     {
         $result = $this->rivistaRepository->selectByCasaEditrice($input);
         return $this->fromArrayToRivistaArray($result);
     }
-    public function selectByNote(string $input)
+    public function selectByNote(string $input): array
     {
         $result = $this->rivistaRepository->selectByNote($input);
         return $this->fromArrayToRivistaArray($result);
     }
-    public function selectByTag(string $input)
+    public function selectByTag(string $input): array
     {
         $result = $this->rivistaRepository->selectByTag($input);
         return $this->fromArrayToRivistaArray($result);

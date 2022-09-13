@@ -1,15 +1,12 @@
 <?php
-
 declare(strict_types=1);
-
 namespace Mupin\Service;
-
 require 'vendor/autoload.php';
 
 use Mupin\Repository\SoftwareRepository;
 use Mupin\Models\Software;
 
-class SoftwareService
+class SoftwareService implements ISoftwareService
 {
 
     public SoftwareRepository $softwareRepository;
@@ -25,22 +22,22 @@ class SoftwareService
         $result = $this->softwareRepository->selectFromSoftware($input);
         return $this->fromArrayToSoftwareArray($result);
     }
-    public function selectByTitolo(string $input)
+    public function selectByTitolo(string $input): array
     {
         $result = $this->softwareRepository->selectByTitolo($input);
         return $this->fromArrayToSoftwareArray($result);
     }
-    public function selectBySistemaOperativo(string $input)
+    public function selectBySistemaOperativo(string $input): array
     {
         $result = $this->softwareRepository->selectBySistemaOperativo($input);
         return $this->fromArrayToSoftwareArray($result);
     }
-    public function selectByNote(string $input)
+    public function selectByNote(string $input): array
     {
         $result = $this->softwareRepository->selectByNote($input);
         return $this->fromArrayToSoftwareArray($result);
     }
-    public function selectByTag(string $input)
+    public function selectByTag(string $input): array
     {
         $result = $this->softwareRepository->selectByTag($input);
         return $this->fromArrayToSoftwareArray($result);
