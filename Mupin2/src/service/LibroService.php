@@ -17,6 +17,10 @@ class LibroService implements ILibroService{
         $result = $this->libroRepository->selectAll();
         return $this->fromArrayToLibroArray($result);
     }
+    public function selectFromLibroWhere(string $input): array{
+        $result = $this->computerRepository->selectFromLibroWhere($input);
+        return $this->fromArrayToLibroArray($result);
+    }
     public function selectByTitolo(string $input): array{
         $result = $this->libroRepository->selectByTitolo($input);
         return $this->fromArrayToLibroArray($result);

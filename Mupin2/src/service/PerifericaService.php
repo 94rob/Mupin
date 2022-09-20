@@ -23,6 +23,10 @@ class PerifericaService implements IPerifericaService
         $result = $this->perifericaRepository->selectAll();
         return $this->fromArrayToPerifericaArray($result);
     }
+    public function selectFromPerifericaWhere(string $input): array{
+        $result = $this->computerRepository->selectFromPerifericaWhere($input);
+        return $this->fromArrayToPerifericaArray($result);
+    }
     public function selectByModello(string $input): array
     {
         $result = $this->perifericaRepository->selectByModello($input);

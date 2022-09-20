@@ -6,6 +6,7 @@ require 'vendor/autoload.php';
 interface IRivistaService{
     // SELECT
     public function selectAll(): array;
+    public function selectFromRivistaWhere(string $input): array;
     public function selectByTitolo(string $input): array;
     public function selectByAnno(int $input): array;
     public function selectByCasaEditrice(string $input): array;

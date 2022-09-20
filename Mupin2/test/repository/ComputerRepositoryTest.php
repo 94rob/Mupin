@@ -25,17 +25,16 @@ class ComputerRepositoryTest extends TestCase{
     }
     
     public function testIstantiatesPropertiesProperly(){
-        $this->assertNotEmpty($this->computerRepository->pdo);
-        $this->assertNotEmpty($this->computerRepository->repositoryUtils);
+        $this->assertNotEmpty($this->computerRepository->pdo);        
     }
 
-public function testSelectAllReturnsAnArray(){
-    $this->assertIsArray($this->computerRepository->selectAll());
-}
+    public function testSelectAllReturnsAnArray(){
+        $this->assertIsArray($this->computerRepository->selectAll());
+    }
 
-public function testSelectByModelloReturnsAnArray(){
-    $this->assertIsArray($this->computerRepository->selectByModello("input"));
-}
+    public function testSelectByModelloReturnsAnArray(){
+        $this->assertIsArray($this->computerRepository->selectByModello("input"));
+    }
 
 
 }

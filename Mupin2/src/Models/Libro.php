@@ -3,16 +3,16 @@ declare (strict_types=1);
 namespace Mupin\Models;
 
 class Libro{
-    public string $id_catalogo;
-    public string $titolo;
-    public string $autori;
-    public string $casa_editrice;
-    public int $anno;
-    public int $num_pagine;
-    public string $isbn;
-    public string $note;
-    public string $url;
-    public string $tag;
+    private string $id_catalogo;
+    private string $titolo;
+    private string $autori;
+    private string $casa_editrice;
+    private int $anno;
+    private int $num_pagine;
+    private string $isbn;
+    private string $note;
+    private string $url;
+    private string $tag;
 
     // Getters
     public function getIdCatalogo(){

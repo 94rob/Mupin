@@ -3,14 +3,14 @@ declare (strict_types=1);
 namespace Mupin\Models;
 
 class Rivista{
-    public string $id_catalogo;
-    public string $titolo;
-    public int $num_rivista;
-    public int $anno;
-    public string $casa_editrice;    
-    public string $note;
-    public string $url;
-    public string $tag;
+    private string $id_catalogo;
+    private string $titolo;
+    private int $num_rivista;
+    private int $anno;
+    private string $casa_editrice;    
+    private string $note;
+    private string $url;
+    private string $tag;
 
     // Getters
     public function getId_catalogo()

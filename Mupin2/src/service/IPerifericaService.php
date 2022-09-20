@@ -7,6 +7,7 @@ require 'vendor/autoload.php';
 interface IPerifericaService{
     // SELECT
     public function selectAll(): array;
+    public function selectFromPerifericaWhere(string $input): array;
     public function selectByModello(string $input): array;
     public function selectByNote(string $input): array;
     public function selectByTag(string $input): array;

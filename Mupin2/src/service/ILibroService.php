@@ -6,6 +6,7 @@ require 'vendor/autoload.php';
 interface ILibroService {
     // SELECT
     public function selectAll(): array;
+    public function selectFromLibroWhere(string $input): array;
     public function selectByTitolo(string $input): array;
     public function selectByAutore(string $input): array;
     public function selectByAnno(int $input): array;

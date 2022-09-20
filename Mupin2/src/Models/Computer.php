@@ -3,17 +3,17 @@ declare (strict_types=1);
 namespace Mupin\Models;
 
 class Computer{
-    public string $id_catalogo;
-    public string $modello;
-    public int $anno;
-    public string $cpu;
-    public float $velocita_cpu;
-    public int $memoria_ram;
-    public int $dimensione_hard_disk;
-    public string $sistema_operativo;
-    public string $note;
-    public string $url;
-    public string $tag;      
+    private string $id_catalogo;
+    private string $modello;
+    private int $anno;
+    private string $cpu;
+    private float $velocita_cpu;
+    private int $memoria_ram;
+    private int $dimensione_hard_disk;
+    private string $sistema_operativo;
+    private string $note;
+    private string $url;
+    private string $tag;      
       
 
     // Getter

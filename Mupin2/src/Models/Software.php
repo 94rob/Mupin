@@ -3,14 +3,14 @@ declare (strict_types=1);
 namespace Mupin\Models;
 
 class Software{
-    public string $id_catalogo;
-    public string $titolo;
-    public string $sistema_operativo;
-    public string $tipologia;    
-    public string $supporto;
-    public string $note;
-    public string $url;
-    public string $tag;
+    private string $id_catalogo;
+    private string $titolo;
+    private string $sistema_operativo;
+    private string $tipologia;    
+    private string $supporto;
+    private string $note;
+    private string $url;
+    private string $tag;
     
     // Getter
     public function getId_catalogo()

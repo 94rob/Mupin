@@ -1,0 +1,11 @@
+.computer,
+.periferica,
+.rivista,
+.libro,
+.software {
+    visibility: visible;
+}
+
+.show {
+    visibility: visible !important;
+}

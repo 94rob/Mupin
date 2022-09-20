@@ -5,16 +5,7 @@ require 'vendor/autoload.php';
 
 use PDO;
 use Mupin\Models\Periferica;
-class PerifericaRepository{
-    public PDO $pdo;
-    public RepositoryUtils $repositoryUtils;
-    public function __construct(){
-        $config = include 'config.php';
-        $this -> pdo = new PDO($config['dsn'], $config['username'], $config['password']);
-        $this->pdo->setAttribute (PDO::ATTR_STRINGIFY_FETCHES, false);
-        $this->pdo->setAttribute (PDO::ATTR_EMULATE_PREPARES, false);
-        $this->repositoryUtils = new RepositoryUtils();
-    }
+class PerifericaRepository extends RepositoryFather{  
 
     // SELECT   
     public function selectAll(): array{
@@ -23,20 +14,42 @@ class PerifericaRepository{
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function selectFromPerifericaWhere(string $input): array
+    {
+        $input = '%' . $input . '%';
+        $arrProperties = ["MODELLO", "TIPOLOGIA", "NOTE", "URL", "TAG"];
+        $i = 0;
+        $len = count($arrProperties);
+        $sqlInstruction = "SELECT * FROM periferica WHERE ";
+        foreach($arrProperties as $element){
+            $sqlInstruction .= $element . " LIKE :input" . $i;
+            if ($i < $len){
+                $sqlInstruction .= " OR ";
+            }
+        }        
+
+        $sth = $this->pdo->prepare($sqlInstruction);
+        
+        for($i=0; $i<$len;$i++){
+            $sth->bindValue(':input' . $i, $input, PDO::PARAM_STR);
+        }        
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function selectByModello(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM periferica WHERE MODELLO LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
     public function selectByNote(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM periferica WHERE NOTE LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
     public function selectByTag(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM periferica WHERE TAG LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
 
     // INSERT
@@ -66,27 +79,27 @@ class PerifericaRepository{
     public function updateModello(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE periferica SET MODELLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateTipologia(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE periferica SET TIPOLOGIA = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateNote(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE periferica SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateUrl(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE periferica SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateTag(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE periferica SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
 
     // DELETE

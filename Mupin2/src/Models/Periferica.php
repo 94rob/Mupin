@@ -3,12 +3,12 @@ declare (strict_types=1);
 namespace Mupin\Models;
 
 class Periferica{
-    public string $id_catalogo;
-    public string $modello;
-    public string $tipologia;    
-    public string $note;
-    public string $url;
-    public string $tag;
+    private string $id_catalogo;
+    private string $modello;
+    private string $tipologia;    
+    private string $note;
+    private string $url;
+    private string $tag;
         
     // Getter
     public function getId_catalogo()

@@ -22,6 +22,10 @@ class SoftwareService implements ISoftwareService
         $result = $this->softwareRepository->selectAll();
         return $this->fromArrayToSoftwareArray($result);
     }
+    public function selectFromSoftwareWhere(string $input): array{
+        $result = $this->computerRepository->selectFromSoftwareWhere($input);
+        return $this->fromArrayToSoftwareArray($result);
+    }
     public function selectByTitolo(string $input): array
     {
         $result = $this->softwareRepository->selectByTitolo($input);

@@ -10,6 +10,7 @@ interface IComputerService{
 
     // SELECT
     public function selectAll(): array;
+    public function selectFromComputerWhere(string $input): array;
     public function selectByModello(string $input): array;
     public function selectByAnno(int $input): array;
     public function selectBySistemaOperativo(string $input): array;

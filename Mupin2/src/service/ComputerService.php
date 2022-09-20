@@ -25,6 +25,10 @@ class ComputerService implements IComputerService
         $result = $this->computerRepository->selectAll();
         return $this->fromArrayToComputerArray($result);
     }
+    public function selectFromComputerWhere(string $input): array{
+        $result = $this->computerRepository->selectFromComputerWhere($input);
+        return $this->fromArrayToComputerArray($result);
+    }
     public function selectByModello(string $input): array
     {
         $result = $this->computerRepository->selectByModello($input);

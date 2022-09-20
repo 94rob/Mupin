@@ -5,16 +5,7 @@ require 'vendor/autoload.php';
 
 use PDO;
 use Mupin\Models\Libro;
-class LibroRepository{
-    public PDO $pdo;
-    public RepositoryUtils $repositoryUtils;
-    public function __construct(){
-        $config = include 'config.php';
-        $this -> pdo = new PDO($config['dsn'], $config['username'], $config['password']);
-        $this->pdo->setAttribute (PDO::ATTR_STRINGIFY_FETCHES, false);
-        $this->pdo->setAttribute (PDO::ATTR_EMULATE_PREPARES, false);
-        $this->repositoryUtils = new RepositoryUtils();
-    }
+class LibroRepository extends RepositoryFather{  
 
     // SELECT
     public function selectAll(): array{
@@ -23,34 +14,57 @@ class LibroRepository{
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function selectFromLibroWhere(string $input): array
+    {
+        $input = '%' . $input . '%';
+        $arrProperties = ["TITOLO", "AUTORI", "CASA_EDITRICE", "ANNO", "NUM_PAGINE", "ISBN", "NOTE", "URL", "TAG"];
+        $i = 0;
+        $len = count($arrProperties);
+        $sqlInstruction = "SELECT * FROM libro WHERE ";
+        foreach($arrProperties as $element){
+            $sqlInstruction .= $element . " LIKE :input" . $i;
+            if ($i < $len){
+                $sqlInstruction .= " OR ";
+            }
+        }        
+
+        $sth = $this->pdo->prepare($sqlInstruction);
+        
+        for($i=0; $i<$len;$i++){
+            $sth->bindValue(':input' . $i, $input, PDO::PARAM_STR);
+        }        
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function selectByTitolo(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM libro WHERE TITOLO LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
     public function selectByAutore(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM libro WHERE AUTORI LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
     public function selectByAnno(int $input){        
         $sqlInstruction = "SELECT * FROM libro WHERE ANNO = :input ;";
-        return $this->repositoryUtils->executeSelectInt($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectInt($input, $sqlInstruction, $this->pdo);
     }
     public function selectByCasaEditrice(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM libro WHERE CASA_EDITRICE LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
     public function selectByNote(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM libro WHERE NOTE LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
     public function selectByTag(string $input){
         $input ='%' . $input . '%';
         $sqlInstruction = "SELECT * FROM libro WHERE TAG LIKE :input ;";
-        return $this->repositoryUtils->executeSelectString($input, $sqlInstruction, $this->pdo);
+        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
     }
 
     // INSERT
@@ -88,47 +102,47 @@ class LibroRepository{
     public function updateTitolo(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET TITOLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateAutori(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET AUTORI = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateCasaEditrice(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET CASA_EDITRICE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateAnno(string $idCatalogo, int $input)
     {
         $sqlInstruction = "UPDATE libro SET ANNO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateNumPagine(string $idCatalogo, int $input)
     {
         $sqlInstruction = "UPDATE libro SET NUM_PAGINE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateIsbn(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET ISBN = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateNote(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateUrl(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
     public function updateTag(string $idCatalogo, string $input)
     {
         $sqlInstruction = "UPDATE libro SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        $this->repositoryUtils->executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
     }
 
     // DELETE
