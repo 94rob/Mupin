@@ -1,10 +1,10 @@
 <?php
 declare (strict_types=1);
-namespace Mupin\Repository;
+namespace App\Repository;
 require 'vendor/autoload.php';
 
 use PDO;
-use Mupin\Models\Software;
+use App\Models\Software;
 class SoftwareRepository extends RepositoryFather{   
 
     // SELECT

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Mupin\Controller;
+namespace App\Controller;
 
 use League\Plates\Engine;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use Mupin\Service\ServiceRouter;
+use App\Service\ServiceRouter;
 
 class Search implements ControllerInterface
 {

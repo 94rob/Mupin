@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mupin\Service;
+namespace App\Service;
 
 require 'vendor/autoload.php';
 
-use Mupin\Repository\ComputerRepository;
-use Mupin\Models\Computer;
+use App\Repository\ComputerRepository;
+use App\Models\Computer;
 
 class ComputerService implements IComputerService
 {

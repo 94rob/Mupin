@@ -1,6 +1,6 @@
 <?php
 declare (strict_types=1);
-namespace Mupin\Models;
+namespace App\Models;
 
 class Software{
     private string $id_catalogo;

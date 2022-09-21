@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace Mupin\Service;
+namespace App\Service;
 require 'vendor/autoload.php';
 
-use Mupin\Models\Rivista;
-use Mupin\Repository\RivistaRepository;
+use App\Models\Rivista;
+use App\Repository\RivistaRepository;
 
 class RivistaService implements IRivistaService
 {

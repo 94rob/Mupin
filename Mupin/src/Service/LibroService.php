@@ -1,10 +1,10 @@
 <?php
 declare (strict_types=1);
-namespace Mupin\Service;
+namespace App\Service;
 require 'vendor/autoload.php';
 
-use Mupin\Models\Libro;
-use Mupin\Repository\LibroRepository;
+use App\Models\Libro;
+use App\Repository\LibroRepository;
 class LibroService implements ILibroService{
     public LibroRepository $libroRepository ; 
     

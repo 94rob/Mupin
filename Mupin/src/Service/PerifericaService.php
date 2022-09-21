@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
-namespace Mupin\Service;
+namespace App\Service;
 require 'vendor/autoload.php';
 
-use Mupin\Repository\PerifericaRepository;
-use Mupin\Models\Periferica;
+use App\Repository\PerifericaRepository;
+use App\Models\Periferica;
 
 class PerifericaService implements IPerifericaService
 {

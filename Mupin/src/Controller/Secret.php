@@ -8,7 +8,7 @@
  */
 declare(strict_types=1);
 
-namespace Mupin\Controller;
+namespace App\Controller;
 
 use League\Plates\Engine;
 use Nyholm\Psr7\Response;

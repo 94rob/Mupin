@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace Mupin\Service;
+namespace App\Service;
 require 'vendor/autoload.php';
 
-use Mupin\Repository\SoftwareRepository;
-use Mupin\Models\Software;
+use App\Repository\SoftwareRepository;
+use App\Models\Software;
 
 class SoftwareService implements ISoftwareService
 {

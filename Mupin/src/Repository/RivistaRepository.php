@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mupin\Repository;
+namespace App\Repository;
 
 require 'vendor/autoload.php';
 
 use PDO;
-use Mupin\Models\Rivista;
+use App\Models\Rivista;
 
 class RivistaRepository extends RepositoryFather
 {

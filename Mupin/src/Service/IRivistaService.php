@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Mupin\Service;
+namespace App\Service;
 require 'vendor/autoload.php';
 
 interface IRivistaService{

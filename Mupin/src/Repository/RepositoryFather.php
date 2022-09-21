@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Mupin\Repository;
+namespace App\Repository;
 require 'vendor/autoload.php';
 
 use PDO;
