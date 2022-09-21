@@ -23,11 +23,12 @@ class Search implements ControllerInterface
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        
         $req = $request->getBody()->__toString();
-        $req_array = $this->parseBody($req);
+        $req_array = $this->parseRequestBody($req);
 
-        $result = $this->serviceRouter->find($req_array["cosa_cercare"], $req_array["dove_cercare"], $req_array["selettori"]);
+        $selettori_array = array_key_exists("selettori", $req_array) ? $req_array["selettori"] : [];               
+
+        $result = $this->serviceRouter->find($_POST["input"], $_POST["dove-cercare"], $selettori_array);        
         
         return new Response(
             200,
@@ -38,7 +39,7 @@ class Search implements ControllerInterface
         );
     }
 
-    public function parseBody(string $s): array{
+    public function parseRequestBody(string $s): array{
         $req_array = explode('&', $s);
         $array = [];
         $array_new = [];

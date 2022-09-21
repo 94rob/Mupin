@@ -24,9 +24,10 @@ class ComputerRepository extends RepositoryFather
         $sqlInstruction = "SELECT * FROM computer WHERE ";
         foreach($arrProperties as $element){
             $sqlInstruction .= $element . " LIKE :input" . $i;
-            if ($i < $len){
+            if ($i < $len - 1){
                 $sqlInstruction .= " OR ";
             }
+            $i +=1;
         }        
 
         $sth = $this->pdo->prepare($sqlInstruction);
