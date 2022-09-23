@@ -7,14 +7,7 @@ use PDO;
 use App\Models\Libro;
 class LibroRepository extends RepositoryFather{  
 
-    // SELECT
-    public function selectAll(): array{
-        $sqlInstruction = "SELECT * FROM libro;";
-        $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
-
+    // SELECT   
     public function selectFromLibroWhere(string $input): array
     {
         $input = '%' . $input . '%';

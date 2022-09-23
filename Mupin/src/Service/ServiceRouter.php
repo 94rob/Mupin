@@ -36,6 +36,10 @@ class ServiceRouter{
 
             case("computer"):
                 $response_array["computer"] = [];
+                if(empty($selettori)){
+                    $result = $this->computerService->selectFromComputerWhere($cosa_cercare);
+                    $response_array["computer"] = $this->pushInArrayIfNew($result, $response_array["computer"]);
+                }
                 if(in_array("modello-titolo", $selettori)){
                     $result = $this->computerService->selectByModello($cosa_cercare);
                    $response_array["computer"] = $this->pushInArrayIfNew($result, $response_array["computer"]);
@@ -61,6 +65,10 @@ class ServiceRouter{
 
             case("libro"):
                 $response_array["libro"] = [];
+                if(empty($selettori)){
+                    $result = $this->libroService->selectFromLibroWhere($cosa_cercare);
+                    $response_array["libro"] = $this->pushInArrayIfNew($result, $response_array["libro"]);
+                }
                 if(in_array("modello-titolo", $selettori)){
                     $result = $this->libroService->selectByTitolo($cosa_cercare);
                    $response_array["libro"] = $this->pushInArrayIfNew($result, $response_array["libro"]);
@@ -89,7 +97,11 @@ class ServiceRouter{
                 return $response_array; 
 
             case("periferica"):
-                $response_array["periferica"] = [];                
+                $response_array["periferica"] = [];    
+                if(empty($selettori)){
+                    $result = $this->perifericaService->selectFromPerifericaWhere($cosa_cercare);
+                    $response_array["periferica"] = $this->pushInArrayIfNew($result, $response_array["periferica"]);
+                }            
                 if(in_array("modello-titolo", $selettori)){
                     $result = $this->perifericaService->selectByModello($cosa_cercare);
                     $response_array["periferica"] = $this->pushInArrayIfNew($result, $response_array["periferica"]);
@@ -106,6 +118,10 @@ class ServiceRouter{
 
             case("rivista"):
                 $response_array["rivista"] = []; 
+                if(empty($selettori)){
+                    $result = $this->rivistaService->selectFromRivistaWhere($cosa_cercare);
+                    $response_array["rivista"] = $this->pushInArrayIfNew($result, $response_array["rivista"]);
+                }
                 if(in_array("modello-titolo", $selettori)){
                     $result = $this->rivistaService->selectByTitolo($cosa_cercare);
                     $response_array["rivista"] = $this->pushInArrayIfNew($result, $response_array["rivista"]);
@@ -130,6 +146,10 @@ class ServiceRouter{
 
             case("software"):
                 $response_array["rivista"] = []; 
+                if(empty($selettori)){
+                    $result = $this->softwareService->selectFromSoftwareWhere($cosa_cercare);
+                    $response_array["software"] = $this->pushInArrayIfNew($result, $response_array["software"]);
+                }
                 if(in_array("modello-titolo", $selettori)){
                     $result = $this->softwareService->selectByTitolo($cosa_cercare);
                     $response_array["software"] = $this->pushInArrayIfNew($result, $response_array["software"]);

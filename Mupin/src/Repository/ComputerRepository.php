@@ -8,13 +8,7 @@ use App\Models\Computer;
 
 class ComputerRepository extends RepositoryFather
 {
-    // SELECT
-    public function selectAll(): array{
-        $sqlInstruction = "SELECT * FROM computer;";
-        $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // SELECT    
     public function selectFromComputerWhere(string $input): array
     {
         $input = '%' . $input . '%';

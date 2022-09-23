@@ -1,8 +1,8 @@
 <?php
-$this->layout('head-display', ['title' => 'Ricerca']);
+$this->layout('layout-public', ['title' => 'Ricerca']);
 ?>
 
-<html>
+
 <table>
     <thead>
         <td>N°</td>
@@ -24,12 +24,12 @@ $this->layout('head-display', ['title' => 'Ricerca']);
                 if (property_exists($model, "titolo")) {
                     echo "<td class='titolo'>" . $model->getTitolo() . "</td>";
                 }
+                $i += 1;
             }
             echo "</tr>";
-            $i += 1;
+            
         }
         ?> 
     </tbody>
 </table>
 
-</html>

@@ -19,7 +19,7 @@ class SoftwareService implements ISoftwareService
     // SELECT
     public function selectAll(): array
     {
-        $result = $this->softwareRepository->selectAll();
+        $result = $this->softwareRepository->selectAll("software");
         return $this->fromArrayToSoftwareArray($result);
     }
     public function selectFromSoftwareWhere(string $input): array{

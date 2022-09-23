@@ -11,13 +11,7 @@ use App\Models\Rivista;
 
 class RivistaRepository extends RepositoryFather
 {
-    // SELECT
-    public function selectAll(): array{
-        $sqlInstruction = "SELECT * FROM rivista;";
-        $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // SELECT    
     public function selectFromRivistaWhere(string $input): array
     {
         $input = '%' . $input . '%';

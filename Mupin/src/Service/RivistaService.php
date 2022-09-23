@@ -19,7 +19,7 @@ class RivistaService implements IRivistaService
     // SELECT
     public function selectAll(): array
     {
-        $result = $this->rivistaRepository->selectAll();
+        $result = $this->rivistaRepository->selectAll("rivista");
         return $this->fromArrayToRivistaArray($result);
     }
     public function selectFromRivistaWhere(string $input): array{

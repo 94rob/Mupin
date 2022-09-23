@@ -12,35 +12,29 @@ namespace App\Controller;
 
 use League\Plates\Engine;
 use Nyholm\Psr7\Response;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
 
-class Secret implements ControllerInterface
+class HelloController implements ControllerInterface
+
 {
     protected Engine $plates;
 
-    /** @var string[] */
-    protected array $auth;
-
-    /**
-     * @param string[] $auth
-     */
-    public function __construct(Engine $plates, array $auth)
+    public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-        $this->auth = $auth;
     }
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        $name = $request->getAttribute('name', 'unknown');
+
         return new Response(
-            200,
+            200, 
             [],
-            $this->plates->render('secret', [
-                'username' => $this->auth['username'],
-                'password' => $this->auth['password']
+            $this->plates->render('hello', [
+                'name' => ucfirst($name)
             ])
         );
     }

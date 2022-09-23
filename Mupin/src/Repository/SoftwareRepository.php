@@ -7,13 +7,7 @@ use PDO;
 use App\Models\Software;
 class SoftwareRepository extends RepositoryFather{   
 
-    // SELECT
-    public function selectAll(): array{
-        $sqlInstruction = "SELECT * FROM software;";
-        $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // SELECT   
     public function selectFromSoftwareWhere(string $input): array
     {
         $input = '%' . $input . '%';

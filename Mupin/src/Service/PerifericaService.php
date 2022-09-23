@@ -20,7 +20,7 @@ class PerifericaService implements IPerifericaService
     // SELECT
     public function selectAll(): array
     {
-        $result = $this->perifericaRepository->selectAll();
+        $result = $this->perifericaRepository->selectAll("periferica");
         return $this->fromArrayToPerifericaArray($result);
     }
     public function selectFromPerifericaWhere(string $input): array{

@@ -6,8 +6,12 @@ REFACTORING
 
 -sposta il contenuto dei case del ServiceRouter dentro i Service così lo alleggerisci
 
+
 UTILITA'  AGGIUNTIVE
 - Cambia le query di select in modo che se passo più di un parametro me li trova tutti (es due parole per i tag)
+
+- Trasformare le righe della tabella in link così che cliccandoli si vedono le specifiche dell'articolo
+
 
 PER CONTINUARE
 - Implementa il login

@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
 use App\Service\ServiceRouter;
 
-class Search implements ControllerInterface
+class SearchController implements ControllerInterface
 {
     protected Engine $plates;
     protected ServiceRouter $serviceRouter;
@@ -33,7 +33,7 @@ class Search implements ControllerInterface
         return new Response(
             200,
             [],
-            $this->plates->render('show', [
+            $this->plates->render('results', [
                 'req' =>$result]
                 )
         );

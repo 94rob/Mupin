@@ -16,6 +16,14 @@ class RepositoryFather{
         $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);        
     }
 
+    public function selectAll(string $tableName): array
+    {
+        $sql_select_user = "SELECT * FROM " . $tableName;
+        $statement_select = $this->pdo->prepare($sql_select_user);
+        $statement_select->execute();
+        return $statement_select->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function executeUpdateString(string $newValue, string $idCatalogo, string $sqlUpdate, PDO $pdo){
         $sth = $pdo->prepare($sqlUpdate);
         $sth->bindValue(':input', $newValue, PDO::PARAM_STR);

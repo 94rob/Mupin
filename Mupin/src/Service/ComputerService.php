@@ -22,7 +22,7 @@ class ComputerService implements IComputerService
     // SELECT    
     public function selectAll(): array
     {
-        $result = $this->computerRepository->selectAll();
+        $result = $this->computerRepository->selectAll("computer");
         return $this->fromArrayToComputerArray($result);
     }
     public function selectFromComputerWhere(string $input): array{

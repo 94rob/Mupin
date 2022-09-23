@@ -7,13 +7,7 @@ use PDO;
 use App\Models\Periferica;
 class PerifericaRepository extends RepositoryFather{  
 
-    // SELECT   
-    public function selectAll(): array{
-        $sqlInstruction = "SELECT * FROM periferica;";
-        $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // SELECT       
     public function selectFromPerifericaWhere(string $input): array
     {
         $input = '%' . $input . '%';
