@@ -24,9 +24,10 @@ class RepositoryFather{
         return $statement_select->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function executeUpdateString(string $newValue, string $idCatalogo, string $sqlUpdate, PDO $pdo){
-        $sth = $pdo->prepare($sqlUpdate);
+    public function executeUpdateString(string $column, string $newValue, string $idCatalogo, string $sqlUpdate){
+        $sth = $this->pdo->prepare($sqlUpdate);
         $sth->bindValue(':input', $newValue, PDO::PARAM_STR);
+        $sth->bindValue(':column', $column, PDO::PARAM_STR);
         $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
         $sth->execute();
     }
@@ -36,8 +37,9 @@ class RepositoryFather{
         $sth->bindValue(':id_catalogo', $idCatalogo, PDO::PARAM_STR);
         $sth->execute();
     }
-    public function executeSelectString(string $input, string $sqlInstruction, PDO $pdo){
-        $sth = $pdo->prepare($sqlInstruction);
+    public function executeSelectString(string $input, string $column, string $sqlInstruction){
+        $sth = $this->pdo->prepare($sqlInstruction);
+        $sth->bindValue(':column', $column, PDO::PARAM_STR);
         $sth->bindValue(':input', $input, PDO::PARAM_STR);
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);

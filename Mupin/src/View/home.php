@@ -5,12 +5,12 @@ $this->layout('layout-public', ['title' => 'Home Page']);
 <div class="container">
     <row class="justify-content-center">
         <div class="col-12 align-self-center title">
-            <h1>Esplora il museo</h1>
-            <h5>Seleziona una categoria</h5>
+            <h1>Museo Piemontese dell'Informatica</h1>
+            <h5>Clicca per selezionare una categoria ed effettuare una ricerca</h5>
         </div>
     </row>
 
-    <form action="./search" method="post">
+    <form action="./search" method="POST">
         <div class="row justify-content-between">
             <div class="col-2">
                 <input type="radio" id="computer-checkbox" name="dove-cercare" value="computer">
@@ -59,8 +59,15 @@ $this->layout('layout-public', ['title' => 'Home Page']);
             </div>
         </div>
 
+        <div class="row justify-content-center">
+                <input type="radio" id="ovunque-checkbox" name="dove-cercare" value="ovunque">
+                <label for="ovunque-checkbox">Tutte le categorie</label>
+        </div>
+
         <div class="row justify-content-center row-btn">
             <div class="col-4">
+                
+            
                 <fieldset>
                     <div class="input-label"><label for="input">Inserisci una o più parole chiave</label></div>
                     <input class="textbox" type="text" id="input" name="input" autocomplete="off"><br />
@@ -69,7 +76,7 @@ $this->layout('layout-public', ['title' => 'Home Page']);
         </div>
 
         <div class="row justify-content-center">
-            <fieldset class="selettori">
+            <fieldset class="selettor">
                 <input type="checkbox" class="computer libro periferica rivista software" id="modello-titolo-checkbox" name="selettori[1]" value="modello-titolo">
                 <label for="modello-titolo-checkbox" class="computer libro periferica rivista software">Modello/ Titolo</label><br>
                 <input type="checkbox" class="libro" id="autore-checkbox" name="selettori[2]" value="autore">
@@ -89,7 +96,7 @@ $this->layout('layout-public', ['title' => 'Home Page']);
 
         <div class="row justify-content-center">
             <div class="col4">
-                <button class="btn-ricerca"><a href="./search">Cerca</a></button>
+                <button class="btn-ricerca">Cerca</button>
 
             </div>
         </div>

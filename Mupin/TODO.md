@@ -4,7 +4,9 @@ REFACTORING
 
 - Fai in modo che la ricerca compaia nella stessa pagina da cui parte -> mettendoci una section e facendo una post a sè stessa?
 
--sposta il contenuto dei case del ServiceRouter dentro i Service così lo alleggerisci
+- sposta il contenuto dei case del ServiceRouter dentro i Service così lo alleggerisci
+
+- nel repositoryFather ci sono dei pdo esterni quando basta mettere $this
 
 
 UTILITA'  AGGIUNTIVE

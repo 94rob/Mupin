@@ -9,6 +9,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
+use App\Service\UserService;
 
 class LoginController implements ControllerInterface
 {
@@ -23,13 +24,24 @@ class LoginController implements ControllerInterface
     {
         $email = $_POST["email"];
         $password = $_POST["password"];
-        return new Response(
-            200,
-            [],
-            $this->plates->render('reserved-area', [
-                'email' => $email, 
-                'password' => $password                 
-            ])
-        );
+        
+        $userService = new UserService();      
+
+        if($userService->verifyPassword($email, $password)){
+            return new Response(
+                200,
+                [],
+                $this->plates->render('reserved-area')
+            );
+        } else {
+            return new Response(
+                200,
+                [],
+                $this->plates->render('login', [
+                    'autenticazioneFallita' => true                                 
+                ])
+            );
+        }
+        
     }
 }

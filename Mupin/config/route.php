@@ -12,7 +12,9 @@ return [
     [ 'POST', '/login', [ Controller\LoginController::class ]], 
 
     // Ricerca    
-    [ 'POST', '/search', [ Controller\SearchController::class ]], 
+    [ 'POST', '/search', [ Controller\SearchController::class ]],
+    [ 'GET', '/search', [ Controller\SearchController::class ]], 
+    ['GET', '/{idCatalogo}', [Controller\ItemController::class]] 
     
 
 ];

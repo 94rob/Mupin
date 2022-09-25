@@ -2,7 +2,7 @@
 $this->layout('layout-public', ['title' => 'Ricerca']);
 ?>
 
-
+<form id="form-single-item" method="get">
 <table>
     <thead>
         <td>N°</td>
@@ -15,14 +15,15 @@ $this->layout('layout-public', ['title' => 'Ricerca']);
         foreach ($req as $key => $value) {
 
             foreach ($value as $subkey => $model) {
+                $string = "'".$model->getIdCatalogo()."'";
 
-                echo "<tr><td>" . $i . "</td>" . "<td>" . ucfirst($key) . "</td>";
+                echo '<tr onclick="funz('.$string.')">\n<td>' . $i . '</td>\n<td>' . ucfirst($key) . '</td>\n';
 
                 if (property_exists($model, "modello")) {
-                    echo "<td class='titolo'>" . $model->getModello() . "</td>";
+                    echo "<td class='titolo'>" . $model->getModello() . "</td>\n";
                 }
                 if (property_exists($model, "titolo")) {
-                    echo "<td class='titolo'>" . $model->getTitolo() . "</td>";
+                    echo "<td class='titolo'>" . $model->getTitolo() . "</td>\n";
                 }
                 $i += 1;
             }
@@ -32,4 +33,7 @@ $this->layout('layout-public', ['title' => 'Ricerca']);
         ?> 
     </tbody>
 </table>
+<button type="submit">Go</button>
+</form>
+
 

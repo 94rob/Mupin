@@ -9,7 +9,7 @@ use App\Models\Computer;
 class ComputerRepository extends RepositoryFather
 {
     // SELECT    
-    public function selectFromComputerWhere(string $input): array
+    public function selectFromComputerWhereWhateverLikeInput(string $input): array
     {
         $input = '%' . $input . '%';
         $arrProperties = ["MODELLO", "ANNO", "CPU", "VELOCITA_CPU", "MEMORIA_RAM", "DIMENSIONE_HARD_DISK", "SISTEMA_OPERATIVO", "NOTE", "URL", "TAG"];
@@ -23,7 +23,6 @@ class ComputerRepository extends RepositoryFather
             }
             $i +=1;
         }        
-
         $sth = $this->pdo->prepare($sqlInstruction);
         
         for($i=0; $i<$len;$i++){
@@ -32,35 +31,12 @@ class ComputerRepository extends RepositoryFather
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function selectByModello(string $input)
-    {
+
+    public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM computer WHERE MODELLO LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByAnno(int $input)
-    {
-        $sqlInstruction = "SELECT * FROM computer WHERE ANNO = :input ;";
-        return parent::executeSelectInt($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectBySistemaOperativo(string $input)
-    {
-        $input = '%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM computer WHERE SISTEMA_OPERATIVO LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByNote(string $input)
-    {
-        $input = '%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM computer WHERE NOTE LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByTag(string $input)
-    {
-        $input = '%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM computer WHERE TAG LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
+        $sqlInstruction = "SELECT * FROM computer WHERE :column LIKE :input ;";
+        return parent::executeSelectString($input, $column, $sqlInstruction);
+    }    
 
     // INSERT
     public function insertIntoComputer(Computer $computer)
@@ -78,73 +54,33 @@ class ComputerRepository extends RepositoryFather
         $sth->execute();
 
         if (isset($computer->dimensione_hard_disk)) {
-            $this->updateDimensioneHardDisk($computer->getIdCatalogo(), $computer->getDimensioneHardDisk());
+            $this->updateColumnByIdCatalogo("DIMESIONE_HARD_DISK", $computer->getIdCatalogo(), (string)$computer->getDimensioneHardDisk());
         }
         if (isset($computer->sistema_operativo)) {
-            $this->updateSistemaOperativo($computer->getIdCatalogo(), $computer->getSistemaOperativo());
+            $this->updateColumnByIdCatalogo("SISTEMA_OPERATIVO", $computer->getIdCatalogo(), $computer->getSistemaOperativo());
         }
         if (isset($computer->note)) {
-            $this->updateNote($computer->getIdCatalogo(), $computer->getNote());
+            $this->updateColumnByIdCatalogo("NOTE", $computer->getIdCatalogo(), $computer->getNote());
         }
         if (isset($computer->url)) {
-            $this->updateUrl($computer->getIdCatalogo(), $computer->getUrl());
+            $this->updateColumnByIdCatalogo("URL", $computer->getIdCatalogo(), $computer->getUrl());
         }
         if (isset($computer->tag)) {
-            $this->updateTag($computer->getIdCatalogo(), $computer->getTag());
+            $this->updateColumnByIdCatalogo("TAG", $computer->getIdCatalogo(), $computer->getTag());
         }
     }
 
     // UPDATE
-    public function updateModello(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE computer SET MODELLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+    public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
+        $sqlInstruction = "UPDATE computer SET :column = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        parent::executeUpdateString($column, $input, $idCatalogo, $sqlInstruction);
     }
-    public function updateAnno(string $idCatalogo, int $input)
-    {
-        $sqlInstruction = "UPDATE computer SET ANNO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateCpu(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET CPU = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateVelocitaCpu(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET VELOCITA_CPU = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateMemoriaRam(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET MEMORIA_RAM = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateDimensioneHardDisk(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET DIMENSIONE_HARD_DISK = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateSistemaOperativo(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET SISTEMA_OPERATIVO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateNote(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateUrl(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateTag(string $idCatalogo, $input)
-    {
-        $sqlInstruction = "UPDATE computer SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
+    
+    // public function updateAnno(string $idCatalogo, int $input)
+    // {
+    //     $sqlInstruction = "UPDATE computer SET ANNO = :input WHERE ID_CATALOGO = :id_catalogo ;";
+    //     parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
+    // }    
 
     // DELETE
     public function deleteFromComputer(string $idCatalogo){

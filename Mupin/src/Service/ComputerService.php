@@ -9,7 +9,7 @@ require 'vendor/autoload.php';
 use App\Repository\ComputerRepository;
 use App\Models\Computer;
 
-class ComputerService implements IComputerService
+class ComputerService // implements IComputerService
 {
 
     public ComputerRepository $computerRepository;  
@@ -25,35 +25,15 @@ class ComputerService implements IComputerService
         $result = $this->computerRepository->selectAll("computer");
         return $this->fromArrayToComputerArray($result);
     }
-    public function selectFromComputerWhere(string $input): array{
-        $result = $this->computerRepository->selectFromComputerWhere($input);
+    public function selectFromComputerWhereWhateverLikeInput(string $input): array{
+        $result = $this->computerRepository->selectFromComputerWhereWhateverLikeInput($input);
         return $this->fromArrayToComputerArray($result);
     }
-    public function selectByModello(string $input): array
-    {
-        $result = $this->computerRepository->selectByModello($input);
+
+    public function selectWhereColumnLikeInput(string $column, string $input){
+        $result = $this->computerRepository->selectWhereColumnLikeInput($column, $input);
         return $this->fromArrayToComputerArray($result);
-    }
-    public function selectByAnno(int $input): array
-    {
-        $result = $this->computerRepository->selectByAnno($input);
-        return $this->fromArrayToComputerArray($result);
-    }
-    public function selectBySistemaOperativo(string $input): array
-    {
-        $result = $this->computerRepository->selectBySistemaOperativo($input);
-        return $this->fromArrayToComputerArray($result);
-    }
-    public function selectByNote(string $input): array
-    {
-        $result = $this->computerRepository->selectByNote($input);
-        return $this->fromArrayToComputerArray($result);
-    }
-    public function selectByTag(string $input): array
-    {
-        $result = $this->computerRepository->selectByTag($input);
-        return $this->fromArrayToComputerArray($result);
-    }
+    }    
 
     // INSERT
     public function insertIntoComputer(array $array): void{
@@ -62,45 +42,8 @@ class ComputerService implements IComputerService
     }
 
     // UPDATE
-    public function updateModello(string $idCatalogo, string $input)
-    {
-        $this->updateModello($idCatalogo, $input);
-    }
-    public function updateAnno(string $idCatalogo, int $input)
-    {
-        $this->updateAnno($idCatalogo, $input);
-    }
-    public function updateCpu(string $idCatalogo, string $input)
-    {
-        $this->updateCpu($idCatalogo, $input);
-    }
-    public function updateVelocitaCpu(string $idCatalogo, float $input)
-    {
-        $this->updateVelocitaCpu($idCatalogo, $input);
-    }
-    public function updateMemoriaRam(string $idCatalogo, int $input)
-    {
-        $this->updateMemoriaRam($idCatalogo, $input);
-    }
-    public function updateDimensioneHardDisk(string $idCatalogo, int $input)
-    {
-        $this->updateDimensioneHardDisk($idCatalogo, $input);
-    }
-    public function updateSistemaOperativo(string $idCatalogo, string $input)
-    {
-        $this->updateSistemaOperativo($idCatalogo, $input);
-    }
-    public function updateNote(string $idCatalogo, string $input)
-    {
-        $this->updateNote($idCatalogo, $input);
-    }
-    public function updateUrl(string $idCatalogo, string $input)
-    {
-        $this->updateUrl($idCatalogo, $input);
-    }
-    public function updateTag(string $idCatalogo, string $input)
-    {
-        $this->updateTag($idCatalogo, $input);
+    public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
+        $this->computerRepository->updateColumnByIdCatalogo($column, $idCatalogo, $input);
     }
     
     // DELETE
@@ -145,4 +88,5 @@ class ComputerService implements IComputerService
         }
         return $objectArray;
     }
+    
 }
