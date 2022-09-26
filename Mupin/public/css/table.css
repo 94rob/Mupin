@@ -56,11 +56,10 @@ table {
     color: white;
   }
   
-  tbody tr:hover {
+  /* tbody tr:hover {
     background: #01161e;
     cursor: pointer;
-  }
+    color: white; 
+  } */
   
-  tbody tr:hover td{
-    color: white;  
-  }
+ 

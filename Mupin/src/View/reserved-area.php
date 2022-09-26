@@ -3,6 +3,12 @@
 $this->layout('layout-private', [
     'title' => 'Area Riservata'
 ]);
+
+if(!array_key_exists("logged", $_SESSION) || !$_SESSION["logged"] ){
+    header("Location: ../../");
+    http_response_code(401);
+    die();
+}
 ?>
 
 <form action="/search" method="POST">

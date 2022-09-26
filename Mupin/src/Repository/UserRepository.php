@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 use Exception;
 
-class UserRepository extends RepositoryFather
+class UserRepository extends RepositoryUtils
 {   
      public function selectPassByEmail(string $email)
     {

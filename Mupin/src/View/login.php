@@ -16,7 +16,7 @@ if($autenticazioneFallita === true){
             <label for="password" class="login-label"> Password </label>
             <input class="textbox" type="password" id="password" name="password">
             <br />
-            <button class="btn-ricerca" type="submit" onclick="login()"> Log in </button>
+            <button class="btn-ricerca" type="submit"> Log in </button>
 
         </div>
     </row>

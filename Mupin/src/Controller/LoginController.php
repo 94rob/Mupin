@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\UserService;
+use App\Service\Implementations\UserService;
 
 class LoginController implements ControllerInterface
 {
@@ -22,26 +22,40 @@ class LoginController implements ControllerInterface
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        
-        $userService = new UserService();      
-
-        if($userService->verifyPassword($email, $password)){
+        if($request->getMethod() == 'GET'){
             return new Response(
-                200,
-                [],
-                $this->plates->render('reserved-area')
-            );
-        } else {
-            return new Response(
-                200,
+                200, 
                 [],
                 $this->plates->render('login', [
-                    'autenticazioneFallita' => true                                 
+                    'autenticazioneFallita' => false   
                 ])
             );
         }
+        if($request->getMethod()=='POST'){
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            
+            $userService = new UserService();      
+
+            if($userService->verifyPassword($email, $password)){
+                session_start();
+                $_SESSION["logged"] = true;
+                return new Response(
+                    200,
+                    [],
+                    $this->plates->render('reserved-area')
+                );
+            } else {
+                return new Response(
+                    200,
+                    [],
+                    $this->plates->render('login', [
+                        'autenticazioneFallita' => true                                 
+                    ])
+                );
+            }
+        }
+        
         
     }
 }

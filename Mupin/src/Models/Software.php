@@ -13,7 +13,7 @@ class Software{
     public string $tag;
     
     // Getter
-    public function getId_catalogo()
+    public function getIdCatalogo()
     {
         return $this->id_catalogo;
     }
@@ -21,7 +21,7 @@ class Software{
     {
         return $this->titolo;
     }
-    public function getSistema_operativo()
+    public function getSistemaOperativo()
     {
         return $this->sistema_operativo;
     }
@@ -47,7 +47,7 @@ class Software{
     }    
     
     // Setter
-    public function setId_catalogo($id_catalogo)
+    public function setIdCatalogo($id_catalogo)
     {
         $this->id_catalogo = $id_catalogo;
         
@@ -59,7 +59,7 @@ class Software{
         
         return $this;
     }    
-    public function setSistema_operativo($sistema_operativo)
+    public function setSistemaOperativo($sistema_operativo)
     {
         $this->sistema_operativo = $sistema_operativo;
 

@@ -8,11 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/general.css">
-    <link rel="stylesheet" href="css/table.css">
-    <link rel="stylesheet" href="css/header.css">
-    <script type="text/javascript" src="js/table.js"></script>
-    <script type="text/javascript" src="js/delete.js"></script>
+    <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/header.css">    
 
     <title><?= $this->e($title) ?></title>
 </head>
@@ -23,7 +21,7 @@
         <!-- [data-animate-header] - this is the actual element that will be fixed/animated -->
         <menu class='header-bar' data-animate-header>
             <a href='./' class='btn-menu' data-toggle-class='menu-active'>Home</a>
-            <a href='./authenticate' class='btn-search' data-toggle-class='search-active'>Area riservata</a>
+            <a href='./login' class='btn-search' data-toggle-class='search-active'>Area riservata</a>
         </menu>
     </header>
 

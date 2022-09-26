@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 use PDO;
 use App\Models\Periferica;
-class PerifericaRepository extends RepositoryFather{  
+class PerifericaRepository extends RepositoryUtils{  
 
     // SELECT       
     public function selectFromPerifericaWhereWhateverLikeInput(string $input): array
@@ -34,7 +34,7 @@ class PerifericaRepository extends RepositoryFather{
     public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
         $sqlInstruction = "SELECT * FROM periferica WHERE ". $column ." LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction);
+        return parent::executeSelect($input, $sqlInstruction);
     } 
 
     // INSERT
@@ -44,26 +44,26 @@ class PerifericaRepository extends RepositoryFather{
         $sqlInstruction .= ") VALUES ( :id_catalogo , :modello , :tipologia ); ";        
 
         $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->bindValue(':id_catalogo', $periferica->getId_catalogo(), PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $periferica->getIdCatalogo(), PDO::PARAM_STR);
         $sth->bindValue(':modello', $periferica->getModello(), PDO::PARAM_STR);
         $sth->bindValue(':tipologia', $periferica->getTipologia(), PDO::PARAM_STR);        
         $sth->execute();
         
         if (isset($periferica->note)) {
-            $this->updateColumnByIdCatalogo("NOTE", $periferica->getId_catalogo(), $periferica->getNote());
+            $this->updateColumnByIdCatalogo("NOTE", $periferica->getIdCatalogo(), $periferica->getNote());
         }
         if (isset($periferica->url)) {
-            $this->updateColumnByIdCatalogo("URL", $periferica->getId_catalogo(), $periferica->getUrl());
+            $this->updateColumnByIdCatalogo("URL", $periferica->getIdCatalogo(), $periferica->getUrl());
         }
         if (isset($periferica->tag)) {
-            $this->updateColumnByIdCatalogo("TAG", $periferica->getId_catalogo(), $periferica->getTag());
+            $this->updateColumnByIdCatalogo("TAG", $periferica->getIdCatalogo(), $periferica->getTag());
         }
     }
 
     // UPDATE
     public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
         $sqlInstruction = "UPDATE periferica SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
+        parent::executeUpdate($input, $idCatalogo, $sqlInstruction);
     }
 
     // DELETE

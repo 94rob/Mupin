@@ -10,21 +10,45 @@ body {
   color: white; /* #e9c46a;*/
   font-size: 14px;
   letter-spacing: 0.1em;
+  /* text-align: center; */
+}
+
+.home-layout-center{
   text-align: center;
 }
+
+.div-selettore,
+.div-selettore p{
+  display:inline;
+  margin-right: 2%;
+}
+
+.div-selettore p{
+  text-transform: uppercase;
+  font-size: medium;
+  color: #e9c46a;
+  cursor: pointer;
+}
+
+.selettori-container{ 
+  margin-top:2%;
+  text-align: justify;
+}
+
+#selettori{
+  display: none;
+}
+
+[type=checkbox] + label{
+  display:inline;
+} 
+
 
 body,
 html,
 article {
   height: 100%;
 }
-
-
-
-/* blockquote {
-  color: white;
-  text-align: center;
-} */
 
 .titolo {
   font-weight: 600;
@@ -114,6 +138,7 @@ label:hover{
 [type="radio"]:checked + label figure figcaption{
   color:#e9c46a;
 }
+
 #ovunque-checkbox + label{
   margin-top: 1.5%;
   font-size: medium;
@@ -122,10 +147,6 @@ label:hover{
 
 #ovunque-checkbox:checked + label{
   color:#e9c46a;
-}
-
-.selettori{
-  display: none;
 }
 
 .login-label{

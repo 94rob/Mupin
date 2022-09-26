@@ -41,22 +41,27 @@ class DeleteController implements ControllerInterface
             case ("computer"):
                 $this->computerService->deleteFromComputer($idCatalogo);
                 $result = "Ha funzionato";
+                break;
 
             case ("libro"):
                 $this->libroService->deleteFromLibro($idCatalogo);
                 $result = "Ha funzionato";
+                break;
 
             case ("rivista"):
                 $this->rivistaService->deleteFromRivista($idCatalogo);
                 $result = "Ha funzionato";
+                break;
 
             case ("software"):
                 $this->softwareService->deleteFromSoftware($idCatalogo);
                 $result = "Ha funzionato";
+                break;
 
             case ("periferica"):
                 $this->perifericaService->deleteFromPeriferica($idCatalogo);
                 $result = "Ha funzionato";
+                break;
 
             default:
                 $result = "Non ha funzionato";

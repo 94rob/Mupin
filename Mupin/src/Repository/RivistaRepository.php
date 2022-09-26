@@ -9,7 +9,7 @@ require 'vendor/autoload.php';
 use PDO;
 use App\Models\Rivista;
 
-class RivistaRepository extends RepositoryFather
+class RivistaRepository extends RepositoryUtils
 {
     // SELECT    
     public function selectFromRivistaWhereWhateverLikeInput(string $input): array
@@ -38,7 +38,7 @@ class RivistaRepository extends RepositoryFather
     public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
         $sqlInstruction = "SELECT * FROM rivista WHERE ". $column ." LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction);
+        return parent::executeSelect($input, $sqlInstruction);
     } 
 
     // INSERT
@@ -48,28 +48,28 @@ class RivistaRepository extends RepositoryFather
         $sqlInstruction .= ") VALUES ( :id_catalogo , :titolo , :numero_rivista, :anno, :casa_editrice );";
 
         $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->bindValue(':id_catalogo', $rivista->getId_catalogo(), PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $rivista->getIdCatalogo(), PDO::PARAM_STR);
         $sth->bindValue(':titolo', $rivista->getTitolo(), PDO::PARAM_STR);
-        $sth->bindValue(':numero_rivista', $rivista->getNum_rivista(), PDO::PARAM_INT);
+        $sth->bindValue(':numero_rivista', $rivista->getNumRivista(), PDO::PARAM_INT);
         $sth->bindValue(':anno', $rivista->getAnno(), PDO::PARAM_INT);
-        $sth->bindValue(':casa_editrice', $rivista->getCasa_editrice(), PDO::PARAM_STR);
+        $sth->bindValue(':casa_editrice', $rivista->getCasaEditrice(), PDO::PARAM_STR);
         $sth->execute();
 
         if (isset($rivista->note)) {
-            $this->updateColumnByIdCatalogo("NOTE", $rivista->getId_catalogo(), $rivista->getNote());
+            $this->updateColumnByIdCatalogo("NOTE", $rivista->getIdCatalogo(), $rivista->getNote());
         }
         if (isset($rivista->url)) {
-            $this->updateColumnByIdCatalogo("URL", $rivista->getId_catalogo(), $rivista->getUrl());
+            $this->updateColumnByIdCatalogo("URL", $rivista->getIdCatalogo(), $rivista->getUrl());
         }
         if (isset($rivista->tag)) {
-            $this->updateColumnByIdCatalogo("TAG", $rivista->getId_catalogo(), $rivista->getTag());
+            $this->updateColumnByIdCatalogo("TAG", $rivista->getIdCatalogo(), $rivista->getTag());
         }
     }
 
     // UPDATE
     public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
         $sqlInstruction = "UPDATE rivista SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
+        parent::executeUpdate($input, $idCatalogo, $sqlInstruction);
     }
 
     // DELETE

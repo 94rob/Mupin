@@ -6,16 +6,41 @@ require 'vendor/autoload.php';
 use App\Models\Libro;
 use App\Repository\LibroRepository;
 use App\Service\Interfaces\ILibroService;
+use App\Service\ServiceUtils;
 use PDO;
-class LibroService implements ILibroService{
-    public LibroRepository $libroRepository ; 
+class LibroService extends ServiceUtils implements ILibroService{
+    public LibroRepository $libroRepository ;    
     
     public function __construct(){
         $config = include 'config.php';
         $pdo = new PDO($config['dsn'], $config['username'], $config['password']);        
-        $this->libroRepository=new LibroRepository($pdo);        
+        $this->libroRepository=new LibroRepository($pdo);  
+          
     }
+
     // SELECT
+    public function executeSelect(string $cosa_cercare, array $selettori ){
+        $response_array["libro"] = [];
+                if (empty($selettori)) {
+                    $result = $this->selectFromLibroWhereWhateverLikeInput($cosa_cercare);
+                    $response_array["libro"] = parent::pushInArrayIfNew($result, $response_array["libro"]);
+                }
+                if (in_array("modello-titolo", $selettori)) {
+                    $selettori["titolo"] = $selettori["modello-titolo"];
+                    unset($selettori["modello-titolo"]);
+                }
+                
+                $possibiliSelettori = ["id-catalogo", "titolo", "anno", "autori", "casa-editrice", "note", "tag"];
+                foreach ($possibiliSelettori as $selettore) {
+                    if (in_array($selettore, $selettori)) {
+                        $column = str_replace("-", "_", strtoupper($selettore));
+                        $result = $this->selectWhereColumnLikeInput($column, $cosa_cercare);
+                        $response_array["libro"] = parent::pushInArrayIfNew($result, $response_array["libro"]);
+                    }
+                }
+
+                return $response_array;
+    }
     public function selectAll(): array
     {
         $result = $this->libroRepository->selectAll("libro");
@@ -85,3 +110,5 @@ class LibroService implements ILibroService{
         return $objectArray;
     }
 }
+
+    

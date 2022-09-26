@@ -10,20 +10,49 @@ use App\Repository\ComputerRepository;
 use App\Models\Computer;
 use App\Service\Interfaces\IComputerService;
 use PDO;
+use App\Service\ServiceUtils;
 
-class ComputerService implements IComputerService
+class ComputerService extends ServiceUtils implements IComputerService
 {
 
-    public ComputerRepository $computerRepository;  
+    public ComputerRepository $computerRepository; 
 
     public function __construct()
     {
         $config = include 'config.php';
         $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
-        $this->computerRepository = new ComputerRepository($pdo);        
+        $this->computerRepository = new ComputerRepository($pdo); 
     }
 
     // SELECT    
+    public function executeSelect(string $cosa_cercare, array $selettori ){
+        $response_array["computer"] = [];
+                if($cosa_cercare === null){
+                    $response_array["computer"] = $this->selectAll();                    
+                    return $response_array;
+                }
+
+                if (empty($selettori)) {
+                    $result = $this->selectFromComputerWhereWhateverLikeInput($cosa_cercare);
+                    $response_array["computer"] = parent::pushInArrayIfNew($result, $response_array["computer"]);
+                    return $response_array;
+                }
+
+                if (in_array("modello-titolo", $selettori)) {
+                    $selettori["modello"] = $selettori["modello-titolo"];
+                    unset($selettori["modello-titolo"]);
+                }
+                $possibiliSelettori = ["id-catalogo", "modello", "anno", "sistema-operativo", "note", "tag"];
+                foreach ($possibiliSelettori as $selettore) {
+                    if (in_array($selettore, $selettori)) {
+                        $column = str_replace("-", "_", strtoupper($selettore));
+                        $result = $this->selectWhereColumnLikeInput($column, $cosa_cercare);
+                        $response_array["computer"] = parent::pushInArrayIfNew($result, $response_array["computer"]);
+                    }
+                }
+
+                return $response_array;
+    }
     public function selectAll(): array
     {
         $result = $this->computerRepository->selectAll("computer");
@@ -92,5 +121,4 @@ class ComputerService implements IComputerService
         }
         return $objectArray;
     }
-    
 }

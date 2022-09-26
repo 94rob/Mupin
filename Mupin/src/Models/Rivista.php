@@ -13,7 +13,7 @@ class Rivista{
     public string $tag;
 
     // Getters
-    public function getId_catalogo()
+    public function getIdCatalogo()
     {
         return $this->id_catalogo;
     }
@@ -21,7 +21,7 @@ class Rivista{
     {
         return $this->titolo;
     }
-    public function getNum_rivista()
+    public function getNumRivista()
     {
         return $this->num_rivista;
     }
@@ -29,7 +29,7 @@ class Rivista{
     {
         return $this->anno;
     }
-    public function getCasa_editrice()
+    public function getCasaEditrice()
     {
         return $this->casa_editrice;
     }
@@ -47,7 +47,7 @@ class Rivista{
     }
 
     // Setters
-    public function setId_catalogo($id_catalogo)
+    public function setIdCatalogo($id_catalogo)
     {
         $this->id_catalogo = $id_catalogo;
 
@@ -59,7 +59,7 @@ class Rivista{
 
         return $this;
     }
-    public function setNum_rivista($num_rivista)
+    public function setNumRivista($num_rivista)
     {
         $this->num_rivista = $num_rivista;
 
@@ -71,7 +71,7 @@ class Rivista{
 
         return $this;
     }
-    public function setCasa_editrice($casa_editrice)
+    public function setCasaEditrice($casa_editrice)
     {
         $this->casa_editrice = $casa_editrice;
 

@@ -7,9 +7,10 @@ require 'vendor/autoload.php';
 use App\Repository\PerifericaRepository;
 use App\Models\Periferica;
 use App\Service\Interfaces\IPerifericaService;
+use App\Service\ServiceUtils;
 use PDO;
 
-class PerifericaService implements IPerifericaService
+class PerifericaService extends ServiceUtils implements IPerifericaService
 {
 
     public PerifericaRepository $perifericaRepository;
@@ -22,6 +23,26 @@ class PerifericaService implements IPerifericaService
     }
 
     // SELECT
+    public function executeSelect(string $cosa_cercare, array $selettori ){
+        $response_array["periferica"] = [];
+                if (empty($selettori)) {
+                    $result = $this->selectFromPerifericaWhereWhateverLikeInput($cosa_cercare);
+                    $response_array["periferica"] = parent::pushInArrayIfNew($result, $response_array["periferica"]);
+                }
+                if (in_array("modello-titolo", $selettori)) {
+                    $selettori["modello"] = $selettori["modello-titolo"];
+                    unset($selettori["modello-titolo"]);
+                }
+                $possibiliSelettori = ["id-catalogo", "modello", "note", "tag"];
+                foreach ($possibiliSelettori as $selettore) {
+                    if (in_array($selettore, $selettori)) {
+                        $column = str_replace("-", "_", strtoupper($selettore));
+                        $result = $this->selectWhereColumnLikeInput($column, $cosa_cercare);
+                        $response_array["periferica"] = parent::pushInArrayIfNew($result, $response_array["periferica"]);
+                    }
+                }
+                return $response_array;
+    }
     public function selectAll(): array
     {
         $result = $this->perifericaRepository->selectAll("periferica");
@@ -57,7 +78,7 @@ class PerifericaService implements IPerifericaService
     public function fromArrayToPeriferica(array $array): Periferica
     {
         $periferica = new Periferica();
-        $periferica->setId_catalogo($array["ID_CATALOGO"]);
+        $periferica->setIdCatalogo($array["ID_CATALOGO"]);
         $periferica->setModello($array["MODELLO"]);
         $periferica->setTipologia($array["TIPOLOGIA"]);
 

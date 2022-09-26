@@ -10,7 +10,7 @@ $pc = $computer_array[0];
 ?>
 <h1><?=strtoupper($pc->getModello())?></h1>
 <table>
-    <form action="modifica/computer/<?=$pc->getIdCatalogo()?>" method="POST">
+    <form action="../modifica/computer/<?=$pc->getIdCatalogo()?>" method="POST">
 
         <?php
 echo "<tr><td>Id catalogo: </td><td>" . $pc->getIdCatalogo() . "</td><td><input type='text' name='id-catalogo'></td></tr>";

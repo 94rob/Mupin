@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 use PDO;
 use App\Models\Software;
-class SoftwareRepository extends RepositoryFather{   
+class SoftwareRepository extends RepositoryUtils{   
 
     // SELECT   
     public function selectFromSoftwareWhereWhateverLikeInput(string $input): array
@@ -34,7 +34,7 @@ class SoftwareRepository extends RepositoryFather{
     public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
         $sqlInstruction = "SELECT * FROM software WHERE ". $column ." LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction);
+        return parent::executeSelect($input, $sqlInstruction);
     }
 
     // INSERT
@@ -44,28 +44,28 @@ class SoftwareRepository extends RepositoryFather{
         $sqlInstruction .= ") VALUES ( :id_catalogo , :titolo, :sistema_operativo, :tipologia, :supporto ); ";        
 
         $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->bindValue(':id_catalogo', $software->getId_catalogo(), PDO::PARAM_STR);
+        $sth->bindValue(':id_catalogo', $software->getIdCatalogo(), PDO::PARAM_STR);
         $sth->bindValue(':titolo', $software->getTitolo(), PDO::PARAM_STR);
-        $sth->bindValue(':sistema_operativo', $software->getSistema_operativo(), PDO::PARAM_INT);
+        $sth->bindValue(':sistema_operativo', $software->getSistemaOperativo(), PDO::PARAM_INT);
         $sth->bindValue(':tipologia', $software->getTipologia(), PDO::PARAM_STR);
         $sth->bindValue(':supporto', $software->getSupporto());
         $sth->execute();
         
         if (isset($software->note)) {
-            $this->updateColumnByIdCatalogo("NOTE", $software->getId_catalogo(), $software->getNote());
+            $this->updateColumnByIdCatalogo("NOTE", $software->getIdCatalogo(), $software->getNote());
         }
         if (isset($software->url)) {
-            $this->updateColumnByIdCatalogo("URL", $software->getId_catalogo(), $software->getUrl());
+            $this->updateColumnByIdCatalogo("URL", $software->getIdCatalogo(), $software->getUrl());
         }
         if (isset($software->tag)) {
-            $this->updateColumnByIdCatalogo("TAG", $software->getId_catalogo(), $software->getTag());
+            $this->updateColumnByIdCatalogo("TAG", $software->getIdCatalogo(), $software->getTag());
         }
     }
 
     // UPDATE
     public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
         $sqlInstruction = "UPDATE software SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
+        parent::executeUpdate($input, $idCatalogo, $sqlInstruction);
     }
 
     // DELETE

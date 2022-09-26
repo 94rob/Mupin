@@ -11,7 +11,7 @@ class Periferica{
     public string $tag;
         
     // Getter
-    public function getId_catalogo()
+    public function getIdCatalogo()
     {
         return $this->id_catalogo;
     }
@@ -37,7 +37,7 @@ class Periferica{
     }    
 
     // Setter
-    public function setId_catalogo($id_catalogo)
+    public function setIdCatalogo($id_catalogo)
     {
         $this->id_catalogo = $id_catalogo;
 

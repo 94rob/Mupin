@@ -8,13 +8,11 @@ return [
     [ 'GET', '/', Controller\HomeController::class ],    
 
     // Area riservata
-    ['GET', '/authenticate', [Controller\AuthenticateController::class]],
-    [ 'POST', '/login', [ Controller\LoginController::class ]], 
+    [['GET','POST'], '/login', [Controller\LoginController::class]],    
 
     // Ricerca    
     [ 'POST', '/search', [ Controller\SelectController::class ]],
-    [ 'GET', '/search', [ Controller\SelectController::class ]], 
-    ['GET', '/{idCatalogo}', [Controller\ItemController::class]], 
+    [ 'GET', '/search/{idCatalogo}', [ Controller\SelectController::class ]],      
 
     // Modifica
     ['POST', '/modifica/{tabella}/{id-catalogo}', [Controller\UpdateController::class]], 

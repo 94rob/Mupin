@@ -6,7 +6,7 @@ require 'vendor/autoload.php';
 use PDO;
 use App\Models\Computer;
 
-class ComputerRepository extends RepositoryFather
+class ComputerRepository extends RepositoryUtils
 {
     // SELECT    
     public function selectFromComputerWhereWhateverLikeInput(string $input): array
@@ -35,7 +35,7 @@ class ComputerRepository extends RepositoryFather
     public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
         $sqlInstruction = "SELECT * FROM computer WHERE ". $column ." LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction);
+        return parent::executeSelect($input, $sqlInstruction);
     }    
 
     // INSERT
@@ -73,7 +73,7 @@ class ComputerRepository extends RepositoryFather
     // UPDATE
     public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
         $sqlInstruction = "UPDATE computer SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
+        parent::executeUpdate($input, $idCatalogo, $sqlInstruction);
     }       
 
     // DELETE

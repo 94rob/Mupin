@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 use PDO;
 use App\Models\Libro;
-class LibroRepository extends RepositoryFather{  
+class LibroRepository extends RepositoryUtils{  
 
     // SELECT   
     public function selectFromLibroWhereWhateverLikeInput(string $input): array
@@ -34,7 +34,7 @@ class LibroRepository extends RepositoryFather{
     public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
         $sqlInstruction = "SELECT * FROM libro WHERE ". $column ." LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction);
+        return parent::executeSelect($input, $sqlInstruction);
     } 
 
     // INSERT
@@ -71,7 +71,7 @@ class LibroRepository extends RepositoryFather{
     // UPDATE
     public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
         $sqlInstruction = "UPDATE libro SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
+        parent::executeUpdate($input, $idCatalogo, $sqlInstruction);
     } 
 
     // DELETE

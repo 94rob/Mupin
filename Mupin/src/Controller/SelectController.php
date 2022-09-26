@@ -8,35 +8,104 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\SelectRouter;
+use App\Service\Implementations;
 
 class SelectController implements ControllerInterface
 {
-    protected Engine $plates;
-    protected SelectRouter $serviceRouter;
+    protected Engine $plates;    
+    protected Implementations\ComputerService $computerService;
+    protected Implementations\LibroService $libroService;
+    protected Implementations\PerifericaService $perifericaService;
+    protected Implementations\RivistaService $rivistaService;
+    protected Implementations\SoftwareService $softwareService;
 
     public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-        $this->serviceRouter = new SelectRouter();
+        $this->computerService = new Implementations\ComputerService();
+        $this->libroService = new Implementations\LibroService();
+        $this->perifericaService = new Implementations\PerifericaService();
+        $this->rivistaService = new Implementations\RivistaService();
+        $this->softwareService = new Implementations\SoftwareService();
     }
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $req = $request->getBody()->__toString();
+        if($request->getAttribute('idCatalogo') != null){
+            $id = $request->getAttribute('idCatalogo');
+            return $this->selectSingleItemByIdCatalogo($id);
+        } else{
+            $req = $request->getBody()->__toString();
         $req_array = $this->parseRequestBody($req);
+        return $this->executeResearch($req_array); 
+        }
 
+                
+    }
+
+    public function executeResearch(array $req_array){
         $selettori_array = array_key_exists("selettori", $req_array) ? $req_array["selettori"] : [];               
-
-        $result = $this->serviceRouter->find($_POST["input"], $_POST["dove-cercare"], $selettori_array);        
+        $cosa_cercare = array_key_exists("input", $_POST) ? $_POST["input"] : "";
+        $result = $this->routeSelect($_POST["dove-cercare"], $cosa_cercare, $selettori_array);        
         
         return new Response(
             200,
             [],
-            $this->plates->render('results', [
+            $this->plates->render('select-results', [
                 'req' =>$result]
                 )
+        );   
+    }
+
+    public function selectSingleItemByIdCatalogo(string $id){
+        $computer_array = $this->computerService->selectWhereColumnLikeInput("ID_CATALOGO", $id);        
+
+        return new Response(
+            200, 
+            [],
+            $this->plates->render('item', [
+                'computer_array' => $computer_array
+                
+                ])
         );
+    }
+
+    public function routeSelect(string $dove_cercare, string $cosa_cercare, array $selettori): array{
+
+        $response_array = [];
+
+        switch ($dove_cercare) {
+
+            case ("ovunque"):
+                $response_array["computer"] = $this->computerService->selectFromComputerWhereWhateverLikeInput($cosa_cercare);
+                $response_array["libro"] = $this->libroService->selectFromLibroWhereWhateverLikeInput($cosa_cercare);
+                $response_array["rivista"] = $this->rivistaService->selectFromRivistaWhereWhateverLikeInput($cosa_cercare);
+                $response_array["periferica"] = $this->perifericaService->selectFromPerifericaWhereWhateverLikeInput($cosa_cercare);
+                $response_array["software"] = $this->softwareService->selectFromSoftwareWhereWhateverLikeInput($cosa_cercare);
+                break;                
+
+            case ("computer"):
+                $response_array = $this->computerService->executeSelect($cosa_cercare, $selettori);
+                break;
+
+            case ("libro"):
+                $response_array = $this->libroService->executeSelect($cosa_cercare, $selettori);
+                break;
+
+            case ("periferica"):
+                $response_array = $this->perifericaService->executeSelect($cosa_cercare, $selettori);
+                break;
+
+            case ("rivista"):
+                $response_array = $this->rivistaService->executeSelect($cosa_cercare, $selettori);
+                break;
+
+            case ("software"):
+               $response_array = $this->softwareService->executeSelect($cosa_cercare, $selettori);
+               break;
+        }
+
+        return $response_array;
     }
 
     public function parseRequestBody(string $s): array{

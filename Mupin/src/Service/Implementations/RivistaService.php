@@ -6,9 +6,10 @@ require 'vendor/autoload.php';
 use App\Models\Rivista;
 use App\Repository\RivistaRepository;
 use App\Service\Interfaces\IRivistaService;
+use App\Service\ServiceUtils;
 use PDO;
 
-class RivistaService implements IRivistaService
+class RivistaService extends ServiceUtils implements IRivistaService
 {
     public RivistaRepository $rivistaRepository;
 
@@ -21,6 +22,26 @@ class RivistaService implements IRivistaService
     }
 
     // SELECT
+    public function executeSelect(string $cosa_cercare, array $selettori ){
+        $response_array["rivista"] = [];
+                if (empty($selettori)) {
+                    $result = $this->selectFromRivistaWhereWhateverLikeInput($cosa_cercare);
+                    $response_array["rivista"] = parent::pushInArrayIfNew($result, $response_array["rivista"]);
+                }
+                if (in_array("modello-titolo", $selettori)) {
+                    $selettori["titolo"] = $selettori["modello-titolo"];
+                    unset($selettori["modello-titolo"]);
+                }
+                $possibiliSelettori = ["id-catalogo", "titolo", "anno", "casa-editrice", "note", "tag"];
+                foreach ($possibiliSelettori as $selettore) {
+                    if (in_array($selettore, $selettori)) {
+                        $column = str_replace("-", "_", strtoupper($selettore));
+                        $result = $this->selectWhereColumnLikeInput($column, $cosa_cercare);
+                        $response_array["rivista"] = parent::pushInArrayIfNew($result, $response_array["rivista"]);
+                    }
+                }
+                return $response_array;
+    }
     public function selectAll(): array
     {
         $result = $this->rivistaRepository->selectAll("rivista");
@@ -56,11 +77,11 @@ class RivistaService implements IRivistaService
     public function fromArrayToRivista(array $array): Rivista
     {
         $rivista = new Rivista();
-        $rivista->setId_catalogo($array["ID_CATALOGO"]);
+        $rivista->setIdCatalogo($array["ID_CATALOGO"]);
         $rivista->setTitolo($array["TITOLO"]);
-        $rivista->setNum_rivista($array["NUMERO_RIVISTA"]);
+        $rivista->setNumRivista($array["NUMERO_RIVISTA"]);
         $rivista->setAnno($array["ANNO"]);
-        $rivista->setCasa_editrice($array["CASA_EDITRICE"]);
+        $rivista->setCasaEditrice($array["CASA_EDITRICE"]);
 
         if (array_key_exists("NOTE", $array) && $array["NOTE"] != null) {
             $rivista->setNote($array["NOTE"]);

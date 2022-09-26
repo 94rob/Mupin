@@ -1,16 +1,22 @@
 <?php
 $this->layout('layout-public', ['title' => 'Home Page']);
+
+session_start();
+unset($_SESSION["logged"]);
 ?>
 
-<div class="container">
+<div class="home-layout-center">
+
     <row class="justify-content-center">
         <div class="col-12 align-self-center title">
             <h1>Museo Piemontese dell'Informatica</h1>
             <h5>Clicca per selezionare una categoria ed effettuare una ricerca</h5>
         </div>
     </row>
+</div>
 
-    <form action="./search" method="POST">
+<form action="./search" method="POST">
+    <div class="container home-layout-center">
         <div class="row justify-content-between">
             <div class="col-2">
                 <input type="radio" id="computer-checkbox" name="dove-cercare" value="computer">
@@ -60,46 +66,81 @@ $this->layout('layout-public', ['title' => 'Home Page']);
         </div>
 
         <div class="row justify-content-center">
-                <input type="radio" id="ovunque-checkbox" name="dove-cercare" value="ovunque">
-                <label for="ovunque-checkbox">Tutte le categorie</label>
+            <input type="radio" id="ovunque-checkbox" name="dove-cercare" value="ovunque">
+            <label for="ovunque-checkbox">Tutte le categorie</label>
         </div>
 
         <div class="row justify-content-center row-btn">
             <div class="col-4">
-                
-            
+
                 <fieldset>
                     <div class="input-label"><label for="input">Inserisci una o più parole chiave</label></div>
                     <input class="textbox" type="text" id="input" name="input" autocomplete="off"><br />
                 </fieldset>
             </div>
         </div>
+    </div>
 
-        <div class="row justify-content-center">
-            <fieldset class="selettor">
-                <input type="checkbox" class="computer libro periferica rivista software" id="modello-titolo-checkbox" name="selettori[1]" value="modello-titolo">
-                <label for="modello-titolo-checkbox" class="computer libro periferica rivista software">Modello/ Titolo</label><br>
-                <input type="checkbox" class="libro" id="autore-checkbox" name="selettori[2]" value="autore">
-                <label for="autore-checkbox" class="libro">Autore</label><br>
-                <input type="checkbox" class="computer libro rivista" id="anno-checkbox" name="selettori[3]" value="anno">
-                <label for="anno-checkbox" class="computer libro rivista">Anno</label><br>
-                <input type="checkbox" class="libro rivista" id="casa-editrice-checkbox" name="selettori[4]" value="casa-editrice">
-                <label for="casa-editrice-checkbox" class="libro rivista">Casa editrice</label><br>
-                <input type="checkbox" class="computer software" id="sistema-operativo-checkbox" name="selettori[5]" value="sistema-operativo">
-                <label for="sistema-operativo-checkbox" class="computer software">Sistema operativo</label><br>
-                <input type="checkbox" class="computer libro periferica rivista software" id="note-checkbox" name="selettori[6]" value="note">
-                <label for="note-checkbox" class="computer libro periferica rivista software">Note</label><br>
-                <input type="checkbox" class="computer libro periferica rivista software" id="tag-checkbox" name="selettori[7]" value="tag">
-                <label for="tag-checkbox" class="computer libro periferica rivista software">Tag</label><br>
-            </fieldset>
+    <div class="container selettori-container">
+        <div class="row justify-content-end">
+            <div class="col div-selettore">
+
+                <p onclick='show()'>Mostra/Nascondi filtri: </p>
+
+            </div>
+
+            <fieldset id="selettori">
+
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input computer libro periferica rivista software" id="modello-titolo-checkbox" name="selettori[1]" value="modello-titolo">
+                    <label for="modello-titolo-checkbox" class="form-check-label computer libro periferica rivista software">Modello/ Titolo</label>
+                </div>
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input libro" id="autore-checkbox" name="selettori[2]" value="autore">
+                    <label for="autore-checkbox" class="form-check-label libro">Autore</label>
+                </div>
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input computer libro periferica rivista software" id="tag-checkbox" name="selettori[7]" value="tag">
+                    <label for="tag-checkbox" class="form-check-label computer libro periferica rivista software">Tag</label>
+                </div>
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input computer libro rivista" id="anno-checkbox" name="selettori[3]" value="anno">
+                    <label for="anno-checkbox" class="form-check-label computer libro rivista">Anno</label>
+                </div>
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input libro rivista" id="casa-editrice-checkbox" name="selettori[4]" value="casa-editrice">
+                    <label for="casa-editrice-checkbox" class="form-check-label libro rivista">Casa editrice</label>
+                </div>
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input computer software" id="sistema-operativo-checkbox" name="selettori[5]" value="sistema-operativo">
+                    <label for="sistema-operativo-checkbox" class="form-check-label computer software">Sistema operativo</label>
+                </div>
+                <div class="col div-selettore">
+                    <input type="checkbox" class="form-check-input computer libro periferica rivista software" id="note-checkbox" name="selettori[6]" value="note">
+                    <label for="note-checkbox" class="form-check-label computer libro periferica rivista software">Note</label>
+                </div>
+
         </div>
+        </fieldset>
+    </div>
+    </div>
 
+    <div class="home-layout-center">
         <div class="row justify-content-center">
             <div class="col4">
                 <button class="btn-ricerca">Cerca</button>
 
             </div>
         </div>
-    </form>
-
-</div>
+    </div>
+</form>
+<script>
+    function show() {
+        var x = document.getElementById("selettori");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }    
+</script>

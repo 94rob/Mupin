@@ -6,9 +6,10 @@ require 'vendor/autoload.php';
 use App\Repository\SoftwareRepository;
 use App\Models\Software;
 use App\Service\Interfaces\ISoftwareService;
+use App\Service\ServiceUtils;
 use PDO;
 
-class SoftwareService implements ISoftwareService
+class SoftwareService extends ServiceUtils implements ISoftwareService
 {
 
     public SoftwareRepository $softwareRepository;
@@ -21,6 +22,27 @@ class SoftwareService implements ISoftwareService
     }
 
     // SELECT
+    public function executeSelect(string $cosa_cercare, array $selettori ){
+        $response_array["software"] = [];
+                if (empty($selettori)) {
+                    $result = $this->selectFromSoftwareWhereWhateverLikeInput($cosa_cercare);
+                    $response_array["software"] = parent::pushInArrayIfNew($result, $response_array["software"]);
+                }
+               if (in_array("modello-titolo", $selettori)) {
+                    $selettori["titolo"] = $selettori["modello-titolo"];
+                    unset($selettori["modello-titolo"]);
+                }
+
+                $possibiliSelettori = ["id-catalogo", "titolo", "sistema-operativo", "note", "tag"];
+                foreach ($possibiliSelettori as $selettore) {
+                    if (in_array($selettore, $selettori)) {
+                        $column = str_replace("-", "_", strtoupper($selettore));
+                        $result = $this->selectWhereColumnLikeInput($column, $cosa_cercare);
+                        $response_array["software"] = parent::pushInArrayIfNew($result, $response_array["software"]);
+                    }
+                }
+                return $response_array;
+    }
     public function selectAll(): array
     {
         $result = $this->softwareRepository->selectAll("software");
@@ -56,9 +78,9 @@ class SoftwareService implements ISoftwareService
     public function fromArrayToSoftware(array $array): Software
     {
         $software = new Software();
-        $software->setId_catalogo($array["ID_CATALOGO"]);
+        $software->setIdCatalogo($array["ID_CATALOGO"]);
         $software->setTitolo($array["TITOLO"]);
-        $software->setSistema_operativo($array["SISTEMA_OPERATIVO"]);
+        $software->setSistemaOperativo($array["SISTEMA_OPERATIVO"]);
         $software->setTipologia($array["TIPOLOGIA"]);
         $software->setSupporto($array["SUPPORTO"]);
 
