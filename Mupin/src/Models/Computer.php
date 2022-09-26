@@ -92,7 +92,7 @@ class Computer{
     } 
 
     public function equalsTo(Computer $computer): bool{
-        if($this->id_catalogo == $computer->getIdCatalogo){
+        if($this->id_catalogo == $computer->getIdCatalogo()){
             return true;
         }
         return false;

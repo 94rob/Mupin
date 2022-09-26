@@ -1,7 +1,5 @@
 <?php
 
-use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html;
-
 $this->layout('layout-private', [
     'title' => 'Area Riservata'
 ]);

@@ -8,7 +8,7 @@ use App\Models\Periferica;
 class PerifericaRepository extends RepositoryFather{  
 
     // SELECT       
-    public function selectFromPerifericaWhere(string $input): array
+    public function selectFromPerifericaWhereWhateverLikeInput(string $input): array
     {
         $input = '%' . $input . '%';
         $arrProperties = ["MODELLO", "TIPOLOGIA", "NOTE", "URL", "TAG"];
@@ -31,21 +31,11 @@ class PerifericaRepository extends RepositoryFather{
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function selectByModello(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM periferica WHERE MODELLO LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByNote(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM periferica WHERE NOTE LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByTag(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM periferica WHERE TAG LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
+    public function selectWhereColumnLikeInput(string $column, string $input){
+        $input = '%' . $input . '%';
+        $sqlInstruction = "SELECT * FROM periferica WHERE ". $column ." LIKE :input ;";
+        return parent::executeSelectString($input, $sqlInstruction);
+    } 
 
     // INSERT
     public function insertIntoPeriferica(Periferica $periferica)
@@ -60,41 +50,20 @@ class PerifericaRepository extends RepositoryFather{
         $sth->execute();
         
         if (isset($periferica->note)) {
-            $this->updateNote($periferica->getId_catalogo(), $periferica->getNote());
+            $this->updateColumnByIdCatalogo("NOTE", $periferica->getId_catalogo(), $periferica->getNote());
         }
         if (isset($periferica->url)) {
-            $this->updateUrl($periferica->getId_catalogo(), $periferica->getUrl());
+            $this->updateColumnByIdCatalogo("URL", $periferica->getId_catalogo(), $periferica->getUrl());
         }
         if (isset($periferica->tag)) {
-            $this->updateTag($periferica->getId_catalogo(), $periferica->getTag());
+            $this->updateColumnByIdCatalogo("TAG", $periferica->getId_catalogo(), $periferica->getTag());
         }
     }
 
     // UPDATE
-    public function updateModello(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE periferica SET MODELLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateTipologia(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE periferica SET TIPOLOGIA = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateNote(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE periferica SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateUrl(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE periferica SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateTag(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE periferica SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+    public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
+        $sqlInstruction = "UPDATE periferica SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
     }
 
     // DELETE

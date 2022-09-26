@@ -1,17 +1,19 @@
 <?php
 declare(strict_types=1);
-namespace App\Service;
+namespace App\Service\Implementations;
 require 'vendor/autoload.php';
 
 use App\Repository\UserRepository;
-use App\Models\Software;
+use PDO;
 
 class UserService
 {
     public UserRepository $userRepository;
 
     public function __construct(){
-        $this->userRepository = new UserRepository();
+        $config = include 'config.php';
+        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+        $this->userRepository = new UserRepository($pdo);
     }
 
     public function verifyPassword(string $email, string $password){

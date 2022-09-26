@@ -8,17 +8,17 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\ServiceRouter;
+use App\Service\SelectRouter;
 
-class SearchController implements ControllerInterface
+class SelectController implements ControllerInterface
 {
     protected Engine $plates;
-    protected ServiceRouter $serviceRouter;
+    protected SelectRouter $serviceRouter;
 
     public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-        $this->serviceRouter = new ServiceRouter();
+        $this->serviceRouter = new SelectRouter();
     }
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface

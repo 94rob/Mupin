@@ -2,21 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\Implementations;
 
 require 'vendor/autoload.php';
 
 use App\Repository\ComputerRepository;
 use App\Models\Computer;
+use App\Service\Interfaces\IComputerService;
+use PDO;
 
-class ComputerService // implements IComputerService
+class ComputerService implements IComputerService
 {
 
     public ComputerRepository $computerRepository;  
 
     public function __construct()
     {
-        $this->computerRepository = new ComputerRepository();        
+        $config = include 'config.php';
+        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+        $this->computerRepository = new ComputerRepository($pdo);        
     }
 
     // SELECT    
@@ -30,7 +34,7 @@ class ComputerService // implements IComputerService
         return $this->fromArrayToComputerArray($result);
     }
 
-    public function selectWhereColumnLikeInput(string $column, string $input){
+    public function selectWhereColumnLikeInput(string $column, string $input): array {
         $result = $this->computerRepository->selectWhereColumnLikeInput($column, $input);
         return $this->fromArrayToComputerArray($result);
     }    
@@ -57,13 +61,13 @@ class ComputerService // implements IComputerService
         $pc = new Computer();
         $pc->setIdCatalogo($array["ID_CATALOGO"]);
         $pc->setModello($array["MODELLO"]);
-        $pc->setAnno($array["ANNO"]);
+        $pc->setAnno((int)$array["ANNO"]);
         $pc->setCpu($array["CPU"]);
-        $pc->setVelocitaCpu($array["VELOCITA_CPU"]);
-        $pc->setMemoriaRAM($array["MEMORIA_RAM"]);
+        $pc->setVelocitaCpu((float)$array["VELOCITA_CPU"]);
+        $pc->setMemoriaRAM((int)$array["MEMORIA_RAM"]);
 
         if (array_key_exists("DIMENSIONE_HARD_DISK", $array) && $array["DIMENSIONE_HARD_DISK"] != null) {
-            $pc->setDimensioneHardDisk($array["DIMENSIONE_HARD_DISK"]);
+            $pc->setDimensioneHardDisk((int)$array["DIMENSIONE_HARD_DISK"]);
         }
         if (array_key_exists("SISTEMA_OPERATIVO", $array) && $array["SISTEMA_OPERATIVO"] != null) {
             $pc->setSistemaOperativo($array["SISTEMA_OPERATIVO"]);

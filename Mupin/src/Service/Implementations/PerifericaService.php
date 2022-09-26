@@ -1,11 +1,13 @@
 <?php
 
 declare(strict_types=1);
-namespace App\Service;
+namespace App\Service\Implementations;
 require 'vendor/autoload.php';
 
 use App\Repository\PerifericaRepository;
 use App\Models\Periferica;
+use App\Service\Interfaces\IPerifericaService;
+use PDO;
 
 class PerifericaService implements IPerifericaService
 {
@@ -14,7 +16,9 @@ class PerifericaService implements IPerifericaService
 
     public function __construct()
     {
-        $this->perifericaRepository = new PerifericaRepository();        
+        $config = include 'config.php';
+        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);        
+        $this->perifericaRepository = new PerifericaRepository($pdo);        
     }
 
     // SELECT
@@ -23,25 +27,15 @@ class PerifericaService implements IPerifericaService
         $result = $this->perifericaRepository->selectAll("periferica");
         return $this->fromArrayToPerifericaArray($result);
     }
-    public function selectFromPerifericaWhere(string $input): array{
-        $result = $this->perifericaRepository->selectFromPerifericaWhere($input);
+    public function selectFromPerifericaWhereWhateverLikeInput(string $input): array{
+        $result = $this->perifericaRepository->selectFromPerifericaWhereWhateverLikeInput($input);
         return $this->fromArrayToPerifericaArray($result);
     }
-    public function selectByModello(string $input): array
-    {
-        $result = $this->perifericaRepository->selectByModello($input);
+
+    public function selectWhereColumnLikeInput(string $column, string $input): array {
+        $result = $this->perifericaRepository->selectWhereColumnLikeInput($column, $input);
         return $this->fromArrayToPerifericaArray($result);
-    }
-    public function selectByNote(string $input): array
-    {
-        $result = $this->perifericaRepository->selectByNote($input);
-        return $this->fromArrayToPerifericaArray($result);
-    }
-    public function selectByTag(string $input): array
-    {
-        $result = $this->perifericaRepository->selectByTag($input);
-        return $this->fromArrayToPerifericaArray($result);
-    }
+    } 
 
     // INSERT
     public function insertIntoPeriferica(array $array){
@@ -50,25 +44,8 @@ class PerifericaService implements IPerifericaService
     }
 
     // UPDATE
-    public function updateModello(string $idCatalogo, string $input)
-    {
-        $this->perifericaRepository->updateModello($idCatalogo, $input);
-    }
-    public function updateTipologia(string $idCatalogo, string $input)
-    {
-        $this->perifericaRepository->updateTipologia($idCatalogo, $input);
-    }
-    public function updateNote(string $idCatalogo, string $input)
-    {
-        $this->perifericaRepository->updateNote($idCatalogo, $input);
-    }
-    public function updateUrl(string $idCatalogo, string $input)
-    {
-        $this->perifericaRepository->updateUrl($idCatalogo, $input);
-    }
-    public function updateTag(string $idCatalogo, string $input)
-    {
-        $this->perifericaRepository->updateTag($idCatalogo, $input);
+    public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
+        $this->perifericaRepository->updateColumnByIdCatalogo($column, $idCatalogo, $input);
     }
 
     // DELETE

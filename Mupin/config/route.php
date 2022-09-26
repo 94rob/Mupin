@@ -12,9 +12,14 @@ return [
     [ 'POST', '/login', [ Controller\LoginController::class ]], 
 
     // Ricerca    
-    [ 'POST', '/search', [ Controller\SearchController::class ]],
-    [ 'GET', '/search', [ Controller\SearchController::class ]], 
-    ['GET', '/{idCatalogo}', [Controller\ItemController::class]] 
-    
+    [ 'POST', '/search', [ Controller\SelectController::class ]],
+    [ 'GET', '/search', [ Controller\SelectController::class ]], 
+    ['GET', '/{idCatalogo}', [Controller\ItemController::class]], 
+
+    // Modifica
+    ['POST', '/modifica/{tabella}/{id-catalogo}', [Controller\UpdateController::class]], 
+
+    // Calcellazione
+    ['GET', '/delete/{tabella}/{id-catalogo}', [Controller\DeleteController::class]]
 
 ];

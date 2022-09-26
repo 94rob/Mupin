@@ -20,4 +20,8 @@ PER CONTINUARE
 
 - Crea interfacce per inserire o modificare i dati
 
+- Aggiungi tutti i try catch e i boolean come ritorno alle insert/update/delete
+
+- Modifica tutte le select e update nei service e nei repository
+
 

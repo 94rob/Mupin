@@ -34,8 +34,8 @@ class ComputerRepository extends RepositoryFather
 
     public function selectWhereColumnLikeInput(string $column, string $input){
         $input = '%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM computer WHERE :column LIKE :input ;";
-        return parent::executeSelectString($input, $column, $sqlInstruction);
+        $sqlInstruction = "SELECT * FROM computer WHERE ". $column ." LIKE :input ;";
+        return parent::executeSelectString($input, $sqlInstruction);
     }    
 
     // INSERT
@@ -72,15 +72,9 @@ class ComputerRepository extends RepositoryFather
 
     // UPDATE
     public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
-        $sqlInstruction = "UPDATE computer SET :column = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($column, $input, $idCatalogo, $sqlInstruction);
-    }
-    
-    // public function updateAnno(string $idCatalogo, int $input)
-    // {
-    //     $sqlInstruction = "UPDATE computer SET ANNO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-    //     parent::executeUpdateInt($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    // }    
+        $sqlInstruction = "UPDATE computer SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
+    }       
 
     // DELETE
     public function deleteFromComputer(string $idCatalogo){

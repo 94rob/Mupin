@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
-namespace App\Service;
+namespace App\Service\Implementations;
 require 'vendor/autoload.php';
 
 use App\Repository\SoftwareRepository;
 use App\Models\Software;
+use App\Service\Interfaces\ISoftwareService;
+use PDO;
 
 class SoftwareService implements ISoftwareService
 {
@@ -13,7 +15,9 @@ class SoftwareService implements ISoftwareService
 
     public function __construct()
     {
-        $this->softwareRepository = new SoftwareRepository();
+        $config = include 'config.php';
+        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+        $this->softwareRepository = new SoftwareRepository($pdo);
     }
 
     // SELECT
@@ -22,30 +26,15 @@ class SoftwareService implements ISoftwareService
         $result = $this->softwareRepository->selectAll("software");
         return $this->fromArrayToSoftwareArray($result);
     }
-    public function selectFromSoftwareWhere(string $input): array{
-        $result = $this->softwareRepository->selectFromSoftwareWhere($input);
+    public function selectFromSoftwareWhereWhateverLikeInput(string $input): array{
+        $result = $this->softwareRepository->selectFromSoftwareWhereWhateverLikeInput($input);
         return $this->fromArrayToSoftwareArray($result);
     }
-    public function selectByTitolo(string $input): array
-    {
-        $result = $this->softwareRepository->selectByTitolo($input);
+
+    public function selectWhereColumnLikeInput(string $column, string $input): array {
+        $result = $this->softwareRepository->selectWhereColumnLikeInput($column, $input);
         return $this->fromArrayToSoftwareArray($result);
-    }
-    public function selectBySistemaOperativo(string $input): array
-    {
-        $result = $this->softwareRepository->selectBySistemaOperativo($input);
-        return $this->fromArrayToSoftwareArray($result);
-    }
-    public function selectByNote(string $input): array
-    {
-        $result = $this->softwareRepository->selectByNote($input);
-        return $this->fromArrayToSoftwareArray($result);
-    }
-    public function selectByTag(string $input): array
-    {
-        $result = $this->softwareRepository->selectByTag($input);
-        return $this->fromArrayToSoftwareArray($result);
-    }
+    } 
 
     // INSERT
     public function insertIntoSoftware(array $array){
@@ -54,33 +43,8 @@ class SoftwareService implements ISoftwareService
     }
 
     // UPDATE
-    public function updateTitolo(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateTitolo($idCatalogo, $input);
-    }
-    public function updateSistemaOperativo(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateSistemaOperativo($idCatalogo, $input);
-    }
-    public function updateTipologia(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateTipologia($idCatalogo, $input);
-    }
-    public function updateSupporto(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateSupporto($idCatalogo, $input);
-    }
-    public function updateNote(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateNote($idCatalogo, $input);
-    }
-    public function updateUrl(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateUrl($idCatalogo, $input);
-    }
-    public function updateTag(string $idCatalogo, string $input)
-    {
-        $this->softwareRepository->updateTag($idCatalogo, $input);
+    public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
+        $this->softwareRepository->updateColumnByIdCatalogo($column, $idCatalogo, $input);
     }
 
     // DELETE

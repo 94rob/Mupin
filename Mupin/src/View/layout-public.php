@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" href="css/header.css">
     <script type="text/javascript" src="js/table.js"></script>
+    <script type="text/javascript" src="js/delete.js"></script>
 
     <title><?= $this->e($title) ?></title>
 </head>

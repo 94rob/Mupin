@@ -8,7 +8,7 @@ use App\Models\Software;
 class SoftwareRepository extends RepositoryFather{   
 
     // SELECT   
-    public function selectFromSoftwareWhere(string $input): array
+    public function selectFromSoftwareWhereWhateverLikeInput(string $input): array
     {
         $input = '%' . $input . '%';
         $arrProperties = ["TITOLO", "SISTEMA_OPERATIVO", "TIPOLOGIA", "SUPPORTO", "NOTE", "URL", "TAG"];
@@ -31,25 +31,10 @@ class SoftwareRepository extends RepositoryFather{
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     } 
-    public function selectByTitolo(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM software WHERE TITOLO LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectBySistemaOperativo(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM software WHERE SISTEMA_OPERATIVO LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByNote(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM software WHERE NOTE LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
-    }
-    public function selectByTag(string $input){
-        $input ='%' . $input . '%';
-        $sqlInstruction = "SELECT * FROM software WHERE TAG LIKE :input ;";
-        return parent::executeSelectString($input, $sqlInstruction, $this->pdo);
+    public function selectWhereColumnLikeInput(string $column, string $input){
+        $input = '%' . $input . '%';
+        $sqlInstruction = "SELECT * FROM software WHERE ". $column ." LIKE :input ;";
+        return parent::executeSelectString($input, $sqlInstruction);
     }
 
     // INSERT
@@ -67,51 +52,20 @@ class SoftwareRepository extends RepositoryFather{
         $sth->execute();
         
         if (isset($software->note)) {
-            $this->updateNote($software->getId_catalogo(), $software->getNote());
+            $this->updateColumnByIdCatalogo("NOTE", $software->getId_catalogo(), $software->getNote());
         }
         if (isset($software->url)) {
-            $this->updateUrl($software->getId_catalogo(), $software->getUrl());
+            $this->updateColumnByIdCatalogo("URL", $software->getId_catalogo(), $software->getUrl());
         }
         if (isset($software->tag)) {
-            $this->updateTag($software->getId_catalogo(), $software->getTag());
+            $this->updateColumnByIdCatalogo("TAG", $software->getId_catalogo(), $software->getTag());
         }
     }
 
     // UPDATE
-    public function updateTitolo(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET TITOLO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateSistemaOperativo(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET SISTEMA_OPERATIVO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateTipologia(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET TIPOLOGIA = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateSupporto(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET SUPPORTO = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateNote(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET NOTE = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateUrl(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET URL = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
-    }
-    public function updateTag(string $idCatalogo, string $input)
-    {
-        $sqlInstruction = "UPDATE software SET TAG = :input WHERE ID_CATALOGO = :id_catalogo ;";
-        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction, $this->pdo);
+    public function updateColumnByIdCatalogo(string $column, string $idCatalogo, string $input){
+        $sqlInstruction = "UPDATE software SET ". $column ." = :input WHERE ID_CATALOGO = :id_catalogo ;";
+        parent::executeUpdateString($input, $idCatalogo, $sqlInstruction);
     }
 
     // DELETE

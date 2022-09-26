@@ -1,5 +1,5 @@
 <?php
-namespace App\Repository;
+namespace App\Service\Implementations;
 
 return array(
     'dsn' => 'mysql:dbname=mupin;host=127.0.0.1',
