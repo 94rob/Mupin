@@ -2,8 +2,7 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Libro{
-    public string $id_catalogo;
+class Libro extends Model{    
     public string $titolo;
     public string $autori;
     public string $casa_editrice;
@@ -14,10 +13,7 @@ class Libro{
     public string $url;
     public string $tag;
 
-    // Getters
-    public function getIdCatalogo(){
-        return $this->id_catalogo;
-    }
+    // Getters    
     public function getTitolo(){
         return $this->titolo;
     }
@@ -47,9 +43,6 @@ class Libro{
     }
 
     // Setters
-    public function setIdCatalogo($input){
-        $this->id_catalogo = $input;
-    }
     public function setTitolo($input){
     $this->titolo=$input;        
     }
@@ -77,10 +70,4 @@ class Libro{
     public function setTag($input){
         $this->tag = $input;
     }
-
-    // Utils
-    public function __isset($property){
-        return isset($this->$property);
-    } 
-
 }

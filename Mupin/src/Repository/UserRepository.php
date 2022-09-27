@@ -10,7 +10,7 @@ class UserRepository extends RepositoryUtils
 {   
      public function selectPassByEmail(string $email)
     {
-        $sql_select_user = "SELECT * FROM utente WHERE email=:email";        
+        $sql_select_user = "SELECT * FROM utente WHERE EMAIL=:email";        
         $statement = $this->pdo->prepare($sql_select_user);
         $statement->bindValue(':email', $email, PDO::PARAM_STR);        
         $statement->execute();

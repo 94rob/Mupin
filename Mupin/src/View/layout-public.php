@@ -20,8 +20,8 @@
 
         <!-- [data-animate-header] - this is the actual element that will be fixed/animated -->
         <menu class='header-bar' data-animate-header>
-            <a href='./' class='btn-menu' data-toggle-class='menu-active'>Home</a>
-            <a href='./login' class='btn-search' data-toggle-class='search-active'>Area riservata</a>
+            <a href='/' class='btn-menu' data-toggle-class='menu-active'>Home</a>
+            <a href='/login' class='btn-search' data-toggle-class='search-active'>Area riservata</a>
         </menu>
     </header>
 

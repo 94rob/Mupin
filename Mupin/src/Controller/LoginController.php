@@ -37,9 +37,17 @@ class LoginController implements ControllerInterface
             
             $userService = new UserService();      
 
-            if($userService->verifyPassword($email, $password)){
-                session_start();
-                $_SESSION["logged"] = true;
+            $res = $userService->verifyPassword($email, $password);
+
+            return new Response(
+                        200,
+                        [],
+                        $this->plates->render('reserved-area',[
+                            "res" => $res
+                        ])
+                    );
+            if($userService->verifyPassword($email, $password)){               
+                
                 return new Response(
                     200,
                     [],

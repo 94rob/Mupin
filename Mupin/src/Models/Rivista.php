@@ -2,8 +2,7 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Rivista{
-    public string $id_catalogo;
+class Rivista extends Model{
     public string $titolo;
     public int $num_rivista;
     public int $anno;
@@ -12,11 +11,7 @@ class Rivista{
     public string $url;
     public string $tag;
 
-    // Getters
-    public function getIdCatalogo()
-    {
-        return $this->id_catalogo;
-    }
+    // Getters    
     public function getTitolo()
     {
         return $this->titolo;
@@ -46,13 +41,7 @@ class Rivista{
         return $this->tag;
     }
 
-    // Setters
-    public function setIdCatalogo($id_catalogo)
-    {
-        $this->id_catalogo = $id_catalogo;
-
-        return $this;
-    }
+    // Setters   
     public function setTitolo($titolo)
     {
         $this->titolo = $titolo;
@@ -96,8 +85,4 @@ class Rivista{
         return $this;
     }
 
-    // Utils
-    public function __isset($property){
-        return isset($this->$property);
-    } 
 }

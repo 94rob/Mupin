@@ -15,7 +15,7 @@ unset($_SESSION["logged"]);
     </row>
 </div>
 
-<form action="./search" method="POST">
+<form action="./search" method="GET" id="main-form">
     <div class="container home-layout-center">
         <div class="row justify-content-between">
             <div class="col-2">
@@ -75,7 +75,7 @@ unset($_SESSION["logged"]);
 
                 <fieldset>
                     <div class="input-label"><label for="input">Inserisci una o più parole chiave</label></div>
-                    <input class="textbox" type="text" id="input" name="input" autocomplete="off"><br />
+                    <input class="textbox" type="text" id="input" name="cosa-cercare" autocomplete="off"><br />
                 </fieldset>
             </div>
         </div>
@@ -92,32 +92,43 @@ unset($_SESSION["logged"]);
             <fieldset id="selettori">
 
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input computer libro periferica rivista software" id="modello-titolo-checkbox" name="selettori[1]" value="modello-titolo">
-                    <label for="modello-titolo-checkbox" class="form-check-label computer libro periferica rivista software">Modello/ Titolo</label>
+                    <input type="checkbox" class="form-check-input computer libro periferica rivista software"
+                        id="modello-titolo-checkbox" name="selettori[1]" value="modello-titolo">
+                    <label for="modello-titolo-checkbox"
+                        class="form-check-label computer libro periferica rivista software">Modello/ Titolo</label>
                 </div>
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input libro" id="autore-checkbox" name="selettori[2]" value="autore">
+                    <input type="checkbox" class="form-check-input libro" id="autore-checkbox" name="selettori[2]"
+                        value="autore">
                     <label for="autore-checkbox" class="form-check-label libro">Autore</label>
                 </div>
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input computer libro periferica rivista software" id="tag-checkbox" name="selettori[7]" value="tag">
-                    <label for="tag-checkbox" class="form-check-label computer libro periferica rivista software">Tag</label>
+                    <input type="checkbox" class="form-check-input computer libro periferica rivista software"
+                        id="tag-checkbox" name="selettori[7]" value="tag">
+                    <label for="tag-checkbox"
+                        class="form-check-label computer libro periferica rivista software">Tag</label>
                 </div>
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input computer libro rivista" id="anno-checkbox" name="selettori[3]" value="anno">
+                    <input type="checkbox" class="form-check-input computer libro rivista" id="anno-checkbox"
+                        name="selettori[3]" value="anno">
                     <label for="anno-checkbox" class="form-check-label computer libro rivista">Anno</label>
                 </div>
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input libro rivista" id="casa-editrice-checkbox" name="selettori[4]" value="casa-editrice">
+                    <input type="checkbox" class="form-check-input libro rivista" id="casa-editrice-checkbox"
+                        name="selettori[4]" value="casa-editrice">
                     <label for="casa-editrice-checkbox" class="form-check-label libro rivista">Casa editrice</label>
                 </div>
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input computer software" id="sistema-operativo-checkbox" name="selettori[5]" value="sistema-operativo">
-                    <label for="sistema-operativo-checkbox" class="form-check-label computer software">Sistema operativo</label>
+                    <input type="checkbox" class="form-check-input computer software" id="sistema-operativo-checkbox"
+                        name="selettori[5]" value="sistema-operativo">
+                    <label for="sistema-operativo-checkbox" class="form-check-label computer software">Sistema
+                        operativo</label>
                 </div>
                 <div class="col div-selettore">
-                    <input type="checkbox" class="form-check-input computer libro periferica rivista software" id="note-checkbox" name="selettori[6]" value="note">
-                    <label for="note-checkbox" class="form-check-label computer libro periferica rivista software">Note</label>
+                    <input type="checkbox" class="form-check-input computer libro periferica rivista software"
+                        id="note-checkbox" name="selettori[6]" value="note">
+                    <label for="note-checkbox"
+                        class="form-check-label computer libro periferica rivista software">Note</label>
                 </div>
 
         </div>
@@ -128,19 +139,28 @@ unset($_SESSION["logged"]);
     <div class="home-layout-center">
         <div class="row justify-content-center">
             <div class="col4">
-                <button class="btn-ricerca">Cerca</button>
+                <button class="btn-ricerca" onclick="setAction()">Cerca</button>
 
             </div>
         </div>
     </div>
 </form>
 <script>
-    function show() {
-        var x = document.getElementById("selettori");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }    
+function setAction() {
+    var table = Array.from(
+        document.querySelectorAll('input[name=dove-cercare]')
+    ).filter(radio => radio.checked)[0]?.value;
+    
+    document.getElementById("main-form").action += "/" + table;
+    document.getElementById("main-form").submit();
+}
+
+function show() {
+    var x = document.getElementById("selettori");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
 </script>

@@ -20,4 +20,12 @@ PER CONTINUARE
 
 - Gestisci i log con monolog
 
+BUG FIXING 
+
+- Cerca ovunque non funziona
+
+- i path 
+
+- sistema l'interazione utente: quando sono nell'area riservata non devo poter andare sul login, devo avere un logout e devo poter tornare alla pagina di scelta di insert/update/delete
+
 

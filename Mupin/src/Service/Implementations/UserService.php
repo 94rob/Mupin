@@ -18,7 +18,8 @@ class UserService
 
     public function verifyPassword(string $email, string $password){
         $userpass = $this->userRepository->selectPassByEmail($email);
-        if (password_verify($password, $userpass[0]["password"])){
+        return $userpass;
+        if (password_verify($password, $userpass[0]["PASSWORD"])){
             return true;
         } else {
             return false;

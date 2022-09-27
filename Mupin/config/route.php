@@ -11,13 +11,17 @@ return [
     [['GET','POST'], '/login', [Controller\LoginController::class]],    
 
     // Ricerca    
-    [ 'POST', '/search', [ Controller\SelectController::class ]],
-    [ 'GET', '/search/{idCatalogo}', [ Controller\SelectController::class ]],      
+    [ 'GET', '/search', [ Controller\SelectController::class ]],
+    [ 'GET', '/search/{tabella}', [ Controller\SelectController::class ]],
+    [ 'GET', '/search/{tabella}/{id-catalogo}', [ Controller\SelectController::class ]],      
 
-    // Modifica
-    ['POST', '/modifica/{tabella}/{id-catalogo}', [Controller\UpdateController::class]], 
+    // Modifica    
+    [['GET', 'POST'], '/modifica/{tabella}/{id-catalogo}', [Controller\UpdateController::class]], 
 
-    // Calcellazione
-    ['GET', '/delete/{tabella}/{id-catalogo}', [Controller\DeleteController::class]]
+    // Cancellazione
+    ['POST', '/delete/{tabella}/{id-catalogo}', [Controller\DeleteController::class]],
+
+    // Inserimento
+    ['GET', '/insert/{tabella}', [Controller\InsertController::class]]
 
 ];

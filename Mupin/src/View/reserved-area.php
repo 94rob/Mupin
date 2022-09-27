@@ -4,35 +4,59 @@ $this->layout('layout-private', [
     'title' => 'Area Riservata'
 ]);
 
-if(!array_key_exists("logged", $_SESSION) || !$_SESSION["logged"] ){
-    header("Location: ../../");
-    http_response_code(401);
-    die();
-}
+session_start();
+$_SESSION["logged"] = true;
 ?>
 
-<form action="/search" method="POST">
-    <div class="row justify-content-center">
+<form action="" method="" id="form-private">
+    <table>
+        <tr>
+            <td><button type="button" class="btn btn-primary" onclick="cerca()">Cerca</button></td>
+            <td><button type="button" class="btn btn-info" onclick="inserisci()">Inserisci</button> </td>
+        </tr>
+        <tr>
+            <td>
+                <select class="form-select" name="dove-cercare" id="search-select">
+                    <option selected>Ovunque</option>
+                    <option value="computer">Computer</option>
+                    <option value="libro">Libri</option>
+                    <option value="periferica">Periferiche</option>
+                    <option value="software">Software</option>
+                    <option value="rivista">Riviste</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select" name="dove-cercare" id="insert-select">
+                    <option value="computer" selected>Computer</option>                   
+                    <option value="libro">Libri</option>
+                    <option value="periferica">Periferiche</option>
+                    <option value="software">Software</option>
+                    <option value="rivista">Riviste</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="input-txt">Inserisci parola chiave</label>
+                <input type="text" id="input-txt" name="cosa-cercare">
+            </td>
+        </tr>
 
-        <div class="col-6">
-            <h2>Seleziona una categoria</h2>
-
-            <input type="radio" id="libro-checkbox" name="dove-cercare" value="libro">
-            <label for="libro-checkbox">Libri</label>
-            <input type="radio" id="rivista-checkbox" name="dove-cercare" value="rivista">
-            <label for="rivista-checkbox">Riviste</label>
-            <input type="radio" id="software-checkbox" name="dove-cercare" value="software">
-            <label for="software-checkbox">Software</label>
-            <input type="radio" id="periferica-checkbox" name="dove-cercare" value="periferica">
-            <label for="periferica-checkbox">Periferiche</label>
-            <input type="radio" id="computer-checkbox" name="dove-cercare" value="computer">
-            <label for="computer-checkbox">Computer</label>
-
-        </div>
-        <div class="row justify-content-center">
-            <div class="col4">
-                <button class="btn-ricerca" type="submit">Cerca</button>
-            </div>
-        </div>
+    </table>
     </div>
 </form>
+<script>
+    function inserisci(){
+        tabella = document.getElementById("insert-select").value;
+        document.getElementById("form-private").action = "/insert/" + tabella;        
+        document.getElementById("form-private").method = "GET";        
+        document.getElementById("form-private").submit();
+    }
+
+    function cerca(){
+        tabella = document.getElementById("search-select").value;
+        document.getElementById("form-private").action = "/search/" + tabella;        
+        document.getElementById("form-private").method = "GET";        
+        document.getElementById("form-private").submit();
+    }
+</script>

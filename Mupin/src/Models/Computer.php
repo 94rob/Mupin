@@ -2,8 +2,8 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Computer{
-    public string $id_catalogo;
+class Computer extends Model{
+    
     public string $modello;
     public int $anno;
     public string $cpu;
@@ -16,10 +16,7 @@ class Computer{
     public string $tag;      
       
 
-    // Getter
-    public function getIdCatalogo(){
-        return $this->id_catalogo;
-    }
+    // Getter    
     public function getModello(){
         return $this->modello;
     }
@@ -51,10 +48,7 @@ class Computer{
         return $this->tag;
     }
 
-    // Setter
-    public function setIdCatalogo($input){
-        $this->id_catalogo = $input;
-    }
+    // Setter    
     public function setModello($input){
          $this->modello = $input;
     }
@@ -86,17 +80,7 @@ class Computer{
         $this->tag = $input;
     }
 
-    // Utils
-    public function __isset($property){
-        return isset($this->$property);
-    } 
-
-    public function equalsTo(Computer $computer): bool{
-        if($this->id_catalogo == $computer->getIdCatalogo()){
-            return true;
-        }
-        return false;
-    }
+    
 
 
 }

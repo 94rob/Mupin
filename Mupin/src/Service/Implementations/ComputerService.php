@@ -38,7 +38,7 @@ class ComputerService extends ServiceUtils implements IComputerService
                     return $response_array;
                 }
 
-                if (in_array("modello-titolo", $selettori)) {
+                if (array_key_exists("modello-titolo", $selettori)) {
                     $selettori["modello"] = $selettori["modello-titolo"];
                     unset($selettori["modello-titolo"]);
                 }

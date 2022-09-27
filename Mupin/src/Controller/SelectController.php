@@ -31,43 +31,77 @@ class SelectController implements ControllerInterface
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        if($request->getAttribute('idCatalogo') != null){
-            $id = $request->getAttribute('idCatalogo');
-            return $this->selectSingleItemByIdCatalogo($id);
-        } else{
-            $req = $request->getBody()->__toString();
-        $req_array = $this->parseRequestBody($req);
-        return $this->executeResearch($req_array); 
+        $cosa_cercare = array_key_exists("cosa-cercare",$_GET) ? $_GET["cosa-cercare"] : "";
+        
+        if(($request->getAttribute('tabella') == null)&&($request->getAttribute('id-catalogo') == null)){
+            $result = $this->selectAll($cosa_cercare);
+
+            return new Response(
+                200,
+                [],
+                $this->plates->render('select-results', [
+                    'result' =>$result]
+                    )
+            ); 
         }
 
-                
-    }
+        if(($request->getAttribute('tabella') != null)&&($request->getAttribute('id-catalogo') == null)){
+            $selettori = array_key_exists("selettori", $_GET) ? $_GET["selettori"] : [];
+            
+            $result = $this->routeSelect($request->getAttribute('tabella'), $cosa_cercare, $selettori);
 
-    public function executeResearch(array $req_array){
-        $selettori_array = array_key_exists("selettori", $req_array) ? $req_array["selettori"] : [];               
-        $cosa_cercare = array_key_exists("input", $_POST) ? $_POST["input"] : "";
-        $result = $this->routeSelect($_POST["dove-cercare"], $cosa_cercare, $selettori_array);        
-        
-        return new Response(
-            200,
-            [],
-            $this->plates->render('select-results', [
-                'req' =>$result]
-                )
-        );   
+            return new Response(
+                200,
+                [],
+                $this->plates->render('select-results', [
+                    'result' => $result]
+                    )
+            ); 
+        }     
+
+        // Da rivedere
+        if($request->getAttribute('id-catalogo') != null){
+            $result = $this->selectSingleItemByIdCatalogo($request->getAttribute('id-catalogo'));
+            return new Response(
+                200,
+                [],
+                $this->plates->render('item-select', [
+                    'object' => $result[0]]
+                    )
+            );
+        }
+         
     }
 
     public function selectSingleItemByIdCatalogo(string $id){
-        $computer_array = $this->computerService->selectWhereColumnLikeInput("ID_CATALOGO", $id);        
+        
+        $result_array = [];
+        array_push($result_array, $this->computerService->selectWhereColumnLikeInput("ID_CATALOGO", $id));        
+        array_push($result_array, $this->libroService->selectWhereColumnLikeInput("ID_CATALOGO", $id));        
+        array_push($result_array, $this->perifericaService->selectWhereColumnLikeInput("ID_CATALOGO", $id));        
+        array_push($result_array, $this->rivistaService->selectWhereColumnLikeInput("ID_CATALOGO", $id));        
+        array_push($result_array, $this->softwareService->selectWhereColumnLikeInput("ID_CATALOGO", $id)); 
 
-        return new Response(
-            200, 
-            [],
-            $this->plates->render('item', [
-                'computer_array' => $computer_array
-                
-                ])
-        );
+        foreach($result_array as $arr){
+            if (!empty($arr)){
+                $result_array = $arr;
+            }
+        }
+
+
+        return $result_array;
+    }
+
+    public function selectAll(string $cosa_cercare){
+        $response_array = [];
+
+        $response_array["computer"] = $this->computerService->selectFromComputerWhereWhateverLikeInput($cosa_cercare);
+        $response_array["libro"] = $this->libroService->selectFromLibroWhereWhateverLikeInput($cosa_cercare);
+        $response_array["rivista"] = $this->rivistaService->selectFromRivistaWhereWhateverLikeInput($cosa_cercare);
+        $response_array["periferica"] = $this->perifericaService->selectFromPerifericaWhereWhateverLikeInput($cosa_cercare);
+        $response_array["software"] = $this->softwareService->selectFromSoftwareWhereWhateverLikeInput($cosa_cercare);
+
+        return $response_array;
     }
 
     public function routeSelect(string $dove_cercare, string $cosa_cercare, array $selettori): array{

@@ -64,18 +64,20 @@ class DeleteController implements ControllerInterface
                 break;
 
             default:
-                $result = "Non ha funzionato";
+                http_response_code(500);
                 
         }
 
-
+        $className = $tabella . "Service";               
+        $arr = $this->${"className"}->selectAll();
+        $result[$tabella] = $arr;
         return new Response(
-            200,
-        [],
-            $this->plates->render('modifica', [
-            'result' => $result
-
-        ])
+                200,
+                [],
+                $this->plates->render('select-results', [
+                'result' => $result
+                ])
             );
+        
     }
 }

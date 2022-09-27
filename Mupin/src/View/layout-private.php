@@ -18,7 +18,7 @@
     <header class='header'>
         
         <menu class='header-bar' data-animate-header>
-            <a href='./' class='btn-menu' data-toggle-class='menu-active'>Esci</a>
+            <a href='/' class='btn-menu' data-toggle-class='menu-active'>Esci</a>
             <!-- <figure>
                 <img src="./img/mupin-logo.png" alt="Logo Mupin">
             </figure> -->
