@@ -16,7 +16,7 @@ class ComputerRepositoryTest extends TestCase{
     {
         $this->pdo = $this->createMock(PDO::class);
         $this->sth = $this->createMock(PDOStatement::class);
-        $this->sth->method('execute')->willReturn();
+        
     }
 
     public function testSelectIdProduceRightQueryString(){

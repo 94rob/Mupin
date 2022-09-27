@@ -54,7 +54,7 @@ class ComputerRepository extends RepositoryUtils
         $sth->execute();
 
         if (isset($computer->dimensione_hard_disk)) {
-            $this->updateColumnByIdCatalogo("DIMESIONE_HARD_DISK", $computer->getIdCatalogo(), (string)$computer->getDimensioneHardDisk());
+            $this->updateColumnByIdCatalogo("DIMENSIONE_HARD_DISK", $computer->getIdCatalogo(), (string)$computer->getDimensioneHardDisk());
         }
         if (isset($computer->sistema_operativo)) {
             $this->updateColumnByIdCatalogo("SISTEMA_OPERATIVO", $computer->getIdCatalogo(), $computer->getSistemaOperativo());

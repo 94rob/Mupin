@@ -1,8 +1,13 @@
 <?php
-$this->layout('layout-public', ['title' => 'Home Page']);
+if(( ! isset($_SESSION["logged"] )) || ( $_SESSION["logged"] == false )){
 
-session_start();
-unset($_SESSION["logged"]);
+    $this->layout('layout-public', ['title' => 'Home Page']);
+
+} else {
+
+    $this->layout('layout-private', ['title' => 'Home Page']);
+
+}
 ?>
 
 <div class="home-layout-center">
@@ -20,7 +25,7 @@ unset($_SESSION["logged"]);
         <div class="row justify-content-between">
             <div class="col-2">
                 <input type="radio" id="computer-checkbox" name="dove-cercare" value="computer">
-                <label for="computer-checkbox">
+                <label for="computer-checkbox" class="image-label">
                     <figure>
                         <img src="./img/computer.jpg" alt="Computer">
                         <figcaption>Computer</figcaption>
@@ -29,7 +34,7 @@ unset($_SESSION["logged"]);
             </div>
             <div class="col-2">
                 <input type="radio" id="periferica-checkbox" name="dove-cercare" value="periferica">
-                <label for="periferica-checkbox">
+                <label for="periferica-checkbox" class="image-label">
                     <figure>
                         <img src="./img/tastiera.jpg" alt="Periferiche">
                         <figcaption>Periferiche</figcaption>
@@ -38,7 +43,7 @@ unset($_SESSION["logged"]);
             </div>
             <div class="col-2">
                 <input type="radio" id="software-checkbox" name="dove-cercare" value="software">
-                <label for="software-checkbox">
+                <label for="software-checkbox" class="image-label">
                     <figure>
                         <img src="./img/software.jpg" alt="Software">
                         <figcaption>Software</figcaption>
@@ -47,7 +52,7 @@ unset($_SESSION["logged"]);
             </div>
             <div class="col-2">
                 <input type="radio" id="rivista-checkbox" name="dove-cercare" value="rivista">
-                <label for="rivista-checkbox">
+                <label for="rivista-checkbox" class="image-label">
                     <figure>
                         <img src="./img/rivista.jpg" alt="Riviste">
                         <figcaption>Riviste</figcaption>
@@ -56,7 +61,7 @@ unset($_SESSION["logged"]);
             </div>
             <div class="col-2">
                 <input type="radio" id="libro-checkbox" name="dove-cercare" value="libro">
-                <label for="libro-checkbox">
+                <label for="libro-checkbox" class="image-label">
                     <figure>
                         <img src="./img/libro.jpg" alt="Libri">
                         <figcaption>Libri</figcaption>
@@ -138,7 +143,7 @@ unset($_SESSION["logged"]);
 
     <div class="home-layout-center">
         <div class="row justify-content-center">
-            <div class="col4">
+            <div class="col-4 col-btn-ricerca">
                 <button class="btn-ricerca" onclick="setAction()">Cerca</button>
 
             </div>

@@ -79,7 +79,7 @@ class RivistaService extends ServiceUtils implements IRivistaService
         $rivista = new Rivista();
         $rivista->setIdCatalogo($array["ID_CATALOGO"]);
         $rivista->setTitolo($array["TITOLO"]);
-        $rivista->setNumRivista($array["NUMERO_RIVISTA"]);
+        $rivista->setNumeroRivista($array["NUMERO_RIVISTA"]);
         $rivista->setAnno($array["ANNO"]);
         $rivista->setCasaEditrice($array["CASA_EDITRICE"]);
 

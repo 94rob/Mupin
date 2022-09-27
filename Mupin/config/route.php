@@ -7,21 +7,24 @@ use SimpleMVC\Controller\BasicAuth;
 return [
     [ 'GET', '/', Controller\HomeController::class ],    
 
-    // Area riservata
-    [['GET','POST'], '/login', [Controller\LoginController::class]],    
+    // AREA RISERVATA
+    // Login
+    [['GET','POST'], '/login', [Controller\LoginController::class]],   
+    // Logout 
+    [['GET'], '/logout', [Controller\LogoutController::class]],    
 
-    // Ricerca    
+    // SELECT    
     [ 'GET', '/search', [ Controller\SelectController::class ]],
     [ 'GET', '/search/{tabella}', [ Controller\SelectController::class ]],
     [ 'GET', '/search/{tabella}/{id-catalogo}', [ Controller\SelectController::class ]],      
 
-    // Modifica    
+    // UPDATE   
     [['GET', 'POST'], '/modifica/{tabella}/{id-catalogo}', [Controller\UpdateController::class]], 
 
-    // Cancellazione
+    // DELETE
     ['POST', '/delete/{tabella}/{id-catalogo}', [Controller\DeleteController::class]],
 
-    // Inserimento
-    ['GET', '/insert/{tabella}', [Controller\InsertController::class]]
+    // INSERT
+    [['GET', 'POST'], '/insert/{tabella}', [Controller\InsertController::class]]
 
 ];

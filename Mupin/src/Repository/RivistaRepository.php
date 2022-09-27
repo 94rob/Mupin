@@ -50,7 +50,7 @@ class RivistaRepository extends RepositoryUtils
         $sth = $this->pdo->prepare($sqlInstruction);
         $sth->bindValue(':id_catalogo', $rivista->getIdCatalogo(), PDO::PARAM_STR);
         $sth->bindValue(':titolo', $rivista->getTitolo(), PDO::PARAM_STR);
-        $sth->bindValue(':numero_rivista', $rivista->getNumRivista(), PDO::PARAM_INT);
+        $sth->bindValue(':numero_rivista', $rivista->getNumeroRivista(), PDO::PARAM_INT);
         $sth->bindValue(':anno', $rivista->getAnno(), PDO::PARAM_INT);
         $sth->bindValue(':casa_editrice', $rivista->getCasaEditrice(), PDO::PARAM_STR);
         $sth->execute();

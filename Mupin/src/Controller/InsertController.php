@@ -34,8 +34,45 @@ class InsertController implements ControllerInterface
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $tabella = $request->getAttribute('tabella');  
+        $className = "App\Models\\" . ucfirst($tabella);
+        $model = new ${"className"}();
 
+        if($request->getMethod() == 'GET'){
+            return new Response(
+                200,
+                [],
+                    $this->plates->render('item-insert', [
+                    'model' => $model, 
+                    'tabella' => $tabella        
+                ])
+            );
+        }
+        if($request->getMethod() == 'POST'){
+            $array = [];
+            // popolo l'oggetto
+            foreach($_POST as $key => $value){
+                $newKey = str_replace("-", "_", strtoupper($key));
+                $array[$newKey] = $value;                
+            }
 
+            // eseguo la insert
+            $service = $tabella . "Service";
+            $method = "insertInto" . ucfirst($tabella);
+            $this->${"service"}->${'method'}($array);
+
+            // ritorno la lista degli oggetti di quella categoria, aggiornata
+            $className = $tabella . "Service";               
+            $arr = $this->${"className"}->selectAll();
+            $result[$tabella] = $arr;
+            return new Response(
+                200,
+                [],
+                    $this->plates->render('select-results', [
+                    'result' => $result     
+                ])
+            );
+        }
+        
         // switch ($tabella) {
 
         //     case ("computer"):
@@ -69,13 +106,18 @@ class InsertController implements ControllerInterface
         // }
 
 
-        return new Response(
-            200,
-        [],
-            $this->plates->render('item-insert', [
-            'tabella' => $tabella
-
-        ])
-            );
+        
     }
+
+    public function dashesToCamelCase($string, $capitalizeFirstCharacter = false) 
+{
+
+    $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
+
+    // if (!$capitalizeFirstCharacter) {
+    //     $str[0] = strtolower($str[0]);
+    // }
+
+    return $str;
+}
 }

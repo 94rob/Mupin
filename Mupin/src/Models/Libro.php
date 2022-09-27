@@ -2,18 +2,22 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Libro extends Model{    
+class Libro{   
+    public string $id_catalogo; 
     public string $titolo;
     public string $autori;
     public string $casa_editrice;
     public int $anno;
-    public int $num_pagine;
+    public int $numero_pagine;
     public string $isbn;
     public string $note;
     public string $url;
     public string $tag;
 
     // Getters    
+    public function getIdCatalogo(){
+        return $this->id_catalogo;
+    }
     public function getTitolo(){
         return $this->titolo;
     }
@@ -26,8 +30,8 @@ class Libro extends Model{
     public function getAnno(){
         return $this->anno;
     }
-    public function getNumPagine(){
-        return $this->num_pagine;
+    public function getNumeroPagine(){
+        return $this->numero_pagine;
     }
     public function getIsbn(){
         return $this->isbn;
@@ -43,6 +47,9 @@ class Libro extends Model{
     }
 
     // Setters
+    public function setIdCatalogo($input){
+        $this->id_catalogo = $input;
+    }
     public function setTitolo($input){
     $this->titolo=$input;        
     }
@@ -53,10 +60,16 @@ class Libro extends Model{
         $this->casa_editrice=$input;
     }
     public function setAnno($input){
+        if(gettype($input) != "int"){
+            $input = (int)$input;
+        }
         $this->anno = $input;
     }
-    public function setNumPagine($input){
-        $this->num_pagine=$input;
+    public function setNumeroPagine($input){
+        if(gettype($input) != "int"){
+            $input = (int)$input;
+        }
+        $this->numero_pagine=$input;
     }
     public function setIsbn($input){
         $this->isbn=$input;
@@ -69,5 +82,17 @@ class Libro extends Model{
     }
     public function setTag($input){
         $this->tag = $input;
+    }
+
+    // Utils
+    public function __isset($property){
+        return isset($this->$property);
+    } 
+
+    public function equalsTo(Libro $model): bool{
+        if($this->id_catalogo == $model->getIdCatalogo()){
+            return true;
+        }
+        return false;
     }
 }

@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
 
-class HomeController implements ControllerInterface
+class LogoutController implements ControllerInterface
 {
     protected Engine $plates;
 
@@ -21,12 +21,13 @@ class HomeController implements ControllerInterface
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         session_start();
-        if(( ! isset($_SESSION["logged"] )) || ( $_SESSION["logged"] == false )){
-            $response =  new Response(200, [], $this->plates->render('home'));
-        } else {
-            $response =  new Response(200, [], $this->plates->render('reserved-area'));
-        }
-        return $response;
+        session_destroy();
+        session_unset();
+        return new Response(
+            200,
+            [],
+            $this->plates->render('home')
+        );
     }
 
     

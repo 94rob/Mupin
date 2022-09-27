@@ -1,25 +1,32 @@
 <?php
-use App\Models\Computer;
-use App\Models\Periferica;
-use App\Models\Software;
-use App\Models\Rivista;
-use App\Models\Libro;
+declare(strict_types=1);
+session_start();
 
-$this->layout('layout-public', ['title' => 'Inserimento']);
+if(( ! isset($_SESSION["logged"] )) || ( $_SESSION["logged"] == false )){
+    http_response_code(401);
+    die();
+}
 
-$className = "App\Models\\" . ucfirst($tabella);
-$model = new ${"className"}();
+$this->layout('layout-private', ['title' => 'Inserimento']);
 
-$reflect = new ReflectionClass($object);
+
+
+$reflect = new ReflectionClass($model);
 $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
 
+echo "<h3 class='home-layout-center'>Inserimento " . ucfirst($tabella) . "</h3>";
 echo "<form action='../../insert/" . $tabella . "' method='POST' id='form-insert'>";
 echo "<table>";
 foreach($properties as $property){
     $propertyName = $property->getName();
-    echo "<tr><td>". str_replace("_", " ", ucfirst($propertyName)) . "</td>";     
+    echo "<tr><td class='descrittori-tabella' >". str_replace("_", " ", ucfirst($propertyName)) . "</td>";     
     echo "<td><input type='text' name='". str_replace("_", "-", $propertyName) ."'></td>";   
 }
-echo "</table>";
-echo "<button type='submit' class='btn btn-primary'>Inserisci</button></form>";
 ?>
+</table>
+<div class="home-layout-center">
+    <button type='submit' class='btn btn-primary'>Inserisci</button></form>
+    <button type='button' class='btn btn-danger'><a href='../../'>Annulla</a></button>
+</div>
+
+

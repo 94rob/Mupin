@@ -2,7 +2,8 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Periferica extends Model{
+class Periferica {
+    public string $id_catalogo;
     public string $modello;
     public string $tipologia;    
     public string $note;
@@ -10,6 +11,9 @@ class Periferica extends Model{
     public string $tag;
         
     // Getter    
+    public function getIdCatalogo(){
+        return $this->id_catalogo;
+    }
     public function getModello()
     {
         return $this->modello;
@@ -31,7 +35,10 @@ class Periferica extends Model{
         return $this->tag;
     }    
 
-    // Setter       
+    // Setter     
+    public function setIdCatalogo($input){
+        $this->id_catalogo = $input;
+    }  
     public function setModello($modello)
     {
         $this->modello = $modello;
@@ -61,6 +68,18 @@ class Periferica extends Model{
         $this->tag = $tag;
 
         return $this;
+    }
+
+    // Utils
+    public function __isset($property){
+        return isset($this->$property);
+    } 
+
+    public function equalsTo(Periferica $model): bool{
+        if($this->id_catalogo == $model->getIdCatalogo()){
+            return true;
+        }
+        return false;
     }
 
 }

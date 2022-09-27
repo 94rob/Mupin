@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/general.css">
-    <link rel="stylesheet" href="css/table.css">
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/header.css">
 
     <title><?= $this->e($title) ?></title>
 </head>
@@ -18,11 +18,8 @@
     <header class='header'>
         
         <menu class='header-bar' data-animate-header>
-            <a href='/' class='btn-menu' data-toggle-class='menu-active'>Esci</a>
-            <!-- <figure>
-                <img src="./img/mupin-logo.png" alt="Logo Mupin">
-            </figure> -->
-            
+            <a class='btn-menu' id='logout-btn' onclick='logout()'>Logout</a>            
+            <a href='../../' class='btn-search' data-toggle-class='search-active'>Operazioni</a>
         </menu>
     </header>
 
@@ -32,4 +29,9 @@
         </header>
     </article>
 </body>
+<script>
+    function logout(){
+        document.location = '../../logout';
+    }
+</script>
 </html>

@@ -11,7 +11,7 @@ class LibroRepository extends RepositoryUtils{
     public function selectFromLibroWhereWhateverLikeInput(string $input): array
     {
         $input = '%' . $input . '%';
-        $arrProperties = ["TITOLO", "AUTORI", "CASA_EDITRICE", "ANNO", "NUM_PAGINE", "ISBN", "NOTE", "URL", "TAG"];
+        $arrProperties = ["TITOLO", "AUTORI", "CASA_EDITRICE", "ANNO", "NUMERO_PAGINE", "ISBN", "NOTE", "URL", "TAG"];
         $i = 0;
         $len = count($arrProperties);
         $sqlInstruction = "SELECT * FROM libro WHERE ";
@@ -51,8 +51,8 @@ class LibroRepository extends RepositoryUtils{
         $sth->bindValue(':anno', $libro->getAnno(), PDO::PARAM_INT);        
         $sth->execute();
 
-        if (isset($libro->num_pagine)) {
-            $this->updateColumnByIdCatalogo("NUM_PAGINE", $libro->getIdCatalogo(), (string)$libro->getNumPagine());
+        if (isset($libro->numero_pagine)) {
+            $this->updateColumnByIdCatalogo("NUMERO_PAGINE", $libro->getIdCatalogo(), (string)$libro->getNumeroPagine());
         }
         if (isset($libro->isbn)) {
             $this->updateColumnByIdCatalogo("ISBN", $libro->getIdCatalogo(), $libro->getIsbn());

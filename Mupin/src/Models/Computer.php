@@ -2,8 +2,9 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Computer extends Model{
+class Computer{
     
+    public string $id_catalogo;
     public string $modello;
     public int $anno;
     public string $cpu;
@@ -17,6 +18,9 @@ class Computer extends Model{
       
 
     // Getter    
+    public function getIdCatalogo(){
+        return $this->id_catalogo;
+    }
     public function getModello(){
         return $this->modello;
     }
@@ -49,22 +53,37 @@ class Computer extends Model{
     }
 
     // Setter    
+    public function setIdCatalogo($input){
+        $this->id_catalogo = $input;
+    }
     public function setModello($input){
          $this->modello = $input;
     }
     public function setAnno($input){
+        if(gettype($input) != "int"){
+            $input = (int)$input;
+        }
         $this->anno = $input;
     }
     public function setCpu($input){
         $this->cpu = $input;
     }
     public function setVelocitaCpu($input){
+        if(gettype($input) != "float"){
+            $input = (float)$input;
+        }
         $this->velocita_cpu = $input;
     }
     public function setMemoriaRAM($input){
+        if(gettype($input) != "int"){
+            $input = (int)$input;
+        }
         $this->memoria_ram = $input;
     }
     public function setDimensioneHardDisk($input){
+        if(gettype($input) != "int"){
+            $input = (int)$input;
+        }
         $this->dimensione_hard_disk = $input;
     }
     public function setSistemaOperativo($input){
@@ -80,7 +99,17 @@ class Computer extends Model{
         $this->tag = $input;
     }
 
-    
+    // Utils
+    public function __isset($property){
+        return isset($this->$property);
+    } 
+
+    public function equalsTo(Computer $model): bool{
+        if($this->id_catalogo == $model->getIdCatalogo()){
+            return true;
+        }
+        return false;
+    }
 
 
 }

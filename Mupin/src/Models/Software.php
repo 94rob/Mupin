@@ -2,7 +2,7 @@
 declare (strict_types=1);
 namespace App\Models;
 
-class Software extends Model{
+class Software {
     public string $id_catalogo;
     public string $titolo;
     public string $sistema_operativo;
@@ -13,6 +13,9 @@ class Software extends Model{
     public string $tag;
     
     // Getter   
+    public function getIdCatalogo(){
+        return $this->id_catalogo;
+    }
     public function getTitolo()
     {
         return $this->titolo;
@@ -43,6 +46,9 @@ class Software extends Model{
     }    
     
     // Setter       
+    public function setIdCatalogo($input){
+        $this->id_catalogo = $input;
+    }
     public function setTitolo($titolo)
     {
         $this->titolo = $titolo;
@@ -84,6 +90,18 @@ class Software extends Model{
         $this->tag = $tag;
 
         return $this;
+    }
+
+    // Utils
+    public function __isset($property){
+        return isset($this->$property);
+    } 
+
+    public function equalsTo(Software $model): bool{
+        if($this->id_catalogo == $model->getIdCatalogo()){
+            return true;
+        }
+        return false;
     }
     
 } 

@@ -1,7 +1,14 @@
 <?php
-$this->layout('layout-public', ['title' => 'Ricerca']);
 session_start();
-// $_SESSION["logged"]=false;
+if(( ! isset($_SESSION["logged"] )) || ( $_SESSION["logged"] == false )){
+
+    $this->layout('layout-public', ['title' => 'Home Page']);
+
+} else {
+
+    $this->layout('layout-private', ['title' => 'Home Page']);
+
+}
 ?>
 
 <form id="form-single-item" method="get">
@@ -18,11 +25,11 @@ session_start();
 
                 foreach ($value as $subkey => $model) {
 
-                    echo '<tr><td';
+                    echo '<tr ';
                     if(!array_key_exists("logged", $_SESSION)){
-                        echo ' onclick="selectObject(&#39;' . $key . '&#39;, &#39;' .  $model->getIdCatalogo() . '&#39;)"';
+                        echo 'class="anchor-select-item" onclick="selectObject(&#39;' . $key . '&#39;, &#39;' .  $model->getIdCatalogo() . '&#39;)"';
                     }
-                    echo '>' . $i . '</td><td>' . ucfirst($key) . '</td>';
+                    echo '><td>' . $i . '</td><td>' . ucfirst($key) . '</td>';
 
                     if (property_exists($model, "modello")) {
                         echo "<td class='titolo'>" . $model->getModello() . "</td>";
@@ -30,6 +37,7 @@ session_start();
                     if (property_exists($model, "titolo")) {
                         echo "<td class='titolo'>" . $model->getTitolo() . "</td>";
                     }
+                    echo "</div>";
                     if(array_key_exists("logged", $_SESSION) && $_SESSION["logged"]==true){
                         echo '<td><button type="submit" class="btn btn-primary" onclick="updateObject(&#39;' . $key . '&#39;, &#39;' .  $model->getIdCatalogo() . '&#39;)">Modifica</button></td>';
                         echo '<td><button type="button" class="btn btn-danger" onclick="deleteObject(&#39;' . $key . '&#39;, &#39;' . $model->getIdCatalogo() . '&#39;)">Elimina</button></td>';

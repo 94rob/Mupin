@@ -13,8 +13,37 @@ body {
   /* text-align: center; */
 }
 
+#login-form input{
+  width: 100%;
+}
+
+#logout-btn, 
+tr.anchor-select-item{
+  cursor:pointer;
+}
+
+tr.anchor-select-item:hover{
+  background-color: #e9c46a;
+  color: white;
+}
+
 .home-layout-center{
   text-align: center;
+}
+
+div.home-layout-center button{
+  display:inline;
+  margin-right: 5%;
+  margin-left: 5%;
+  text-decoration: none;
+  font-size: medium;
+  text-transform: uppercase;
+  margin-top: -3%;
+}
+
+div.home-layout-center button a{
+  text-decoration: none;
+  color:white;
 }
 
 .div-selettore,
@@ -98,7 +127,8 @@ h5, .input-label{
     padding: 0.5% 2.4%;
     border-radius: 5px;
     box-shadow: #01161e 3px 3px;
-    margin: 2%;
+    margin-top: 5%;
+    float: right;
 }
 
 .btn-ricerca a{
@@ -110,15 +140,23 @@ h5, .input-label{
     font-size: small;
 }
 
-.textbox{
+.col-btn-ricerca{
+  text-align: center;
+}
+
+.textbox, 
+.form-select{
     background-color: #f1faee;
     font-size: medium;
     border-radius: 5px;
     height:2.2em;
-    width:50%;    
+    width:100%;    
 }
 
-label{
+
+
+label.image-label
+{
   height:80%;
   width: 100%;
 }
@@ -154,4 +192,76 @@ label:hover{
   text-transform: uppercase;
   color: white;
   margin-top: 5%;
+}
+
+/* form .bozza{
+  border: 2px solid black;
+} */
+
+form .container.bozza{
+  height: 50%;
+}
+
+form .row.bozza{
+  height: 33.3%;
+}
+
+form .container.col-4{
+  height:100%;
+}
+
+.row-input{
+  margin-bottom:8%;
+}
+
+.row-label{
+  margin-top: 6%;
+}
+
+div.col-4.bozza:first-of-type{
+  text-align: end;
+}
+
+.btn-area-riservata{
+  width:40%;
+  text-transform: uppercase;
+  font-size: medium;
+  color:#01161e;
+  margin-bottom: auto;
+}
+
+.titolo-area-riservata{
+  text-transform: uppercase;
+  color: #e9c46a;
+  font-size: medium;  
+}
+
+.input-tabella-insert{
+  border-radius:2px;
+  width:80%;
+  position:relative;
+  left:15%;
+}
+
+.descrittori-tabella{
+  text-transform: uppercase;
+  font-size: medium;
+  text-align: end;
+  position:relative;
+  left: -15%;
+}
+
+.descrittori-tabella-update{
+  text-transform: uppercase;
+  font-size: medium;
+}
+
+.td-valori-update{
+  text-align: start;
+  left: 3%;
+}
+
+.textbox-tabella-update{
+  border-radius:2px;
+ left: -15%;
 }

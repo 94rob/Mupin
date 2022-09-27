@@ -84,7 +84,7 @@ class LibroService extends ServiceUtils implements ILibroService{
         
 
         if(array_key_exists("NUM_PAGINE", $array) && $array["NUM_PAGINE"]!=null){
-            $libro->setNumPagine($array["NUM_PAGINE"]);
+            $libro->setNumeroPagine($array["NUM_PAGINE"]);
         }    
         if(array_key_exists("ISBN", $array) && $array["ISBN"]!=null){
             $libro->setIsbn($array["ISBN"]);
