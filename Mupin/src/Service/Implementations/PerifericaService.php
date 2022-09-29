@@ -9,6 +9,9 @@ use App\Models\Periferica;
 use App\Service\Interfaces\IPerifericaService;
 use App\Service\ServiceUtils;
 use PDO;
+use PDOException;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class PerifericaService extends ServiceUtils implements IPerifericaService
 {
@@ -17,9 +20,16 @@ class PerifericaService extends ServiceUtils implements IPerifericaService
 
     public function __construct()
     {
-        $config = include 'config.php';
-        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);        
-        $this->perifericaRepository = new PerifericaRepository($pdo);        
+        $config = include 'db-config.php';
+        try{
+            $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+            $this->perifericaRepository = new PerifericaRepository($pdo); 
+
+        } catch (PDOException $e){
+            $log = new Logger('connession'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::ERROR));
+            $log->error($e->getMessage());
+        }        
     }
 
     // SELECT

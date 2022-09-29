@@ -8,6 +8,9 @@ use App\Models\Software;
 use App\Service\Interfaces\ISoftwareService;
 use App\Service\ServiceUtils;
 use PDO;
+use PDOException;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class SoftwareService extends ServiceUtils implements ISoftwareService
 {
@@ -16,9 +19,16 @@ class SoftwareService extends ServiceUtils implements ISoftwareService
 
     public function __construct()
     {
-        $config = include 'config.php';
-        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
-        $this->softwareRepository = new SoftwareRepository($pdo);
+        $config = include 'db-config.php';
+        try{
+            $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+            $this->softwareRepository = new SoftwareRepository($pdo); 
+
+        } catch (PDOException $e){
+            $log = new Logger('connession'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::ERROR));
+            $log->error($e->getMessage());
+        } 
     }
 
     // SELECT

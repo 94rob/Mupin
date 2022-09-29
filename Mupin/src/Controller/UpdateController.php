@@ -11,6 +11,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
 use App\Service\UpdateRouter;
 use App\Service\Implementations;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 
 class UpdateController implements ControllerInterface
@@ -36,13 +38,14 @@ class UpdateController implements ControllerInterface
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        
         $tabella = $request->getAttribute('tabella');
         $idCatalogo = $request->getAttribute('id-catalogo');
 
         if ($request->getMethod() == "GET") {
 
             $object = $this->selectSingleItemByIdCatalogo($idCatalogo);
-            return new Response(
+            $response = new Response(
                     200,
                     [],
                     $this->plates->render('item-update', [
@@ -50,14 +53,37 @@ class UpdateController implements ControllerInterface
                     'object' => $object[0]
                     ])
                 );
-            }
+            } else
 
         if($request->getMethod() == "POST") {
+            session_start();
+            if( (array_key_exists("img", $_FILES)) && ($_FILES["img"]["size"] != 0)){
+                
+                
+                $temp = explode("/", $_FILES["img"]['type']);
+                $ext = $temp[1];
+
+                $path =$_SERVER['DOCUMENT_ROOT']."/img";
+                $num = count(glob($path . "/" . $idCatalogo . "*"));                
+                $fileName = $path . "/" . $idCatalogo. "_" . $num . "." . $ext;
+
+                file_put_contents($fileName, file_get_contents($_FILES["img"]["tmp_name"]));
+
+                $log = new Logger('add-image'); 
+                $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+                $log->info("User " . $_SESSION["user"] . " added image " . basename($fileName) . " to item " . $idCatalogo);
+            }
+            
             if ($this->updateRouter->selectRightQuery($tabella, $idCatalogo, $_POST)) { 
+
+                $log = new Logger('update'); 
+                $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+                $log->info("User " . $_SESSION["user"] . " alter item " . $idCatalogo);
+
                 $className = $tabella . "Service";               
                 $arr = $this->${"className"}->selectAll();
                 $result[$tabella] = $arr;
-                return new Response(
+                $response = new Response(
                         200,
                         [],
                         $this->plates->render('select-results', [
@@ -70,6 +96,7 @@ class UpdateController implements ControllerInterface
                 http_response_code(500);
             }
 
+            return $response;
             
     }
 

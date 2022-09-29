@@ -8,13 +8,24 @@ use App\Repository\LibroRepository;
 use App\Service\Interfaces\ILibroService;
 use App\Service\ServiceUtils;
 use PDO;
+use PDOException;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class LibroService extends ServiceUtils implements ILibroService{
     public LibroRepository $libroRepository ;    
     
     public function __construct(){
-        $config = include 'config.php';
-        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);        
-        $this->libroRepository=new LibroRepository($pdo);  
+        $config = include 'db-config.php';
+        try{
+            $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+            $this->libroRepository = new LibroRepository($pdo); 
+
+        } catch (PDOException $e){
+            $log = new Logger('connession'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::ERROR));
+            $log->error($e->getMessage());
+        }  
           
     }
 

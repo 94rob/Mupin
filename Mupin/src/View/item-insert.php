@@ -15,7 +15,7 @@ $reflect = new ReflectionClass($model);
 $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
 
 echo "<h3 class='home-layout-center'>Inserimento " . ucfirst($tabella) . "</h3>";
-echo "<form action='../../insert/" . $tabella . "' method='POST' id='form-insert'>";
+echo "<form action='../../insert/" . $tabella . "' method='POST' enctype='multipart/form-data' id='form-insert'>";
 echo "<table>";
 foreach($properties as $property){
     $propertyName = $property->getName();
@@ -23,6 +23,12 @@ foreach($properties as $property){
     echo "<td><input type='text' name='". str_replace("_", "-", $propertyName) ."'></td>";   
 }
 ?>
+
+<tr>
+    <td><label for="img">Add image:</label></td>
+    <td><input type="file" id="img" name="img" accept="image/*"></td>
+</tr>
+
 </table>
 <div class="home-layout-center">
     <button type='submit' class='btn btn-primary'>Inserisci</button></form>

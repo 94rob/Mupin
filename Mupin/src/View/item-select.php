@@ -22,6 +22,23 @@ foreach($properties as $property){
     echo "<tr><td class='descrittori-tabella-update'>". str_replace("_", " ", ucfirst($propertyName)) . "</td>";
     echo isset($object->$propertyName) ? "<td>" . $property->getValue($object) . "</td>" : "<td></td>";
     echo "</tr>";    
-}
+}   
 echo "</table>";
 ?>
+<div class="row">
+    <div class="col-3">
+        <?php
+
+        $imgArray = glob(__DIR__ . '/../../public/img/' . $object->getIdCatalogo() . "*");
+
+        $i = 0;
+        foreach ($imgArray as $img) {
+            $i++;
+            echo "<label for='img" . $i . "' class='image-label'><figure>";
+            echo '<img src="/img/' . basename($img) . '" alt="Immagine">';
+            echo "<figcaption>Immagine " . $i . "</figcaption></figure></label>";
+        }
+
+        ?>
+    </div>
+</div>

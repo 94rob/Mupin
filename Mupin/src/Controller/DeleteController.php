@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
 use App\Service\Implementations;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 
 class DeleteController implements ControllerInterface
@@ -33,6 +35,7 @@ class DeleteController implements ControllerInterface
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        session_start();
         $tabella = $request->getAttribute('tabella');
         $idCatalogo = $request->getAttribute('id-catalogo');
 
@@ -66,6 +69,11 @@ class DeleteController implements ControllerInterface
         $className = $tabella . "Service";               
         $arr = $this->${"className"}->selectAll();
         $result[$tabella] = $arr;
+
+        $log = new Logger('login'); 
+        $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+        $log->info("User " . $_SESSION["user"] . " deleted item " . $idCatalogo . "(". ucfirst($tabella) .")");
+
         return new Response(
                 200,
                 [],

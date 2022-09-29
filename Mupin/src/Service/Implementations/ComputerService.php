@@ -6,10 +6,13 @@ namespace App\Service\Implementations;
 
 require 'vendor/autoload.php';
 
-use App\Repository\ComputerRepository;
-use App\Models\Computer;
-use App\Service\Interfaces\IComputerService;
 use PDO;
+use PDOException;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use App\Models\Computer;
+use App\Repository\ComputerRepository;
+use App\Service\Interfaces\IComputerService;
 use App\Service\ServiceUtils;
 
 class ComputerService extends ServiceUtils implements IComputerService
@@ -19,9 +22,16 @@ class ComputerService extends ServiceUtils implements IComputerService
 
     public function __construct()
     {
-        $config = include 'config.php';
-        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
-        $this->computerRepository = new ComputerRepository($pdo); 
+        $config = include 'db-config.php';
+        try{
+            $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+            $this->computerRepository = new ComputerRepository($pdo); 
+
+        } catch (PDOException $e){
+            $log = new Logger('connession'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::ERROR));
+            $log->error($e->getMessage());
+        }        
     }
 
     // SELECT    

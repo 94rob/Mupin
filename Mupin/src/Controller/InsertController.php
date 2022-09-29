@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
 use App\Service\Implementations;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 
 class InsertController implements ControllerInterface
@@ -33,6 +35,7 @@ class InsertController implements ControllerInterface
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        session_start();
         $tabella = $request->getAttribute('tabella');  
         $className = "App\Models\\" . ucfirst($tabella);
         $model = new ${"className"}();
@@ -49,6 +52,8 @@ class InsertController implements ControllerInterface
         }
         if($request->getMethod() == 'POST'){
             $array = [];
+            $idCatalogo = $_POST["id-catalogo"];
+
             // popolo l'oggetto
             foreach($_POST as $key => $value){
                 $newKey = str_replace("-", "_", strtoupper($key));
@@ -60,10 +65,30 @@ class InsertController implements ControllerInterface
             $method = "insertInto" . ucfirst($tabella);
             $this->${"service"}->${'method'}($array);
 
+            // aggiungo l'immagine
+            if((array_key_exists("img", $_FILES)) && ($_FILES["img"]["size"] != 0)){
+                
+                
+                $temp = explode("/", $_FILES["img"]['type']);
+                $ext = $temp[1];
+
+                $path =$_SERVER['DOCUMENT_ROOT']."/img";                               
+                $fileName = $path . "/" . $idCatalogo. "_0." . $ext;
+
+                file_put_contents($fileName, file_get_contents($_FILES["img"]["tmp_name"]));
+
+                
+            }
+
             // ritorno la lista degli oggetti di quella categoria, aggiornata
             $className = $tabella . "Service";               
             $arr = $this->${"className"}->selectAll();
             $result[$tabella] = $arr;
+
+            // Aggiorno il file di log
+            $log = new Logger('insert'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+            $log->info("User " . $_SESSION["user"] . " added item " . $idCatalogo . "(". ucfirst($tabella) .")");
             return new Response(
                 200,
                 [],

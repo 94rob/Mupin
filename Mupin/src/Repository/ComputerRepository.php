@@ -41,7 +41,7 @@ class ComputerRepository extends RepositoryUtils
     // INSERT
     public function insertIntoComputer(Computer $computer)
     {
-        $sqlInstruction = "INSERT INTO computer (ID_CATALOGO,MODELLO, ANNO,CPU,VELOCITA_CPU,MEMORIA_RAM";
+        $sqlInstruction = "INSERT INTO computer (ID_CATALOGO, MODELLO, ANNO, CPU, VELOCITA_CPU, MEMORIA_RAM";
         $sqlInstruction .= ") VALUES ( :id_catalogo , :modello , :anno, :cpu , :velocita_cpu , :memoria_ram ); ";
 
         $sth = $this->pdo->prepare($sqlInstruction);

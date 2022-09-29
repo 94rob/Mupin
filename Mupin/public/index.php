@@ -15,6 +15,9 @@ use DI\ContainerBuilder;
 use SimpleMVC\App;
 use SimpleMVC\Emitter\SapiEmitter;
 
+ini_set('display_errors', '0'); 
+ini_set('error_log', './public/log/error.log');
+
 $builder = new ContainerBuilder();
 $builder->addDefinitions('config/container.php');
 $container = $builder->build();

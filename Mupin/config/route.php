@@ -23,6 +23,8 @@ return [
 
     // DELETE
     ['POST', '/delete/{tabella}/{id-catalogo}', [Controller\DeleteController::class]],
+    ['POST', '/del/img/{id-catalogo}', [Controller\DeleteImgController::class]],
+    
 
     // INSERT
     [['GET', 'POST'], '/insert/{tabella}', [Controller\InsertController::class]]

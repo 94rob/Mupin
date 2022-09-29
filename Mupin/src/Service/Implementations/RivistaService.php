@@ -8,6 +8,9 @@ use App\Repository\RivistaRepository;
 use App\Service\Interfaces\IRivistaService;
 use App\Service\ServiceUtils;
 use PDO;
+use PDOException;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class RivistaService extends ServiceUtils implements IRivistaService
 {
@@ -16,9 +19,16 @@ class RivistaService extends ServiceUtils implements IRivistaService
 
     public function __construct()
     {
-        $config = include 'config.php';
-        $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
-        $this->rivistaRepository = new RivistaRepository($pdo);
+        $config = include 'db-config.php';
+        try{
+            $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
+            $this->rivistaRepository = new RivistaRepository($pdo); 
+
+        } catch (PDOException $e){
+            $log = new Logger('connession'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::ERROR));
+            $log->error($e->getMessage());
+        } 
     }
 
     // SELECT
