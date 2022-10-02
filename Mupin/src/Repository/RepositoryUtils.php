@@ -3,15 +3,23 @@ declare(strict_types=1);
 namespace App\Repository;
 require 'vendor/autoload.php';
 
+use App\Utils\StringUtils;
 use PDO;
 use PDOException;
+use PDOStatement;
+use ReflectionClass;
+use ReflectionProperty;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class RepositoryUtils
 {
 
     public PDO $pdo;
+    public StringUtils $stringUtils;
     public function __construct(PDO $pdo)
     {
+        $this->stringUtils = new StringUtils();
         $this->pdo = $pdo;
         $this->pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
         $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -33,113 +41,74 @@ class RepositoryUtils
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectColumnsName(string $tabella): array |bool
+    // INSERT  
+    public function insertItemIntoTable($item, string $tabella): bool
     {
-        try {
-            $sqlInstruction = "SELECT COLUMN_NAME ";
-            $sqlInstruction .= "FROM INFORMATION_SCHEMA.COLUMNS";
-            $sqlInstruction .= "WHERE TABLE_SCHEMA='mupin' ";
-            $sqlInstruction .= "AND TABLE_NAME=" . $tabella . "";
-
-            $sth = $this->pdo->prepare($sqlInstruction);
-            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        $reflect = new ReflectionClass($item);
+        $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
+        $propertyNames = [];
+        foreach($properties as $property){
+            array_push($propertyNames, $property->getName());
         }
-        catch (PDOException $e) {
-            return false;
-        }
-
-    }
-
-    public function selectNotNullableColumnsName(string $tabella): array | bool
-    {
-        try {
-            $sqlInstruction = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS";
-            $sqlInstruction .= " WHERE table_name ='" . $tabella . "' AND is_nullable='NO';";
-            $sth = $this->pdo->prepare($sqlInstruction);
-            return $sth->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch (PDOException $e) {
-            return false;
-        }
-    }
-
-    public function selectNullableColumnsName(string $tabella): array | bool
-    {
-        try {
-            $sqlInstruction = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS";
-            $sqlInstruction .= " WHERE table_name ='" . $tabella . "' AND is_nullable='YES';";
-            $sth = $this->pdo->prepare($sqlInstruction);
-            return $sth->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch (PDOException $e) {
-            return false;
-        }
-    }
-
-    // select column_name from information_schema.columns where table_name ='computer' AND is_nullable='YES';
-
-    // INSERT
-    public function insert(object $item, string $tabella)
-    {
         
-        try {
-            $nullableColumns = $this->selectNullableColumnsName($tabella);
-            $notNullableColumns = $this->selectNotNullableColumnsName($tabella);
+        $sqlInstruction = $this->insertQueryBuilder($item, $tabella, $propertyNames);        
 
-            // Costruisco la query di insert
-            $sqlInstruction = "INSERT INTO " . $tabella . " ";
-            $sqlInstruction .= "(";
-            foreach($notNullableColumns as $columnName){
-                $sqlInstruction .= $columnName . ",";
-            }
-            substr_replace($sqlInstruction ,"", -1);
-            $sqlInstruction .= ") VALUES (";
-            foreach($notNullableColumns as $columnName){
-                $sqlInstruction .= ":" . strtolower($columnName) . ",";
-            }
-            substr_replace($sqlInstruction ,"", -1);
-            $sqlInstruction .= ");";
-
-            // Eseguo il binding
-            $sth = $this->pdo->prepare($sqlInstruction);
-                       
-
-            foreach($notNullableColumns as $columnName){
-                $method = "get" . $this->snakeToCamelCase(strtolower($columnName), false); 
-                $sth->bindValue(":" . strtolower($columnName), $item->${"method"}(), PDO::PARAM_STR);
-            }
+        try {    
+            $sth = $this->pdo->prepare($sqlInstruction);  
+            $sth = $this->bindInsertParams($item, $sth, $propertyNames);
+            $sth->execute();
+            return true;
         }
         catch (PDOException $e) {
-
-        }
-        $sqlInstruction = "INSERT INTO computer (ID_CATALOGO, MODELLO, ANNO, CPU, VELOCITA_CPU, MEMORIA_RAM";
-        $sqlInstruction .= ") VALUES ( :id_catalogo , :modello , :anno, :cpu , :velocita_cpu , :memoria_ram ); ";
-
-        $sth = $this->pdo->prepare($sqlInstruction);
-        $sth->bindValue(':id_catalogo', $computer->getIdCatalogo(), PDO::PARAM_STR);
-        $sth->bindValue(':modello', $computer->getModello(), PDO::PARAM_STR);
-        $sth->bindValue(':anno', $computer->getAnno(), PDO::PARAM_INT);
-        $sth->bindValue(':cpu', $computer->getCpu(), PDO::PARAM_STR);
-        $sth->bindValue(':velocita_cpu', $computer->getVelocitaCpu());
-        $sth->bindValue(':memoria_ram', $computer->getMemoriaRAM(), PDO::PARAM_INT);
-        $sth->execute();
-
-        if (isset($computer->dimensione_hard_disk)) {
-            $this->updateColumnByIdCatalogo("DIMENSIONE_HARD_DISK", $computer->getIdCatalogo(), (string)$computer->getDimensioneHardDisk());
-        }
-        if (isset($computer->sistema_operativo)) {
-            $this->updateColumnByIdCatalogo("SISTEMA_OPERATIVO", $computer->getIdCatalogo(), $computer->getSistemaOperativo());
-        }
-        if (isset($computer->note)) {
-            $this->updateColumnByIdCatalogo("NOTE", $computer->getIdCatalogo(), $computer->getNote());
-        }
-        if (isset($computer->url)) {
-            $this->updateColumnByIdCatalogo("URL", $computer->getIdCatalogo(), $computer->getUrl());
-        }
-        if (isset($computer->tag)) {
-            $this->updateColumnByIdCatalogo("TAG", $computer->getIdCatalogo(), $computer->getTag());
+            $log = new Logger('query'); 
+            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::ERROR));
+            $log->info("User " . $_SESSION["user"] . " failed insert");
+            return false;
         }
     }
+
+    public function bindInsertParams($item, PDOStatement $sth, array $columns) : PDOStatement
+    {
+        foreach($columns as $column){
+            $fieldName = strtolower($column);
+            if(isset($item->${"fieldName"})){
+                $method = $this->stringUtils->getterBuilder($column);
+
+            switch(gettype($item->${"method"}())){
+                case "int":
+                    $sth->bindValue(":" . strtolower($column), $item->${"method"}(), PDO::PARAM_INT);
+                    break;     
+                default:
+                    $sth->bindValue(":" . strtolower($column), $item->${"method"}(), PDO::PARAM_STR);
+                    break;
+                }  
+            }            
+        }
+        return $sth;
+    }
+    public function insertQueryBuilder($item, string $tabella, array $property): string
+    {    
+        $sqlInstruction = "INSERT INTO " . $tabella . " ";
+        $sqlInstruction .= "(";
+        foreach($property as $column){
+            $fieldName = strtolower($column);
+            if(isset($item->${"fieldName"})){
+                $sqlInstruction .= $column . ",";                    
+            }
+        }
+        $sqlInstruction = substr($sqlInstruction ,0, -1);
+        $sqlInstruction .= ") VALUES (";
+        foreach($property as $column){
+            $fieldName = strtolower($column);
+            if(isset($item->${"fieldName"})){
+                $sqlInstruction .= ":" . strtolower($column) . ",";
+            }
+        }
+        $sqlInstruction =  substr($sqlInstruction ,0, -1);
+        $sqlInstruction .= ");";
+        return $sqlInstruction;
+    }
+
 
     // UPDATE
     public function executeUpdate(string $newValue, string $idCatalogo, string $sqlUpdate)

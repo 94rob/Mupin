@@ -37,6 +37,7 @@ class LoginController implements ControllerInterface
             
             $verifyPassword = $this->userService->verifyPassword($email, $password); 
 
+            // TEMP
             $_SESSION["user"] = $email;
             $_SESSION["logged"] = true;
 
@@ -44,13 +45,18 @@ class LoginController implements ControllerInterface
             $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
             $log->info("User " . $email . " logged in");
             $response = new Response(200, [], $this->plates->render('reserved-area'), "");
+
+            
             // if($verifyPassword === true){               
                 
+            //     $_SESSION["user"] = $email;
             //     $_SESSION["logged"] = true;
-            //     $response = new Response(200, [], $this->plates->render('reserved-area'));
-            // } else {              
-            //     // $pass = password_hash("pippo", PASSWORD_BCRYPT);
-            //     // $result = password_verify($pass, '$2y$10$RdFWo9Fm8mxJreVj3bH2Zee3AzVajCsILSmiz7LLI1XbZXO5Wq3ly');
+
+            //     $log = new Logger('login'); 
+            //     $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+            //     $log->info("User " . $email . " logged in");
+            //     $response = new Response(200, [], $this->plates->render('reserved-area'), "");
+            // } else {    
             //     $response = new Response( 200, [], $this->plates->render('login', [ 'autenticazioneFallita' => true]));
             // }
         }

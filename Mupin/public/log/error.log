@@ -393,3 +393,187 @@ Stack trace:
 #3 C:\xampp\htdocs\file_php\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
 #4 {main}
   thrown in C:\xampp\htdocs\file_php\Mupin\Mupin\src\Service\Implementations\ComputerService.php on line 72
+[02-Oct-2022 23:02:29 Europe/Berlin] PHP Fatal error:  Uncaught DI\NotFoundException: No entry or class found for 'App\Controller\SelectController' in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php:136
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(168): DI\Container->get('App\\Controller\\...')
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php on line 136
+[02-Oct-2022 23:04:26 Europe/Berlin] PHP Fatal error:  Uncaught DI\NotFoundException: No entry or class found for 'App\Controller\SelectController' in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php:136
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(168): DI\Container->get('App\\Controller\\...')
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php on line 136
+[02-Oct-2022 23:06:51 Europe/Berlin] PHP Fatal error:  Uncaught DI\NotFoundException: No entry or class found for 'App\Controller\SelectController' in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php:136
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(168): DI\Container->get('App\\Controller\\...')
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php on line 136
+[02-Oct-2022 23:07:01 Europe/Berlin] PHP Fatal error:  Uncaught DI\NotFoundException: No entry or class found for 'App\Controller\SelectController' in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php:136
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(168): DI\Container->get('App\\Controller\\...')
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php on line 136
+[02-Oct-2022 23:07:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Utils\StringUtils" not found in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php:34
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(23): App\Service\Implementations\Service->__construct()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Definition\Resolver\ObjectCreator.php(143): App\Controller\SelectController->__construct(Object(League\Plates\Engine))
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Definition\Resolver\ObjectCreator.php(71): DI\Definition\Resolver\ObjectCreator->createInstance(Object(DI\Definition\ObjectDefinition), Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Definition\Resolver\ResolverDispatcher.php(71): DI\Definition\Resolver\ObjectCreator->resolve(Object(DI\Definition\ObjectDefinition), Array)
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php(390): DI\Definition\Resolver\ResolverDispatcher->resolve(Object(DI\Definition\ObjectDefinition), Array)
+#5 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php(139): DI\Container->resolveDefinition(Object(DI\Definition\ObjectDefinition))
+#6 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(168): DI\Container->get('App\\Controller\\...')
+#7 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#8 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 34
+[02-Oct-2022 23:08:19 Europe/Berlin] PHP Warning:  Undefined property: App\Service\Implementations\Service::$undefinedRepository in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 75
+[02-Oct-2022 23:08:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function selectAll() on null in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php:75
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(50): App\Service\Implementations\Service->executeSelect('undefined', '', Array)
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#3 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 75
+[02-Oct-2022 23:09:39 Europe/Berlin] PHP Warning:  Undefined property: App\Service\Implementations\Service::$undefinedRepository in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 75
+[02-Oct-2022 23:09:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function selectAll() on null in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php:75
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(50): App\Service\Implementations\Service->executeSelect('undefined', '', Array)
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#3 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 75
+[02-Oct-2022 23:12:14 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function getIdCatalogo() on string in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php:30
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(55): League\Plates\Engine->render('select-results', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 30
+[02-Oct-2022 23:16:58 Europe/Berlin] PHP Warning:  Undefined property: App\Service\Implementations\Service::$undefinedRepository in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 75
+[02-Oct-2022 23:16:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function selectAll() on null in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php:75
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(50): App\Service\Implementations\Service->executeSelect('undefined', '', Array)
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#3 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 75
+[02-Oct-2022 23:18:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function getIdCatalogo() on array in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php:30
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(38): League\Plates\Engine->render('select-results', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 30
+[02-Oct-2022 23:23:55 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 66
+[02-Oct-2022 23:23:55 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: get_class(): Argument #1 ($object) must be of type object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php:13
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(66): League\Plates\Engine->render('item-select', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php on line 13
+[02-Oct-2022 23:29:43 Europe/Berlin] PHP Warning:  Undefined array key "computer" in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 86
+[02-Oct-2022 23:29:43 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: App\Service\Implementations\Service::pushInArrayIfNew(): Argument #2 ($response_array) must be of type array, null given, called in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 86 and defined in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php:117
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php(86): App\Service\Implementations\Service->pushInArrayIfNew(Array, NULL)
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(50): App\Service\Implementations\Service->executeSelect('computer', 'asus', Array)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#4 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 117
+[02-Oct-2022 23:42:56 Europe/Berlin] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 24
+[02-Oct-2022 23:43:13 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 66
+[02-Oct-2022 23:43:13 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: get_class(): Argument #1 ($object) must be of type object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php:13
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(66): League\Plates\Engine->render('item-select', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php on line 13
+[02-Oct-2022 23:58:20 Europe/Berlin] PHP Warning:  Undefined array key "computer" in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 111
+[02-Oct-2022 23:58:20 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: App\Service\Implementations\Service::pushInArrayIfNew(): Argument #2 ($response_array) must be of type array, null given, called in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 111 and defined in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php:120
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php(111): App\Service\Implementations\Service->pushInArrayIfNew(Array, NULL)
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(34): App\Service\Implementations\Service->executeSelect('computer', 'asus', Array)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#4 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\Service.php on line 120
+[02-Oct-2022 23:59:22 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 72
+[02-Oct-2022 23:59:22 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: get_class(): Argument #1 ($object) must be of type object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php:13
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(72): League\Plates\Engine->render('item-select', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php on line 13
+[03-Oct-2022 00:00:13 Europe/Berlin] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 24
+[03-Oct-2022 00:00:23 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 66
+[03-Oct-2022 00:00:23 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: get_class(): Argument #1 ($object) must be of type object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php:13
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(66): League\Plates\Engine->render('item-select', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php on line 13
+[03-Oct-2022 00:05:10 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 72
+[03-Oct-2022 00:05:10 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 72
+[03-Oct-2022 00:05:10 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: get_class(): Argument #1 ($object) must be of type object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php:13
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(72): League\Plates\Engine->render('item-select', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php on line 13
+[03-Oct-2022 00:05:41 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 72
+[03-Oct-2022 00:05:41 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php on line 72
+[03-Oct-2022 00:05:41 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: get_class(): Argument #1 ($object) must be of type object, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php:13
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Template\Template.php(164): include()
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\league\plates\src\Engine.php(277): League\Plates\Template\Template->render(NULL)
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\SelectController.php(72): League\Plates\Engine->render('item-select', Array)
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(169): App\Controller\SelectController->execute(Object(Nyholm\Psr7\ServerRequest), Object(Nyholm\Psr7\Response))
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-select.php on line 13
+[03-Oct-2022 00:10:19 Europe/Berlin] PHP Warning:  include(config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php on line 14
+[03-Oct-2022 00:10:19 Europe/Berlin] PHP Warning:  include(): Failed opening 'config.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php on line 14
+[03-Oct-2022 00:10:19 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php on line 15
+[03-Oct-2022 00:10:19 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php on line 15
+[03-Oct-2022 00:10:19 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php on line 15
+[03-Oct-2022 00:10:19 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: PDO::__construct(): Argument #1 ($dsn) must be of type string, null given in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php:15
+Stack trace:
+#0 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php(15): PDO->__construct(NULL, NULL, NULL)
+#1 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Controller\LoginController.php(25): App\Service\Implementations\UserService->__construct()
+#2 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Definition\Resolver\ObjectCreator.php(143): App\Controller\LoginController->__construct(Object(League\Plates\Engine))
+#3 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Definition\Resolver\ObjectCreator.php(71): DI\Definition\Resolver\ObjectCreator->createInstance(Object(DI\Definition\ObjectDefinition), Array)
+#4 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Definition\Resolver\ResolverDispatcher.php(71): DI\Definition\Resolver\ObjectCreator->resolve(Object(DI\Definition\ObjectDefinition), Array)
+#5 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php(390): DI\Definition\Resolver\ResolverDispatcher->resolve(Object(DI\Definition\ObjectDefinition), Array)
+#6 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\php-di\php-di\src\Container.php(139): DI\Container->resolveDefinition(Object(DI\Definition\ObjectDefinition))
+#7 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\vendor\simplemvc\framework\src\App.php(168): DI\Container->get('App\\Controller\\...')
+#8 C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\public\index.php(31): SimpleMVC\App->dispatch()
+#9 {main}
+  thrown in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\Service\Implementations\UserService.php on line 15
+[03-Oct-2022 00:12:33 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\item-insert.php on line 3
+[03-Oct-2022 00:12:58 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 2
+[03-Oct-2022 00:13:02 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 2
+[03-Oct-2022 00:13:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 2
+[03-Oct-2022 00:13:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 2
+[03-Oct-2022 00:13:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\PHP\Mupin-version-4-repo\Mupin\Mupin\src\View\select-results.php on line 2

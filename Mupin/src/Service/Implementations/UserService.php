@@ -11,7 +11,7 @@ class UserService
     public UserRepository $userRepository;
 
     public function __construct(){
-        $config = include 'config.php';
+        $config = include 'db-config.php';
         $pdo = new PDO($config['dsn'], $config['username'], $config['password']);
         $this->userRepository = new UserRepository($pdo);
     }

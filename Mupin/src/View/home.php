@@ -156,7 +156,8 @@ function setAction() {
         document.querySelectorAll('input[name=dove-cercare]')
     ).filter(radio => radio.checked)[0]?.value;
     
-    document.getElementById("main-form").action += "/" + table;
+   
+    document.getElementById("main-form").action += "/" + table;    
     document.getElementById("main-form").submit();
 }
 
