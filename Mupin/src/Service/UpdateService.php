@@ -22,14 +22,16 @@ class UpdateService extends ModelService{
             }                                       
         } 
 
-        $control = $this->updateRepo->executeUpdate($table, $columns, $id); 
+        $updateSuccess = $this->updateRepo->executeUpdate($table, $columns, $id); 
         
-        if($control){
-            $log = new Logger('update');
-            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+        $log = new Logger('update');
+        $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
+        if($updateSuccess){
             $log->info("User " . $_SESSION["user"] . " alter item " . $id . "(" . ucfirst($table) . ")");
             $this->imageService->insertImage($files, $id);            
+        } else {                        
+            $log->info("User " . $_SESSION["user"] . " failed to alter item " . $id . "(" . ucfirst($table) . ")");
         }
-        return $control;
+        return $updateSuccess;
     }
 }

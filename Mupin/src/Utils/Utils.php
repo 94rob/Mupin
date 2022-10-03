@@ -30,6 +30,14 @@ class Utils{
         return str_replace("-", "_", strtoupper($string));
     }
 
+    function fromArrayToColumnArray(array $array){
+        $array_new = [];
+        foreach($array as $key => $value){
+            $array_new[$this->stringToColumnName($key)] = $value;
+        }
+        return $array_new;
+    }
+
     public function getColumnsByModelName(string $name){
         $constructor = "App\Models\\" . $name;
         $object = new ${'constructor'}();

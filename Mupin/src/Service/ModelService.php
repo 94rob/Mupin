@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Repository\ComputerRepository;
-use App\Repository\LibroRepository;
-use App\Repository\PerifericaRepository;
-use App\Repository\RivistaRepository;
-use App\Repository\SoftwareRepository;
 use App\Utils\Utils;
 use PDO;
 use PDOException;
@@ -52,15 +47,15 @@ class ModelService{
     }   
 
     // UTILITY
-    public function pushInArrayIfNew(array $result, array $response_array): array
+    public function pushInArrayIfNew(array $mainArray, array $newArray): array
     {
         // Evita doppioni nell'array che risulta dalla ricerca per selettori
-        foreach ($result as $item) {
-            if (!in_array($item, $response_array)) {
-                array_push($response_array, $item);
+        foreach ($newArray as $item) {
+            if (!in_array($item, $mainArray)) {
+                array_push($mainArray, $item);
             }
         }
-        return $response_array;
+        return $mainArray;
     }
     
     public function fromArrayToModel(array $objectAsArray, string $tabella)

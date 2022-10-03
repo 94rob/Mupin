@@ -14,11 +14,13 @@ class DeleteService extends ModelService{
     public function deleteFromTableByIdCatalogo(string $table, string $id): bool
     {        
         $deleteSuccess = $this->deleteRepo->deleteFromTableById($table, $id);
+        $log = new Logger('delete'); 
+        $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
         if($deleteSuccess){
             $this->imageService->deleteAllImages($id);
-            $log = new Logger('login'); 
-            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
             $log->info("User " . $_SESSION["user"] . " deleted item " . $id . "(". ucfirst($table) .")");
+        } else {
+            $log->info("User " . $_SESSION["user"] . " failed to delete item " . $id . "(". ucfirst($table) .")");
         }
         return $deleteSuccess;
     }

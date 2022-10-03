@@ -1,7 +1,7 @@
 <div class="row item-row">
 
     <?php    
-
+    session_start();
     $i = 0;
     foreach ($imgArray as $img) {
         $i++;

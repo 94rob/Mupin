@@ -4,8 +4,6 @@
 
 ## PER CONTINUARE
 
-- Scrivi i test
-
 ## BUG FIXING 
 
 ## REFACTORING
