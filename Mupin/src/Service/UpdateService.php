@@ -22,7 +22,7 @@ class UpdateService extends ModelService{
             }                                       
         } 
 
-        $control = $this->modelRepo->executeUpdate($table, $columns, $id); 
+        $control = $this->updateRepo->executeUpdate($table, $columns, $id); 
         
         if($control){
             $log = new Logger('update');

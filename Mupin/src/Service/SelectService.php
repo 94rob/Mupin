@@ -19,7 +19,7 @@ class SelectService extends ModelService{
     }
 
     public function selectAllFromTable(string $table){        
-        $result = $this->modelRepo->selectAllFromTable($table);
+        $result = $this->selectRepo->selectAllFromTable($table);
         $response_array[$table] = $this->fromArrayToModelArray($result, $table); 
         return $response_array;
     }
@@ -27,14 +27,14 @@ class SelectService extends ModelService{
     public function selectAllCatalogoByInput(string $input){
         $response_array = [];                       
         foreach($this->tables as $table){            
-            $result = $this->modelRepo->selectFromTableWhereWhateverLikeInput($input, $table);
+            $result = $this->selectRepo->selectFromTableWhereWhateverLikeInput($input, $table);
             $response_array[$table] = $this->fromArrayToModelArray($result, $table);
         }               
         return $response_array;
     }
 
     public function selectById(string $id, string $table){        
-        $result = $this->modelRepo->selectWhereColumnLikeInput($table, "ID_CATALOGO", $id); 
+        $result = $this->selectRepo->selectWhereColumnLikeInput($table, "ID_CATALOGO", $id); 
         return $this->fromArrayToModelArray($result, $table);        
     }
 
@@ -48,7 +48,7 @@ class SelectService extends ModelService{
 
         // NO SELETTORI
         if (empty($selettori)) {            
-            $result = $this->modelRepo->selectFromTableWhereWhateverLikeInput($input, $tabella);             
+            $result = $this->selectRepo->selectFromTableWhereWhateverLikeInput($input, $tabella);             
             $response_array[$tabella] = $this->fromArrayToModelArray($result, $tabella);
             return $response_array; 
         }
@@ -65,7 +65,7 @@ class SelectService extends ModelService{
         // Eseguo la ricerca per selettori solo se sono anche colonne della tabella corrispondente
         foreach($selettori as $selettore){
             if(in_array($this->utils->stringToColumnName($selettore), $columns)){
-                $result = $this->modelRepo->selectWhereColumnLikeInput($tabella, $selettore, $input);
+                $result = $this->selectRepo->selectWhereColumnLikeInput($tabella, $selettore, $input);
                 $item_result = $this->fromArrayToModelArray($result, $tabella);
                 $response_array[$tabella] =$this->pushInArrayIfNew($item_result, []);                  
                 return $response_array;                  

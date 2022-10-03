@@ -8,7 +8,7 @@ use Exception;
 
 class UserRepository extends ModelRepository
 {   
-     public function selectPassByEmail(string $email): array | bool
+    public function selectPassByEmail(string $email): array | bool
     {
         try{
             $sql_select_user = "SELECT * FROM utente WHERE EMAIL=:email";        

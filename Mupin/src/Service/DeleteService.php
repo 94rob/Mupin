@@ -13,7 +13,7 @@ class DeleteService extends ModelService{
         
     public function deleteFromTableByIdCatalogo(string $table, string $id): bool
     {        
-        $deleteSuccess = $this->modelRepo->deleteFromTableById($table, $id);
+        $deleteSuccess = $this->deleteRepo->deleteFromTableById($table, $id);
         if($deleteSuccess){
             $this->imageService->deleteAllImages($id);
             $log = new Logger('login'); 

@@ -9,7 +9,8 @@
 ## BUG FIXING 
 
 ## REFACTORING
-- Metti le immagini in una section a parte
+
+
 
 
 

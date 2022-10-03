@@ -10,7 +10,7 @@ use Monolog\Handler\StreamHandler;
 
 class UserService
 {
-    public UserRepository $userRepository;
+    protected UserRepository $userRepository;
 
     public function __construct(){
         $config = include 'db-config.php';

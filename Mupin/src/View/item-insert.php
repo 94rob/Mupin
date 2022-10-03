@@ -10,7 +10,6 @@ if(( ! isset($_SESSION["logged"] )) || ( $_SESSION["logged"] == false )){
 $this->layout('layout-private', ['title' => 'Inserimento']);
 
 
-
 $reflect = new ReflectionClass($model);
 $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
 

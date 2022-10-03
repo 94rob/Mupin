@@ -16,12 +16,18 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use ReflectionClass;
 use ReflectionProperty;
-use App\Repository\ModelRepository;
+use App\Repository\InsertRepository;
+use App\Repository\SelectRepository;
+use App\Repository\UpdateRepository;
+use App\Repository\DeleteRepository;
 
 require 'vendor/autoload.php';
 
-class ModelService{
-    protected ModelRepository $modelRepo;    
+class ModelService{     
+    protected SelectRepository $selectRepo;   
+    protected InsertRepository $insertRepo;   
+    protected UpdateRepository $updateRepo;   
+    protected DeleteRepository $deleteRepo;   
     protected Utils $utils;
     protected ImageService $imageService;
     protected $tables = ["computer", "libro", "rivista", "periferica", "software"];
@@ -33,7 +39,10 @@ class ModelService{
         $this->imageService = new ImageService();
         try{
             $pdo = new PDO($config['dsn'], $config['username'], $config['password']);            
-            $this->modelRepo = new ModelRepository($pdo);
+            $this->selectRepo = new SelectRepository($pdo);
+            $this->updateRepo = new UpdateRepository($pdo);
+            $this->deleteRepo = new DeleteRepository($pdo);
+            $this->insertRepo = new InsertRepository($pdo);
 
         } catch (PDOException $e){
             $log = new Logger('connession'); 

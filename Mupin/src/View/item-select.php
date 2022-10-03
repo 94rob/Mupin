@@ -28,20 +28,10 @@ echo "</table>";
 <div class="home-layout-center">        
         <button type='button' class='btn btn-danger'><a href='../../'>Indietro</a></button>
     </div>
-<div class="row">
-    <div class="col-3">
-        <?php
-
-        $imgArray = glob(__DIR__ . '/../../public/img/' . $object->getIdCatalogo() . "*");
-
-        $i = 0;
-        foreach ($imgArray as $img) {
-            $i++;
-            echo "<label for='img" . $i . "' class='image-label'><figure>";
-            echo '<img src="/img/' . basename($img) . '" alt="Immagine">';
-            echo "<figcaption>Immagine " . $i . "</figcaption></figure></label>";
-        }
-
-        ?>
-    </div>
-</div>
+    
+<!-- Section Img-->
+<?php
+$id = $object->getIdCatalogo();
+$imgArray = glob(__DIR__ . '/../../public/img/' . $id . "*");
+$this->insert('image-section', ['imgArray' => $imgArray, 'id' => $id]);
+?>

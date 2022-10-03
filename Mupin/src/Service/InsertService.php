@@ -27,7 +27,7 @@ class InsertService extends ModelService{
 
         $item = $this->fromArrayToModel($arrayColumnNotEmpty, $table);
         
-        $querySuccess = $this->modelRepo->insertItemIntoTable($item, $table);
+        $querySuccess = $this->insertRepo->insertItemIntoTable($item, $table);
         
         // Se la insert ha avuto successo, inserisce l'immagine qualora ci sia
         if($querySuccess){   
@@ -48,13 +48,13 @@ class InsertService extends ModelService{
         }
         
         // controllo che l'id catalogo non sia già registrato        
-        $check = $this->modelRepo->selectWhereColumnLikeInput($table,"ID_CATALOGO", $id);
+        $check = $this->selectRepo->selectWhereColumnLikeInput($table,"ID_CATALOGO", $id);
         if(!empty($check)){            
             return 2;
         }
 
         $notNullableColumns = [];
-        $cols = $this->modelRepo->selectNotNullableColumnsName($table);
+        $cols = $this->selectRepo->selectNotNullableColumnsName($table);
         foreach($cols as $column){
             array_push($notNullableColumns, $column["COLUMN_NAME"]);
         }
