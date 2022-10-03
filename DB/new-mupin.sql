@@ -1,4 +1,4 @@
-DROP DATABASE mupin;
+DROP DATABASE IF EXISTS mupin;
 CREATE DATABASE IF NOT EXISTS mupin;
 CREATE USER IF NOT EXISTS 'mupin'@'localhost' IDENTIFIED BY 'mupin';
 GRANT ALL ON mupin.* TO 'mupin'@'localhost';
