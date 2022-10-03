@@ -6,13 +6,10 @@ require 'vendor/autoload.php';
 
 use League\Plates\Engine;
 use Nyholm\Psr7\Response;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\Implementations\UserService;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
+use App\Service\UserService;
 
 class LoginController implements ControllerInterface
 {
@@ -31,36 +28,13 @@ class LoginController implements ControllerInterface
         if($request->getMethod() == 'GET'){
             $response = new Response(200, [], $this->plates->render('login', ['autenticazioneFallita' => false]));
         }
-        if($request->getMethod()=='POST'){
-            $email = $_POST["email"];
-            $password = $_POST["password"];
+        if($request->getMethod()=='POST'){ 
+            $login = $this->userService->login($_POST["email"], $_POST["password"]);             
             
-            $verifyPassword = $this->userService->verifyPassword($email, $password); 
-
-            // TEMP
-            $_SESSION["user"] = $email;
-            $_SESSION["logged"] = true;
-
-            $log = new Logger('login'); 
-            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
-            $log->info("User " . $email . " logged in");
-            $response = new Response(200, [], $this->plates->render('reserved-area'), "");
-
-            
-            // if($verifyPassword === true){               
-                
-            //     $_SESSION["user"] = $email;
-            //     $_SESSION["logged"] = true;
-
-            //     $log = new Logger('login'); 
-            //     $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
-            //     $log->info("User " . $email . " logged in");
-            //     $response = new Response(200, [], $this->plates->render('reserved-area'), "");
-            // } else {    
-            //     $response = new Response( 200, [], $this->plates->render('login', [ 'autenticazioneFallita' => true]));
-            // }
-        }
-        
+            $response = $login ?    new Response(200, [], $this->plates->render('reserved-area'), "") 
+                                        : 
+                                    new Response( 200, [], $this->plates->render('login', [ 'autenticazioneFallita' => true]));            
+        }        
         return $response;
     }
 }

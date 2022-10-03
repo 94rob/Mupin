@@ -3,120 +3,60 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Service\ComputerService as ServiceComputerService;
 use League\Plates\Engine;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\UpdateRouter;
-use App\Service\Implementations;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
+use App\Service\UpdateService;
+use App\Service\SelectService;
 
 class UpdateController implements ControllerInterface
 {
     protected Engine $plates;
-    protected Implementations\ComputerService $computerService;
-    protected Implementations\LibroService $libroService;
-    protected Implementations\PerifericaService $perifericaService;
-    protected Implementations\RivistaService $rivistaService;
-    protected Implementations\SoftwareService $softwareService;
-    protected UpdateRouter $updateRouter;
+    protected UpdateService $updateService;
+    protected SelectService $selectService;
 
     public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-        $this->computerService = new Implementations\ComputerService();
-        $this->libroService = new Implementations\LibroService();
-        $this->perifericaService = new Implementations\PerifericaService();
-        $this->rivistaService = new Implementations\RivistaService();
-        $this->softwareService = new Implementations\SoftwareService();
-        $this->updateRouter = new UpdateRouter();
+        $this->updateService = new UpdateService();
+        $this->selectService = new SelectService();
     }
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        
-        $tabella = $request->getAttribute('tabella');
-        $idCatalogo = $request->getAttribute('id-catalogo');
+        session_start();
+        $table = $request->getAttribute('tabella');
+        $id = $request->getAttribute('id-catalogo');
 
+        // HTTP GET -> restituisce template di update
         if ($request->getMethod() == "GET") {
 
-            $object = $this->selectSingleItemByIdCatalogo($idCatalogo);
-            $response = new Response(
-                    200,
-                    [],
-                    $this->plates->render('item-update', [
-                    'tabella' => $tabella,
-                    'object' => $object[0]
-                    ])
-                );
-            } else
+            $result = $this->selectService->selectById($id, $table);                      
 
-        if($request->getMethod() == "POST") {
-            session_start();
-            if( (array_key_exists("img", $_FILES)) && ($_FILES["img"]["size"] != 0)){
-                
-                
-                $temp = explode("/", $_FILES["img"]['type']);
-                $ext = $temp[1];
-
-                $path =$_SERVER['DOCUMENT_ROOT']."/img";
-                $num = count(glob($path . "/" . $idCatalogo . "*"));                
-                $fileName = $path . "/" . $idCatalogo. "_" . $num . "." . $ext;
-
-                file_put_contents($fileName, file_get_contents($_FILES["img"]["tmp_name"]));
-
-                $log = new Logger('add-image'); 
-                $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
-                $log->info("User " . $_SESSION["user"] . " added image " . basename($fileName) . " to item " . $idCatalogo);
-            }
-            
-            if ($this->updateRouter->selectRightQuery($tabella, $idCatalogo, $_POST)) { 
-
-                $log = new Logger('update'); 
-                $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
-                $log->info("User " . $_SESSION["user"] . " alter item " . $idCatalogo);
-
-                $className = $tabella . "Service";               
-                $arr = $this->${"className"}->selectAll();
-                $result[$tabella] = $arr;
-                $response = new Response(
-                        200,
-                        [],
-                        $this->plates->render('select-results', [
-                        'result' => $result
-                        ])
-                    );
-                }
-            }
-            else {
-                http_response_code(500);
-            }
-
-            return $response;
-            
-    }
-
-    public function selectSingleItemByIdCatalogo(string $id)
-    {
-
-        $result_array = [];
-        array_push($result_array, $this->computerService->selectWhereColumnLikeInput("ID_CATALOGO", $id));
-        array_push($result_array, $this->libroService->selectWhereColumnLikeInput("ID_CATALOGO", $id));
-        array_push($result_array, $this->perifericaService->selectWhereColumnLikeInput("ID_CATALOGO", $id));
-        array_push($result_array, $this->rivistaService->selectWhereColumnLikeInput("ID_CATALOGO", $id));
-        array_push($result_array, $this->softwareService->selectWhereColumnLikeInput("ID_CATALOGO", $id));
-
-        foreach ($result_array as $arr) {
-            if (!empty($arr)) {
-                $result_array = $arr;
-            }
+            $response = new Response(200, [], $this->plates->render('item-update', [
+                'tabella' => $table,
+                'object' => $result[0]
+            ]));
         }
 
+        // HTTP POST -> effettua l'update nel db
+        if ($request->getMethod() == "POST") {
+            session_start();
+            
+            // eseguo l'update solo se sono stati inseriti dei dati
+            $updateSuccess = empty($_POST) ? true : $this->updateService->updateTableWhereIdCatalogoLikeInput($table, $id, $_POST, $_FILES);
+            $result = $this->selectService->selectAllFromTable($table);
 
-        return $result_array;
+            $response = $updateSuccess ?    new Response( 200, [], $this->plates->render('select-results', [
+                                                'result' => $result
+                                            ]))
+                                                :
+                                            new Response( 500, [], $this->plates->render('debug', [
+                                                'result' => "Ops..l'operazione non è andata a buon fine"
+                                            ]));            
+        }
+        return $response;
     }
 }

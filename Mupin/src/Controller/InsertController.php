@@ -8,141 +8,73 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\Implementations;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
+use App\Service\SelectService;
+use App\Service\InsertService;
+use App\Utils\Utils;
 
 class InsertController implements ControllerInterface
 {
     protected Engine $plates;
-    public Implementations\ComputerService $computerService;
-    public Implementations\LibroService $libroService;
-    public Implementations\PerifericaService $perifericaService;
-    public Implementations\RivistaService $rivistaService;
-    public Implementations\SoftwareService $softwareService;
+    protected Utils $utils;
+    protected InsertService $insertService;
+    protected SelectService $selectService;
 
 
     public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-        $this->computerService = new Implementations\ComputerService();
-        $this->libroService = new Implementations\LibroService();
-        $this->perifericaService = new Implementations\PerifericaService();
-        $this->rivistaService = new Implementations\RivistaService();
-        $this->softwareService = new Implementations\SoftwareService();
+        $this->insertService = new InsertService();
+        $this->selectService = new SelectService();
+        $this->utils = new Utils();
     }
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         session_start();
-        $tabella = $request->getAttribute('tabella');  
-        $className = "App\Models\\" . ucfirst($tabella);
-        $model = new ${"className"}();
+        $table = $request->getAttribute('tabella');        
 
-        if($request->getMethod() == 'GET'){
-            return new Response(
-                200,
-                [],
-                    $this->plates->render('item-insert', [
-                    'model' => $model, 
-                    'tabella' => $tabella        
-                ])
-            );
+        // HTTP GET -> restituisce il template di inserimento di un oggetto
+        if ($request->getMethod() == 'GET') {            
+            $model = $this->utils->getObjectByModelName($table);
+            $response = new Response(200, [], $this->plates->render('item-insert', [
+                'model' => $model,
+                'tabella' => $table
+            ]));
         }
-        if($request->getMethod() == 'POST'){
-            $array = [];
-            $idCatalogo = $_POST["id-catalogo"];
 
-            // popolo l'oggetto
-            foreach($_POST as $key => $value){
-                $newKey = str_replace("-", "_", strtoupper($key));
-                $array[$newKey] = $value;                
-            }
+        // HTTP POST -> inserisce effettivamente l'oggetto nel DB        
+        if ($request->getMethod() == 'POST') {            
 
-            // eseguo la insert
-            $service = $tabella . "Service";
-            $method = "insertInto" . ucfirst($tabella);
-            $this->${"service"}->${'method'}($array);
+            $insertOutput = $this->insertService->insertItemIntoTable($_POST, $table, $_FILES);
 
-            // aggiungo l'immagine
-            if((array_key_exists("img", $_FILES)) && ($_FILES["img"]["size"] != 0)){
+            switch($insertOutput){
+                case (0):
+                    $response = new Response( 500, [], $this->plates->render('debug', [
+                        'result' => "Ops..l'operazione non è andata a buon fine"
+                    ]));
+                    break;
                 
-                
-                $temp = explode("/", $_FILES["img"]['type']);
-                $ext = $temp[1];
+                case (1):
+                    $result = $this->selectService->selectAllFromTable($table);
+                    
+                    $response = new Response( 200, [], $this->plates->render('select-results', [
+                        'result' => $result
+                    ]));
+                    break; 
+                            
+                case (2):
+                    $response = new Response( 400, [], $this->plates->render('debug', [
+                        'result' => "L'id inserito è già registrato. Sceglierne un altro"
+                    ]));
+                    break;                           
 
-                $path =$_SERVER['DOCUMENT_ROOT']."/img";                               
-                $fileName = $path . "/" . $idCatalogo. "_0." . $ext;
-
-                file_put_contents($fileName, file_get_contents($_FILES["img"]["tmp_name"]));
-
-                
-            }
-
-            // ritorno la lista degli oggetti di quella categoria, aggiornata
-            $className = $tabella . "Service";               
-            $arr = $this->${"className"}->selectAll();
-            $result[$tabella] = $arr;
-
-            // Aggiorno il file di log
-            $log = new Logger('insert'); 
-            $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
-            $log->info("User " . $_SESSION["user"] . " added item " . $idCatalogo . "(". ucfirst($tabella) .")");
-            return new Response(
-                200,
-                [],
-                    $this->plates->render('select-results', [
-                    'result' => $result     
-                ])
-            );
+                case (3):
+                    $response = new Response( 400, [], $this->plates->render('debug', [
+                        'result' => "I campi obbligatori non sono stati compilati"
+                    ]));
+                    break;
+                }            
         }
-        
-        // switch ($tabella) {
-
-        //     case ("computer"):
-        //         $this->computerService->insertIntoComputer($idCatalogo);
-        //         $result = "Ha funzionato";
-        //         break;
-
-        //     case ("libro"):
-        //         $this->libroService->deleteFromLibro($idCatalogo);
-        //         $result = "Ha funzionato";
-        //         break;
-
-        //     case ("rivista"):
-        //         $this->rivistaService->deleteFromRivista($idCatalogo);
-        //         $result = "Ha funzionato";
-        //         break;
-
-        //     case ("software"):
-        //         $this->softwareService->deleteFromSoftware($idCatalogo);
-        //         $result = "Ha funzionato";
-        //         break;
-
-        //     case ("periferica"):
-        //         $this->perifericaService->deleteFromPeriferica($idCatalogo);
-        //         $result = "Ha funzionato";
-        //         break;
-
-        //     default:
-        //         $result = "Non ha funzionato";
-                
-        // }
-
-
-        
+        return $response;
     }
-
-    public function dashesToCamelCase($string, $capitalizeFirstCharacter = false) 
-{
-
-    $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
-
-    // if (!$capitalizeFirstCharacter) {
-    //     $str[0] = strtolower($str[0]);
-    // }
-
-    return $str;
-}
 }

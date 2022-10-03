@@ -8,79 +8,40 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Controller\ControllerInterface;
-use App\Service\Implementations;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
+use App\Service\DeleteService;
+use App\Service\SelectService;
 
 class DeleteController implements ControllerInterface
 {
     protected Engine $plates;
-    public Implementations\ComputerService $computerService;
-    public Implementations\LibroService $libroService;
-    public Implementations\PerifericaService $perifericaService;
-    public Implementations\RivistaService $rivistaService;
-    public Implementations\SoftwareService $softwareService;
+    protected DeleteService $deleteService;
+    protected SelectService $selectService;
 
 
     public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-        $this->computerService = new Implementations\ComputerService();
-        $this->libroService = new Implementations\LibroService();
-        $this->perifericaService = new Implementations\PerifericaService();
-        $this->rivistaService = new Implementations\RivistaService();
-        $this->softwareService = new Implementations\SoftwareService();
+        $this->deleteService = new DeleteService();
+        $this->selectService = new SelectService();
     }
 
     public function execute(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         session_start();
-        $tabella = $request->getAttribute('tabella');
-        $idCatalogo = $request->getAttribute('id-catalogo');
+        $table = $request->getAttribute('tabella');
+        $id = $request->getAttribute('id-catalogo');
 
-        switch ($tabella) {
+        $deleteSuccess = $this->deleteService->deleteFromTableByIdCatalogo($table, $id);
 
-            case ("computer"):
-                $this->computerService->deleteFromComputer($idCatalogo);
-                break;
+        $result = $this->selectService->selectAllFromTable($table); 
 
-            case ("libro"):
-                $this->libroService->deleteFromLibro($idCatalogo);
-                break;
-
-            case ("rivista"):
-                $this->rivistaService->deleteFromRivista($idCatalogo);
-                break;
-
-            case ("software"):
-                $this->softwareService->deleteFromSoftware($idCatalogo);
-                break;
-
-            case ("periferica"):
-                $this->perifericaService->deleteFromPeriferica($idCatalogo);                
-                break;
-
-            default:
-                http_response_code(500);
-                
-        }
-
-        $className = $tabella . "Service";               
-        $arr = $this->${"className"}->selectAll();
-        $result[$tabella] = $arr;
-
-        $log = new Logger('login'); 
-        $log->pushHandler(new StreamHandler('./public/log/file.log', Logger::INFO));
-        $log->info("User " . $_SESSION["user"] . " deleted item " . $idCatalogo . "(". ucfirst($tabella) .")");
-
-        return new Response(
-                200,
-                [],
-                $this->plates->render('select-results', [
-                'result' => $result
-                ])
-            );
-        
+        $response = $deleteSuccess ?    new Response( 200, [], $this->plates->render('select-results', [
+                                        'result' => $result
+                                        ]))
+                                            :
+                                        new Response( 500, [], $this->plates->render('debug', [
+                                            'result' => "Ops..l'operazione non è andata a buon fine"
+                                        ]));  
+        return $response;                     
     }
 }

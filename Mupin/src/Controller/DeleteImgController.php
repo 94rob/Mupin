@@ -26,11 +26,6 @@ class DeleteImgController implements ControllerInterface
         $path = __DIR__ . "/../../public/img/" . $img;
         $seEliminato = unlink($path)? "true" : "false";
         
-        return  new Response(200, 
-                        [], 
-                        $path);
-        
+        return  new Response(200,[], $path);        
     }
-
-    
 }

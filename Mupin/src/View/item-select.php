@@ -25,6 +25,9 @@ foreach($properties as $property){
 }   
 echo "</table>";
 ?>
+<div class="home-layout-center">        
+        <button type='button' class='btn btn-danger'><a href='../../'>Indietro</a></button>
+    </div>
 <div class="row">
     <div class="col-3">
         <?php

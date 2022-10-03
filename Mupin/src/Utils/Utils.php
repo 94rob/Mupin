@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
-class StringUtils{
+use ReflectionClass;
+use ReflectionProperty;
+
+class Utils{
     public function getterBuilder(string $property): string{
         return "get" . $this->stringToCamelCase($property, true); 
     }
@@ -26,4 +29,22 @@ class StringUtils{
     function stringToColumnName(string $string){
         return str_replace("-", "_", strtoupper($string));
     }
+
+    public function getColumnsByModelName(string $name){
+        $constructor = "App\Models\\" . $name;
+        $object = new ${'constructor'}();
+        $reflect = new ReflectionClass($object);
+        $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
+        $columns = [];
+        foreach($properties as $property){
+            array_push($columns, $this->stringToColumnName($property->getName()));
+        } 
+        return $columns;
+    }
+
+    public function getObjectByModelName(string $name){
+        $className = "App\Models\\" . ucfirst($name);
+        return new ${"className"}();
+    }
+
 }

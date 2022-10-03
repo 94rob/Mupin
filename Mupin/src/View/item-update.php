@@ -21,8 +21,11 @@ foreach ($properties as $property) {
     $propertyName = $property->getName();
     echo "<tr><td class='descrittori-tabella-update'>" . str_replace("_", " ", ucfirst($propertyName)) . "</td>";
     echo isset($object->$propertyName) ? "<td class='td-valori-update'>" . $property->getValue($object) . "</td>" : "<td></td>";
-    echo "<td><input class='textbox-tabella-update' type='text' name='" . str_replace("_", " ", $propertyName) . "'></td>";
 
+    echo $propertyName == "id_catalogo" ? 
+                            "<td></td>" 
+                                : 
+                            "<td><input class='textbox-tabella-update' type='text' name='" . str_replace("_", " ", $propertyName) . "'></td>";  
 }
 
 ?>
